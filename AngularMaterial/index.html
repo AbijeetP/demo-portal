@@ -1,16 +1,90 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="A demo application on Angular Material">
+  <meta name="keywords" content="angular material demo, demo on angular material, angular material">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Angular Material Demo</title>
+
+  <link rel="apple-touch-icon" href="dist/img/favicon.jpg">
+  <link rel="shortcut icon" type="image/x-icon" href="dist/img/favicon.jpg">
+  <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
+  <link rel="stylesheet" href="dist/css/style.css">
+  <script src="lib/jquery/dist/jquery.min.js"></script>
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/angular-animate/angular-animate.min.js"></script>
+  <script src="lib/angular-aria/angular-aria.min.js"></script>
+  <script src="lib/angular-messages/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="lib/angular-material/angular-material.min.js"></script>
+  <script src="js/script.js"></script>
+  <script language="javascript">
+    angular
+      .module('firstApplication', ['ngMaterial'])
+      .controller('inputController', inputController);
+
+    function inputController($scope) {
+      $scope.project = {
+        comments: 'Comments',
+        status: [{statusId: 1, statusName: 'planned'},
+        {statusId: 2, statusName: 'development'}],
+        statuValue: 2
+      };
+    }
+  </script>
+</head>
+
+<body ng-app="firstApplication">
+  <div id="inputContainer" class="inputDemo" ng-controller="inputController as ctrl" ng-cloak>
+    <md-content layout-padding>
+      <form name="projectForm" class="add-task-form ">
+        <h2>Add Task</h2>
+        <md-input-container class="md-block">
+          <label>Task Name</label>
+          <input required name="taskName">
+          <div ng-messages="projectForm.userName.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Due Date</label>
+          <input required type="email" name="userEmail" ng-model="project.userEmail" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/"
+          />
+          <div ng-messages="projectForm.userEmail.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength',
+                      'pattern']">
+              Your email must be between 10 and 100 characters long and should be a valid email address.
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Created On</label>
+          <input md-maxlength="300" required name="comments" ng-model="project.commentss">
+          <div ng-messages="projectForm.comments.$error">
+            <div ng-message="required">This is required.</div>
+            <div ng-message="md-maxlength">The comments has to be less than 300 characters long.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Status</label>
+          <md-select ng-model="project.statuValue">
+              <md-option><em>None</em></md-option>
+              <md-option ng-repeat="status in project.status" ng-value="status.statusId" >
+                {{status.statusName}}
+              </md-option>
+            </md-select>
+        </md-input-container>
+
+      </form>
+    </md-content>
+  </div>
+</body>
+
 </html>
