@@ -21,8 +21,10 @@
     "tests"
   ],
   "dependencies": {
-    "datatables.net": "^1.10.16",
+    "angular-material": "^1.1.5",
+    "bootstrap": "3.3.7",
+    "components-font-awesome": "^4.7.0",
     "datatables.net-bs4": "^3.2.2",
-    "angular-material": "^1.1.5"
+    "datatables.net-bs": "^2.1.1"
   }
 }

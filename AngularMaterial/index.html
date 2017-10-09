@@ -12,42 +12,50 @@
   <link rel="apple-touch-icon" href="dist/img/favicon.jpg">
   <link rel="shortcut icon" type="image/x-icon" href="dist/img/favicon.jpg">
   <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="lib/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="dist/css/style.css">
 </head>
 
 <body ng-app="angularDemo">
   <div id="inputContainer" class="inputDemo" ng-controller="angularDemoController as ctrl" ng-cloak>
     <md-content layout-padding>
-      <form name="projectForm" class="add-task-form ">
+      <form name="taskForm" class="add-task-form ">
         <h2>Add Task</h2>
         <md-input-container class="md-block">
           <label>Task Name</label>
-          <input required name="taskName">
-          <div ng-messages="projectForm.taskName.$error">
+          <input required name="taskName" ng-model="ctrl.taskDetails.taskName">
+          <div ng-messages="taskForm.taskName.$error">
             <div ng-message="required">This is required.</div>
           </div>
         </md-input-container>
 
-        <md-input-container class="md-block">
-          <label>Due Date</label>
-          <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date"></md-datepicker>
-        </md-input-container>
-        <md-input-container class="md-block">
-          <label>Created on</label>
-          <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date"></md-datepicker>
-        </md-input-container>
+        <div layout="row">
+          <md-input-container flex=33 class="md-block">
+            <label>Due Date</label>
+            <md-datepicker ng-model="dueDate"></md-datepicker>
+          </md-input-container>
+          <div flex=33>
+
+          </div>
+          <md-input-container flex=33 class="md-block pull-right">
+            <label>Created on</label>
+            <md-datepicker ng-model="createdOnDate"></md-datepicker>
+          </md-input-container>
+        </div>
+
         <md-input-container class="md-block">
           <label>Status</label>
-          <md-select ng-model="project.statuValue">
-            <md-option><em>None</em></md-option>
-            <md-option ng-repeat="status in project.status" ng-value="status.statusId">
+          <md-select ng-model="statusValue">
+            <md-option ng-repeat="status in task.status" ng-value="status.statusId">
               {{status.statusName}}
             </md-option>
           </md-select>
         </md-input-container>
-
       </form>
     </md-content>
+    <table class="table" width="100%" id="tasksGrid"></table>
   </div>
   <!--  Footer section starts here -->
   <footer class="footer">
@@ -66,6 +74,12 @@
 
   <!-- Angular Material Library -->
   <script src="lib/angular-material/angular-material.min.js"></script>
+
+  <!-- Datatable library -->
+  <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="lib/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
   <script src="js/script.js"></script>
 </body>
 
