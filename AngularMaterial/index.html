@@ -13,6 +13,50 @@
   <link rel="shortcut icon" type="image/x-icon" href="dist/img/favicon.jpg">
   <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
   <link rel="stylesheet" href="dist/css/style.css">
+</head>
+
+<body ng-app="angularDemo">
+  <div id="inputContainer" class="inputDemo" ng-controller="angularDemoController as ctrl" ng-cloak>
+    <md-content layout-padding>
+      <form name="projectForm" class="add-task-form ">
+        <h2>Add Task</h2>
+        <md-input-container class="md-block">
+          <label>Task Name</label>
+          <input required name="taskName">
+          <div ng-messages="projectForm.taskName.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Due Date</label>
+          <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date"></md-datepicker>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Created on</label>
+          <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date"></md-datepicker>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Status</label>
+          <md-select ng-model="project.statuValue">
+            <md-option><em>None</em></md-option>
+            <md-option ng-repeat="status in project.status" ng-value="status.statusId">
+              {{status.statusName}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+      </form>
+    </md-content>
+  </div>
+  <!--  Footer section starts here -->
+  <footer class="footer">
+    <div class="container">
+      <div layout="row" layout-align="center">
+        Developed with &hearts; at <a href="http://osmosys.asia/" target="_blank">Osmosys Software Solutions</a>
+      </div>
+    </div>
+  </footer>
   <script src="lib/jquery/dist/jquery.min.js"></script>
   <!-- Angular Material requires Angular.js Libraries -->
   <script src="lib/angular/angular.min.js"></script>
@@ -23,68 +67,6 @@
   <!-- Angular Material Library -->
   <script src="lib/angular-material/angular-material.min.js"></script>
   <script src="js/script.js"></script>
-  <script language="javascript">
-    angular
-      .module('firstApplication', ['ngMaterial'])
-      .controller('inputController', inputController);
-
-    function inputController($scope) {
-      $scope.project = {
-        comments: 'Comments',
-        status: [{statusId: 1, statusName: 'planned'},
-        {statusId: 2, statusName: 'development'}],
-        statuValue: 2
-      };
-    }
-  </script>
-</head>
-
-<body ng-app="firstApplication">
-  <div id="inputContainer" class="inputDemo" ng-controller="inputController as ctrl" ng-cloak>
-    <md-content layout-padding>
-      <form name="projectForm" class="add-task-form ">
-        <h2>Add Task</h2>
-        <md-input-container class="md-block">
-          <label>Task Name</label>
-          <input required name="taskName">
-          <div ng-messages="projectForm.userName.$error">
-            <div ng-message="required">This is required.</div>
-          </div>
-        </md-input-container>
-
-        <md-input-container class="md-block">
-          <label>Due Date</label>
-          <input required type="email" name="userEmail" ng-model="project.userEmail" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/"
-          />
-          <div ng-messages="projectForm.userEmail.$error" role="alert">
-            <div ng-message-exp="['required', 'minlength', 'maxlength',
-                      'pattern']">
-              Your email must be between 10 and 100 characters long and should be a valid email address.
-            </div>
-          </div>
-        </md-input-container>
-
-        <md-input-container class="md-block">
-          <label>Created On</label>
-          <input md-maxlength="300" required name="comments" ng-model="project.commentss">
-          <div ng-messages="projectForm.comments.$error">
-            <div ng-message="required">This is required.</div>
-            <div ng-message="md-maxlength">The comments has to be less than 300 characters long.</div>
-          </div>
-        </md-input-container>
-        <md-input-container class="md-block">
-          <label>Status</label>
-          <md-select ng-model="project.statuValue">
-              <md-option><em>None</em></md-option>
-              <md-option ng-repeat="status in project.status" ng-value="status.statusId" >
-                {{status.statusName}}
-              </md-option>
-            </md-select>
-        </md-input-container>
-
-      </form>
-    </md-content>
-  </div>
 </body>
 
 </html>
