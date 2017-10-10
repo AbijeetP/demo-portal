@@ -1,5 +1,6 @@
 $(document).ready(function () {
-   var myBarChart = null;
+  var myPieChart = null;
+  var myLineChart = null;
   var table = $('#task-grid').DataTable({
     "ajax": "http://10.0.0.160/osm-demo-api/tasks",
     "columns": [
@@ -56,9 +57,77 @@ $(document).ready(function () {
     }
   };
 
-  var ctx = document.getElementById("chart-area").getContext("2d");
-  myBarChart = new Chart(ctx, config);
+  var ctxPie = document.getElementById("canvas-pie-chart").getContext("2d");
+  myPieChart = new Chart(ctxPie, config);
 
-
+  var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  var lineConfig = {
+    type: 'line',
+    data: {
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      datasets: [{
+        label: "My First dataset",
+        backgroundColor: '#ff0000',
+        borderColor: '#ff0000',
+        data: [
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor()
+        ],
+        fill: false,
+      }, {
+        label: "My Second dataset",
+        fill: false,
+        backgroundColor: '#0000ff',
+        borderColor: '#0000ff',
+        data: [
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor()
+        ],
+      }]
+    },
+    options: {
+      responsive: true,
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart'
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Month'
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Value'
+          }
+        }]
+      }
+    }
+  };
+  var ctxLine = document.getElementById("canvas-line-chart").getContext("2d");
+  myLineChart = new Chart(ctxLine, lineConfig);
 });
 
