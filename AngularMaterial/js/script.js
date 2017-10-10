@@ -55,7 +55,7 @@ function angularDemoController($scope, $http, $compile) {
     title: 'Created On'
   }, {
     data: 'statusName',
-    title: 'Status name'
+    title: 'Status'
   },
   {
     data: 'id',
