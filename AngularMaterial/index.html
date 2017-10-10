@@ -23,7 +23,7 @@
   <div id="tasksContainer" ng-controller="angularDemoController as ctrl" ng-cloak>
     <md-content layout-padding>
       <form name="taskForm" class="add-task-form ">
-        <h2>Add Task</h2>
+        <h2 class="form-heading">Add Task</h2>
         <md-input-container class="md-block">
           <label>Task Name</label>
           <input required name="taskName" ng-model="ctrl.taskDetails.taskName">
@@ -61,8 +61,8 @@
   <!--  Footer section starts here -->
   <footer class="footer">
     <div class="container">
-      <div layout="row" layout-align="center">
-        Developed with &hearts; at <a href="http://osmosys.asia/" target="_blank"> Osmosys Software Solutions</a>
+      <div class="text-center">
+       <span>Developed with &hearts; at </span><a href="http://osmosys.asia/" target="_blank"> Osmosys Software Solutions</a>
       </div>
     </div>
   </footer>
@@ -81,8 +81,10 @@
   <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="lib/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-  <script src="lib/toastr/toastr.min.js"></script>
 
+  <script src="lib/toastr/toastr.min.js"></script>
+  <script src="lib/moment/min/moment.min.js"></script>
   <script src="js/script.js"></script>
 </body>
+
 </html>

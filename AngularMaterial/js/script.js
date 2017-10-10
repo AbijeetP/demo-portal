@@ -8,6 +8,7 @@ function angularDemoController($scope, $http, $compile) {
   const SUCCESSS_CODE = 200;
   const FETCH_ERROR_MESSAGE = 'Some problem has occurred while fetching ';
   const FETCH_ERROR_MESSAGE_2 = '. Please try again later.';
+  const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
   getStatus();
   configureToastr();
 
@@ -51,7 +52,7 @@ function angularDemoController($scope, $http, $compile) {
     title: 'Due Date'
   }, {
     data: 'createdOn',
-    title: 'Created On',
+    title: 'Created On'
   }, {
     data: 'statusName',
     title: 'Status name'
@@ -107,6 +108,13 @@ function angularDemoController($scope, $http, $compile) {
   });
 
   /**
+   * converting string to date.
+   */
+  function convertStringToDate(date) {
+    return moment(date, DEFAULT_DATE_FORMAT).toDate();
+  }
+
+  /**
    * Get tasks
    */
   function getTasks() {
@@ -122,8 +130,8 @@ function angularDemoController($scope, $http, $compile) {
     tsk.taskDetails = {};
     var rowData = dtObj.row(this.parentElement).data();
     tsk.taskDetails.taskName = rowData.taskName;
-    tsk.taskDetails.dueDate = rowData.dueDate;
-    tsk.taskDetails.createdOnDate = rowData.createdOn;
+    tsk.taskDetails.dueDate = convertStringToDate(rowData.dueDate);
+    tsk.taskDetails.createdOnDate = convertStringToDate(rowData.createdOn);
     tsk.taskDetails.status = rowData.statusID;
     $scope.$apply();
   });
