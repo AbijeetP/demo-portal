@@ -1,6 +1,6 @@
-angular.module('angularDemo', ['ngMaterial']).controller('angularDemoController', angularDemoController);
+angular.module('angularDemo', ['ngMaterial', 'ngMessages', 'ngStorage']).controller('angularDemoController', angularDemoController);
 
-function angularDemoController($scope, $http, $compile) {
+function angularDemoController($scope, $http, $compile, $localStorage) {
   var tsk = this;
   const BASE_URL = 'http://10.0.0.160/demo-api/';
   const TASK_STATUS = 'task-statuses';
@@ -8,7 +8,9 @@ function angularDemoController($scope, $http, $compile) {
   const SUCCESSS_CODE = 200;
   const FETCH_ERROR_MESSAGE = 'Some problem has occurred while fetching ';
   const FETCH_ERROR_MESSAGE_2 = '. Please try again later.';
-  const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
+  const DEFAULT_DATE_FORMAT = 'DD-MM-YYYY';
+  tsk.buttonName = 'Save';
+  tsk.isUpdate = false;
   getStatus();
   configureToastr();
 
@@ -19,11 +21,42 @@ function angularDemoController($scope, $http, $compile) {
     toastr.options.timeOut = 4000;
     toastr.options.positionClass = 'toast-bottom-right';
   }
+  // Create or update a task
+  tsk.createNewTask = function (isValid) {
+    tsk.submitted = false;
+    if (!isValid) {
+      return;
+    }
+    // Save the details.
+    if (tsk.isUpdate) {
+      $localStorage.tasks.splice(tsk.editTaskIndex, 1);
+      tsk.isUpdate = false;
+    }
+    var tasks = $localStorage.tasks ? $localStorage.tasks : [];
+    tsk.taskDetails.statusName = getSelectedStatus(tsk.taskDetails.status);
+    tsk.taskDetails.createdOn = formatDate(new Date());
+    tsk.taskDetails.statusID = tsk.taskDetails.status;
+    tasks.push(tsk.taskDetails);
+    $localStorage.tasks = tasks;
+    bindDataToTable();
+    tsk.submitted = true;
+    tsk.taskForm.$setPristine();
+    tsk.taskForm.$setUntouched();
+    tsk.taskDetails = {};
+  };
 
+  function getSelectedStatus(statusId) {
+    for (var i = 0; i < tsk.status.length; i++) {
+      if (+tsk.status[i].statusID === +statusId) {
+        return tsk.status[i].statusName;
+      }
+    }
+  }
   /**
    * Call to getStatus API.
    */
   function getStatus() {
+    tsk.status = [];
     return $http.get(BASE_URL + TASK_STATUS).then(function (response) {
       if (response.data.code === SUCCESSS_CODE) {
         tsk.status = response.data.data;
@@ -49,22 +82,35 @@ function angularDemoController($scope, $http, $compile) {
     title: 'Task Name',
   }, {
     data: 'dueDate',
-    title: 'Due Date'
+    title: 'Due Date',
+    render: formatDate
   }, {
     data: 'createdOn',
-    title: 'Created On'
+    title: 'Created On',
+    render: formatDate
   }, {
     data: 'statusName',
     title: 'Status'
   },
   {
-    data: 'id',
-    title: 'Actions',
+    data: '',
+    title: 'Edit',
     render: function (data, type, row) {
       var elem = null;
-      elem = $compile('<span><span class="edit-setting"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0];
+      elem = $compile('<span><span class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0];
       return elem.innerHTML;
-    }
+    },
+    className: 'text-center'
+  },
+  {
+    data: '',
+    title: 'Delete',
+    render: function (data, type, row) {
+      var elem = null;
+      elem = $compile('<span><span class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0];
+      return elem.innerHTML;
+    },
+    className: 'text-center'
   }];
 
   var dtConfig = {
@@ -90,12 +136,8 @@ function angularDemoController($scope, $http, $compile) {
     if (response.data.code === SUCCESSS_CODE) {
       var tasks = response.data.data;
       if (tasks) {
-        dtObj.clear();
-        dtObj.rows.add(tasks);
-        dtObj.one('draw.dt', function (e, settings) {
-          settings.oLanguage.sEmptyTable = 'No tasks found';
-        });
-        dtObj.draw();
+        $localStorage.tasks = tasks;
+        bindDataToTable();
         return;
       }
     } else {
@@ -107,11 +149,26 @@ function angularDemoController($scope, $http, $compile) {
     showErrorMessage(FETCH_ERROR_MESSAGE + 'tasks' + FETCH_ERROR_MESSAGE_2);
   });
 
+  function bindDataToTable() {
+    var tasks = $localStorage.tasks ? $localStorage.tasks : [];
+    dtObj.clear();
+    dtObj.rows.add(tasks);
+    dtObj.one('draw.dt', function (e, settings) {
+      settings.oLanguage.sEmptyTable = 'No tasks found';
+    });
+    dtObj.draw();
+  }
+
   /**
    * converting string to date.
    */
   function convertStringToDate(date) {
     return moment(date, DEFAULT_DATE_FORMAT).toDate();
+  }
+
+  function formatDate(date) {
+    var dateObj = convertStringToDate(date);
+    return moment(dateObj).format(DEFAULT_DATE_FORMAT);
   }
 
   /**
@@ -128,11 +185,23 @@ function angularDemoController($scope, $http, $compile) {
   // On click on edit, populate form with data.
   angular.element('#tasksGrid').on('click', '.edit-setting', function () {
     tsk.taskDetails = {};
+    tsk.buttonName = 'Update';
+    tsk.isUpdate = true;
     var rowData = dtObj.row(this.parentElement).data();
     tsk.taskDetails.taskName = rowData.taskName;
     tsk.taskDetails.dueDate = convertStringToDate(rowData.dueDate);
-    tsk.taskDetails.createdOnDate = convertStringToDate(rowData.createdOn);
+    tsk.taskDetails.createdOn = convertStringToDate(rowData.createdOn);
     tsk.taskDetails.status = rowData.statusID;
     $scope.$apply();
+    tsk.editTaskIndex = dtObj.row(this.parentElement).index();
   });
+
+  // On click on delete, delete row.
+  angular.element('#tasksGrid').on('click', '.delete-setting', function () {
+    var deleteTaskIndex = dtObj.row(this.parentElement).index();
+    $localStorage.tasks.splice(deleteTaskIndex, 1);
+    bindDataToTable();
+  });
+
+
 }

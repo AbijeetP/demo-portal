@@ -20,40 +20,51 @@
 </head>
 
 <body ng-app="angularDemo">
-  <div id="tasksContainer" ng-controller="angularDemoController as ctrl" ng-cloak>
+  <div id="tasksContainer" ng-controller="angularDemoController as tsk" ng-cloak>
     <md-content layout-padding>
-      <form name="taskForm" class="add-task-form ">
+      <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}">
         <h2 class="form-heading">Add Task</h2>
-        <md-input-container class="md-block">
-          <label>Task Name</label>
-          <input required name="taskName" ng-model="ctrl.taskDetails.taskName">
-          <div ng-messages="taskForm.taskName.$error">
-            <div ng-message="required">This is required.</div>
-          </div>
-        </md-input-container>
-
         <div layout="row">
-          <md-input-container flex=33 class="md-block">
-            <label>Due Date</label>
-            <md-datepicker ng-model="ctrl.taskDetails.dueDate"></md-datepicker>
+          <md-input-container class="md-block" flex=33>
+            <label>Task Name</label>
+            <input required name="taskName" ng-model="tsk.taskDetails.taskName">
+            <div ng-messages="tsk.taskForm.taskName.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
           </md-input-container>
           <div flex=33>
 
           </div>
-          <md-input-container flex=33 class="md-block pull-right">
-            <label>Created On</label>
-            <md-datepicker ng-model="ctrl.taskDetails.createdOnDate"></md-datepicker>
+          <md-input-container class="md-block" flex=33>
+              <label>Status</label>
+              <md-select name="status" name="" ng-model="tsk.taskDetails.status" required>
+                <md-option ng-if="!tsk.status.length">No status found</md-option>
+                <md-option ng-if="tsk.status.length" ng-repeat="status in tsk.status" ng-value="status.statusID">
+                  {{status.statusName}}
+                </md-option>
+              </md-select>
+              <div ng-messages="tsk.taskForm.status.$error">
+                <div ng-message="required">This is required.</div>
+              </div>
+            </md-input-container>
+        </div>
+
+        <div layout="row">
+          <md-input-container flex=33 class="md-block">
+            <label>Due Date</label>
+            <md-datepicker name="dueDate" ng-model="tsk.taskDetails.dueDate" required></md-datepicker>
+            <div ng-messages="tsk.taskForm.dueDate.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
           </md-input-container>
         </div>
 
-        <md-input-container class="md-block">
-          <label>Status</label>
-          <md-select ng-model="ctrl.taskDetails.status">
-            <md-option ng-repeat="status in ctrl.status" ng-value="status.statusID">
-              {{status.statusName}}
-            </md-option>
-          </md-select>
-        </md-input-container>
+
+        <div layout-gt-sm="column" class="side-block">
+          <md-input-container class="md-block text-right" flex-gt-sm>
+            <md-button type="submit" class="md-raised md-btn-success btn" ng-click="tsk.createNewTask(tsk.taskForm.$valid)" aria-label="Save"><i class="fa fa-save mg-rt-5"></i><span> {{tsk.buttonName}}</span></md-button>
+          </md-input-container>
+        </div>
       </form>
     </md-content>
     <table class="table" width="100%" id="tasksGrid"></table>
@@ -62,7 +73,7 @@
   <footer class="footer">
     <div class="container">
       <div class="text-center">
-       <span>Developed with &hearts; at </span><a href="http://osmosys.asia/" target="_blank"> Osmosys Software Solutions</a>
+        <span>Developed with &hearts; at </span><a href="http://osmosys.asia/" target="_blank"> Osmosys Software Solutions</a>
       </div>
     </div>
   </footer>
@@ -84,6 +95,7 @@
 
   <script src="lib/toastr/toastr.min.js"></script>
   <script src="lib/moment/min/moment.min.js"></script>
+  <script src="lib/ngstorage/ngStorage.min.js"></script>
   <script src="js/script.js"></script>
 </body>
 
