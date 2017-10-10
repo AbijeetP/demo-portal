@@ -1,5 +1,5 @@
 {
-  "name": "Angular Material-Demo",
+  "name": "angular-material-demo",
   "authors": [
     "Osmosys Software Solutions Private Limited"
   ],
@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "angular-material": "^1.1.5",
-    "bootstrap": "3.3.7",
+    "bootstrap": "^3.3.7",
     "components-font-awesome": "^4.7.0",
     "datatables.net-bs4": "^3.2.2",
     "datatables.net-bs": "^2.1.1"
