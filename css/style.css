@@ -13,19 +13,9 @@ body {
   line-height: 60px;
   background-color: #f5f5f5;
 }
-.add-task-form {
-  width: 80%;
-  margin: auto;
-  margin-top: 2em;
-}
 .btn {
   cursor: pointer;
 }
-.task-grid-container {
-  width: 82%;
-  margin: auto;
-  margin: 1em auto;
-}
-right-align {
+.right-align {
   justify-content: flex-end;
 }

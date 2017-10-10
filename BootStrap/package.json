@@ -4,15 +4,16 @@
   "description": "A mobile application that is being designed for providing information about accidents.",
   "main": "index.js",
   "dependencies": {
+    "chart.js": "^2.7.0",
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-cssmin": "^2.1.0",
     "grunt-contrib-imagemin": "^1.0.1",
-    "grunt-contrib-uglify": "^2.3.0",
-    "grunt-preprocess": "^5.1.0",
     "grunt-contrib-less": "^1.4.0",
-    "grunt-contrib-watch": "^1.0.0"
+    "grunt-contrib-uglify": "^2.3.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-preprocess": "^5.1.0"
   },
   "devDependencies": {
     "grunt-contrib-htmlmin": "^2.4.0",
@@ -35,7 +36,3 @@
   "author": "Osmosys software solutions",
   "license": "ISC"
 }
-
-
-
-
