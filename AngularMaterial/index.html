@@ -25,7 +25,7 @@
         <h2>Add Task</h2>
         <md-input-container class="md-block">
           <label>Task Name</label>
-          <input required name="taskName" ng-model="taskDetails.taskName">
+          <input required name="taskName" ng-model="ctrl.taskDetails.taskName">
           <div ng-messages="taskForm.taskName.$error">
             <div ng-message="required">This is required.</div>
           </div>
@@ -34,32 +34,24 @@
         <div layout="row">
           <md-input-container flex=33 class="md-block">
             <label>Due Date</label>
-            <md-datepicker ng-model="dueDate"></md-datepicker>
+            <md-datepicker ng-model="ctrl.taskDetails.dueDate"></md-datepicker>
           </md-input-container>
           <div flex=33>
 
           </div>
           <md-input-container flex=33 class="md-block pull-right">
             <label>Created on</label>
-            <md-datepicker ng-model="createdOnDate"></md-datepicker>
+            <md-datepicker ng-model="ctrl.taskDetails.createdOnDate"></md-datepicker>
           </md-input-container>
         </div>
 
         <md-input-container class="md-block">
           <label>Status</label>
-          <md-select ng-model="task.statusValue">
-            <md-option ng-repeat="status in task.status" ng-value="status.statusId">
+          <md-select ng-model="ctrl.taskDetails.status">
+            <md-option ng-repeat="status in task.status" ng-value="status.statusID">
               {{status.statusName}}
             </md-option>
           </md-select>
-        </md-input-container>
-        <md-input-container class="md-block md-input-max-width">
-          <label>test</label>
-          <input name="entryName" type="text" ng-model="ctrl.name"
-            value="" required ps-trim-input>
-          <!-- <div class="errors" ng-messages="vm[vm.settingsFormItems.name].entryName.$error">
-            <div ng-message="required">{{::'err.this_is_required'|translate}}</div>
-          </div> -->
         </md-input-container>
       </form>
     </md-content>

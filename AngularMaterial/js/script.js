@@ -4,13 +4,24 @@ angular
 
 function inputController($scope, $http, $compile) {
   var ctrl = this;
-  $scope.task = {
-    status: [
-      { statusId: 1, statusName: 'Planned' },
-      { statusId: 2, statusName: 'Development' }
-    ],
-    statusValue: 1
-  };
+  // $scope.task = {
+  //   status: [
+  //     { statusId: 1, statusName: 'Planned' },
+  //     { statusId: 2, statusName: 'Development' }
+  //   ],
+  //   statusValue: 1
+  // };
+
+  function getStatus() {
+    return $http.get('http://10.0.0.160/demo-api/task-statuses').then(function (response) {
+      $scope.task = {};
+      $scope.task.status = response.data.data;
+    }, function (error) {
+      return error;
+    });
+  }
+  getStatus();
+
   var dtColumns = [{
     data: 'taskName',
     title: 'Task Name',
@@ -93,11 +104,13 @@ function inputController($scope, $http, $compile) {
       return error;
     });
   }
-  $scope.taskDetails = {};
+  ctrl.taskDetails = {};
   angular.element('#tasksGrid').on('click', '.edit-setting', function () {
     var rowData = dtObj.row(this.parentElement).data();
-    $scope.taskDetails.taskName = rowData.taskName;
-    $scope.task.statusValue = 2;
-    ctrl.name = 'test';
+    ctrl.taskDetails.taskName = rowData.taskName;
+    ctrl.taskDetails.dueDate = rowData.dueDate;
+    ctrl.taskDetails.createdOnDate = rowData.createdOn;
+    ctrl.taskDetails.status = rowData.statusID;
+    $scope.$apply()
   });
 }
