@@ -1,41 +1,57 @@
-angular
-  .module('angularDemo', ['ngMaterial'])
-  .controller('angularDemoController', inputController);
+angular.module('angularDemo', ['ngMaterial']).controller('angularDemoController', angularDemoController);
 
-function inputController($scope, $http, $compile) {
-  var ctrl = this;
-  // $scope.task = {
-  //   status: [
-  //     { statusId: 1, statusName: 'Planned' },
-  //     { statusId: 2, statusName: 'Development' }
-  //   ],
-  //   statusValue: 1
-  // };
+function angularDemoController($scope, $http, $compile) {
+  var tsk = this;
+  const BASE_URL = 'http://10.0.0.160/demo-api/';
+  const TASK_STATUS = 'task-statuses';
+  const TASKS = 'tasks';
+  const SUCCESSS_CODE = 200;
+  const FETCH_ERROR_MESSAGE = 'Some problem has occurred while fetching ';
+  const FETCH_ERROR_MESSAGE_2 = '. Please try again later.';
+  getStatus();
+  configureToastr();
 
+  /**
+   * Configure toastr
+   */
+  function configureToastr() {
+    toastr.options.timeOut = 4000;
+    toastr.options.positionClass = 'toast-bottom-right';
+  }
+
+  /**
+   * Call to getStatus API.
+   */
   function getStatus() {
-    return $http.get('http://10.0.0.160/demo-api/task-statuses').then(function (response) {
-      $scope.task = {};
-      $scope.task.status = response.data.data;
-    }, function (error) {
-      return error;
+    return $http.get(BASE_URL + TASK_STATUS).then(function (response) {
+      if (response.data.code === SUCCESSS_CODE) {
+        tsk.status = response.data.data;
+      } else {
+        showErrorMessage(FETCH_ERROR_MESSAGE + 'status' + FETCH_ERROR_MESSAGE_2);
+      }
+    }, function () {
+      showErrorMessage(FETCH_ERROR_MESSAGE + 'status' + FETCH_ERROR_MESSAGE_2);
     });
   }
-  getStatus();
 
+  /**
+   * To show error messgaes.
+   */
+  function showErrorMessage(message) {
+    toastr.remove();
+    toastr.error(message);
+  }
+
+  // Table columns
   var dtColumns = [{
     data: 'taskName',
     title: 'Task Name',
-    isRequired: true,
-    isDefaultShow: true,
-    responsivePriority: 1,
   }, {
     data: 'dueDate',
-    isDefaultShow: true,
     title: 'Due Date'
   }, {
     data: 'createdOn',
     title: 'Created On',
-    isDefaultShow: true
   }, {
     data: 'statusName',
     title: 'Status name'
@@ -45,16 +61,12 @@ function inputController($scope, $http, $compile) {
     title: 'Actions',
     render: function (data, type, row) {
       var elem = null;
-      if (row.IsOpen) {
-        elem = $compile('<span><span class="action-not-allowed" title="' + $translate.instant('master_settings.open_status_edit_message') + '"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0];
-      } else {
-        elem = $compile('<span><span class="edit-setting"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0];
-      }
+      elem = $compile('<span><span class="edit-setting"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0];
       return elem.innerHTML;
     }
   }];
 
-  var defaultConfig = {
+  var dtConfig = {
     columns: dtColumns,
     data: [],
     dom: '<"search"f>rtipl', // To activate default search textbox for grid.
@@ -69,48 +81,50 @@ function inputController($scope, $http, $compile) {
     isFullWidth: true,
     responsive: true
   };
-  $tasksGrid = angular.element('#tasksGrid');
-  var dtObj = $tasksGrid.DataTable(defaultConfig);
-  //ctrl.initDatatable(dtObj, dtConfig, $element, language);
-  //addEvents(dt);
+  var $tasksGrid = angular.element('#tasksGrid');
+  var dtObj = $tasksGrid.DataTable(dtConfig);
 
+  // Get tasks and bind data to the grid.
   getTasks().then(function (response) {
-    var data = response.data.data;
-    if (data) {
-      // $scope.dtApi.bindData(data.data.MultipleResults);
-      dtObj.clear();
-      dtObj.rows.add(data);
-      dtObj.one('draw.dt', function (e, settings) {
-        settings.oLanguage.sEmptyTable = 'No tasks found';
-        // // To adjust the column width after binding data
-        // if (settings.aoColumns.length) {
-        //   adjustColumnWidths(settings);
-        // }
-      });
-      dtObj.draw();
+    if (response.data.code === SUCCESSS_CODE) {
+      var tasks = response.data.data;
+      if (tasks) {
+        dtObj.clear();
+        dtObj.rows.add(tasks);
+        dtObj.one('draw.dt', function (e, settings) {
+          settings.oLanguage.sEmptyTable = 'No tasks found';
+        });
+        dtObj.draw();
+        return;
+      }
     } else {
-      $scope.dtApi.bindData([]);
+      showErrorMessage(FETCH_ERROR_MESSAGE + 'tasks' + FETCH_ERROR_MESSAGE_2);
     }
+    $scope.dtApi.bindData([]);
   }, function (error) {
     $scope.dtApi.bindData([]);
-    logger.error(error);
+    showErrorMessage(FETCH_ERROR_MESSAGE + 'tasks' + FETCH_ERROR_MESSAGE_2);
   });
 
+  /**
+   * Get tasks
+   */
   function getTasks() {
-    // var srvObj = $http.httpGetOpts('http://10.0.0.160/osm-demo-api/tasks');
-    return $http.get('http://10.0.0.160/demo-api/tasks').then(function (response) {
+    return $http.get(BASE_URL + TASKS).then(function (response) {
       return response;
     }, function (error) {
       return error;
     });
   }
-  ctrl.taskDetails = {};
+
+  // On click on edit, populate form with data.
   angular.element('#tasksGrid').on('click', '.edit-setting', function () {
+    tsk.taskDetails = {};
     var rowData = dtObj.row(this.parentElement).data();
-    ctrl.taskDetails.taskName = rowData.taskName;
-    ctrl.taskDetails.dueDate = rowData.dueDate;
-    ctrl.taskDetails.createdOnDate = rowData.createdOn;
-    ctrl.taskDetails.status = rowData.statusID;
-    $scope.$apply()
+    tsk.taskDetails.taskName = rowData.taskName;
+    tsk.taskDetails.dueDate = rowData.dueDate;
+    tsk.taskDetails.createdOnDate = rowData.createdOn;
+    tsk.taskDetails.status = rowData.statusID;
+    $scope.$apply();
   });
 }
