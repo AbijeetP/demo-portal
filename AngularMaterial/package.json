@@ -20,9 +20,8 @@
     "angular-material-source": "1.0.10"
   },
   "scripts": {
-    "prestart": "npm install"
+    "prestart": "npm install",
+    "start": "grunt dev && http-server -a localhost -p 8000 -c-1 ./src -o -g"
   },
-  "dependencies": {
-
-  }
+  "dependencies": {}
 }

@@ -25,7 +25,7 @@
         <h2>Add Task</h2>
         <md-input-container class="md-block">
           <label>Task Name</label>
-          <input required name="taskName" ng-model="ctrl.taskDetails.taskName">
+          <input required name="taskName" ng-model="taskDetails.taskName">
           <div ng-messages="taskForm.taskName.$error">
             <div ng-message="required">This is required.</div>
           </div>
@@ -47,11 +47,19 @@
 
         <md-input-container class="md-block">
           <label>Status</label>
-          <md-select ng-model="statusValue">
+          <md-select ng-model="task.statusValue">
             <md-option ng-repeat="status in task.status" ng-value="status.statusId">
               {{status.statusName}}
             </md-option>
           </md-select>
+        </md-input-container>
+        <md-input-container class="md-block md-input-max-width">
+          <label>test</label>
+          <input name="entryName" type="text" ng-model="ctrl.name"
+            value="" required ps-trim-input>
+          <!-- <div class="errors" ng-messages="vm[vm.settingsFormItems.name].entryName.$error">
+            <div ng-message="required">{{::'err.this_is_required'|translate}}</div>
+          </div> -->
         </md-input-container>
       </form>
     </md-content>
