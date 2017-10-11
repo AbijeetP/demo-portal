@@ -124,7 +124,6 @@ function angularDemoController($scope, $http, $compile, $localStorage) {
       } else {
         elem = $compile('<span><span class="mark-as-done row-action">--</i></span>')($scope)[0];
       }
-
       return elem.innerHTML;
     },
     className: 'text-center'
@@ -219,7 +218,7 @@ function angularDemoController($scope, $http, $compile, $localStorage) {
     $localStorage.tasks.splice(deleteTaskIndex, 1);
     bindDataToTable();
   });
-  
+
  // Handle mark as done functionality.
   angular.element('#tasksGrid').on('click', '.mark-as-done', function () {
     var doneTaskIndex = dtObj.row(this.parentElement).index();
