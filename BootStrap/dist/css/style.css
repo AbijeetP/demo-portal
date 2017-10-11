@@ -26,6 +26,14 @@ body {
   margin: auto;
   margin: 1em auto;
 }
-right-align {
+.task-grid-container .btn-warning,
+.task-grid-container .btn-danger {
+  margin-right: 1em;
+}
+.task-grid-container .btn-warning i,
+.task-grid-container .btn-danger i {
+  color: #fff;
+}
+.right-align {
   justify-content: flex-end;
 }
