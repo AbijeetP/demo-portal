@@ -95,8 +95,8 @@ $(document).ready(function () {
               labels: chartLabels,
               datasets: [{
                 label: "Task completed per day",
-                backgroundColor: '#E83E3E',
-                borderColor: '#E83E3E',
+                backgroundColor: '#00CCCC',
+                borderColor: '#00CCCC',
                 data: chartData,
                 fill: false,
               }]
