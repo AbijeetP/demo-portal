@@ -219,7 +219,7 @@ function angularDemoController($scope, $http, $compile, $localStorage) {
     bindDataToTable();
   });
 
- // Handle mark as done functionality.
+  // Handle mark as done functionality.
   angular.element('#tasksGrid').on('click', '.mark-as-done', function () {
     var doneTaskIndex = dtObj.row(this.parentElement).index();
     $localStorage.tasks[doneTaskIndex].statusID = DONE_STATUS;
