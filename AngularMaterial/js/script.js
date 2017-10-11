@@ -120,7 +120,7 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     title: 'Edit',
     render: function (data, type, row) {
       var elem = null;
-      elem = $compile('<span><span class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0];
+      elem = $compile('<span><span class="edit-setting row-action" title="Edit"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0];
       return elem.innerHTML;
     },
     className: 'text-center'
@@ -130,7 +130,7 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     title: 'Delete',
     render: function (data, type, row) {
       var elem = null;
-      elem = $compile('<span><span class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0];
+      elem = $compile('<span><span class="delete-setting row-action" title="Delete"><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0];
       return elem.innerHTML;
     },
     className: 'text-center'
