@@ -1,15 +1,11 @@
 {
-  "name": "Accident-informer-Website",
+  "name": "demo-google-maps",
   "authors": [
     "Osmosys Software Solutions Private Limited"
   ],
   "description": "A mobile application that is being designed for providing information about accidents.",
   "main": "index.html",
-  "keywords": [
-    "accident",
-    "accident informer",
-    "accident watcher"
-  ],
+  "keywords": [],
   "license": "MIT",
   "homepage": "index.html",
   "private": true,
@@ -22,8 +18,10 @@
   ],
   "dependencies": {
     "jquery": "^3.2.1",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "v4.0.0-alpha.6",
+    "angular": "1.6.6",
     "components-font-awesome": "^4.7.0",
-    "blockUI": "blockui#*"
+    "blockUI": "blockui#*",
+    "ngmap": "^1.18.4"
   }
 }
