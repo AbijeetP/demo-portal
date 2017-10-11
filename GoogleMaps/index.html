@@ -1,16 +1,67 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="A demo application on Angular Material">
+  <meta name="keywords" content="google maps demo, demo on goole maps, google maps angular">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap contribution page</title>
+
+  <link rel="apple-touch-icon" href="dist/img/favicon.jpg">
+  <link rel="shortcut icon" type="image/x-icon" href="dist/img/favicon.jpg">
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="dist/css/style.css">
+</head>
+
+<body ng-app="googleMaps">
+  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+    <a class="navbar-brand" href="http://osmosys.asia/">
+      <img src="img/osmosys-logo.png" alt="logo">
+    </a>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link">Help<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </nav>
+  <div class="modal help-modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Google maps</h5>
+        </div>
+        <div class="modal-body">
+          <p>This portal will have two things,</p>
+          <h5>Bootstrap contribution map</h5>
+          <p>This will call our CakePHP API. The CakePHP API will return the raw JSON to the portal along with the lat / long.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="main-container map-container" ng-controller="MapsController as vm">
+    <ng-map zoom="5" center="[40.74, -74.18]" default-style="false" class="google-maps">
+      <marker ng-repeat="user in vm.users" position="{{user.pos}}" title="{{user.name}}" icon="{{user.image}}"></marker>
+    </ng-map>
+  </section>
+
+  <script src="lib/jquery/dist/jquery.min.js"></script>
+  <script src="lib/tether/dist/js/tether.min.js"></script>
+  <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://maps.google.com/maps/api/js"></script>
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/ngmap/build/scripts/ng-map.min.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/helper.js"></script>
+  <footer class="footer">
+    <div class="container">
+      <div class="text-center">
+        Developed with ♥ at <a href="http://osmosys.asia/" target="_blank">Osmosys Software Solutions</a>
+      </div>
+    </div>
+  </footer>
+</body>
+
 </html>
