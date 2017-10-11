@@ -1,0 +1,48 @@
+
+.footer {
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #f5f5f5;
+}
+#tasksContainer {
+  width: 80%;
+  margin: auto;
+  margin-top: 2em;
+}
+.btn {
+  cursor: pointer;
+}
+.form-heading {
+  margin-bottom: 60px;
+}
+a:focus, a:hover {
+  text-decoration: none;
+}
+button.btn.md-btn-success , button.btn.md-button.md-raised.md-btn-success:hover{
+  background-color: #4caf50;
+  color: #fff;
+}
+/**
+ * Fix for form reset not clearing ng-message, bug here -
+ * https://github.com/angular/material/issues/9543
+ */
+ .frm-is-submitted .ng-untouched ~ .md-input-messages-animation {
+  height: 0;
+  opacity: 0;
+}
+.row-action {
+  cursor: pointer
+}
+.frm-is-submitted {
+  md-input-container.md-input-invalid {
+    .md-input.ng-untouched, md-select.ng-untouched .md-select-value, md-select.ng-untouched .md-select-value span:first-child:after{
+      border-color: rgba(0,0,0,0.12) !important;
+      color: rgba(0,0,0,0.38) !important;
+    }
+    label, label.md-required:after {
+      color: rgba(0,0,0,0.38) !important;
+    }
+  }
+}

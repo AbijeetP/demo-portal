@@ -1,14 +1,14 @@
 {
-  "name": "Accident-informer-Website",
+  "name": "angular-material-demo",
   "authors": [
     "Osmosys Software Solutions Private Limited"
   ],
-  "description": "A mobile application that is being designed for providing information about accidents.",
+  "description": "A demo project for Angular Material.",
   "main": "index.html",
   "keywords": [
-    "accident",
-    "accident informer",
-    "accident watcher"
+    "demo",
+    "angular-material",
+    "demo-angular-material"
   ],
   "license": "MIT",
   "homepage": "index.html",
@@ -21,9 +21,13 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "^3.2.1",
+    "angular-material": "^1.1.5",
     "bootstrap": "^3.3.7",
     "components-font-awesome": "^4.7.0",
-    "blockUI": "blockui#*"
+    "datatables.net-bs4": "^3.2.2",
+    "datatables.net-bs": "^2.1.1",
+    "toastr": "^2.1.3",
+    "moment": "^2.18.1",
+    "ngstorage": "^0.3.11"
   }
 }

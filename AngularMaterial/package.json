@@ -1,1 +1,29 @@
-﻿
+﻿{
+  "name": "angular-material-demo",
+  "version": "1.0.0",
+  "description": "A demo project for Angular Material.",
+  "license": "-",
+  "repository": "http://10.0.0.150/prasanna03/demo-portal.git",
+  "private": true,
+  "devDependencies": {
+    "bower": "^1.7.7",
+    "eslint": "4.2.0",
+    "eslint-config-angular": "0.5.0",
+    "eslint-plugin-angular": "3.0.0 ",
+    "grunt": "1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-imagemin": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0 ",
+    "grunt-contrib-less": "^1.4.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-contrib-htmlmin": "^2.4.0",
+    "angular-material-source": "1.0.10"
+  },
+  "scripts": {
+    "prestart": "npm install",
+    "start": "grunt dev && http-server -a localhost -p 8000 -c-1 ./src -o -g"
+  },
+  "dependencies": {}
+}
