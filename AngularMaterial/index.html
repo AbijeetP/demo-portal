@@ -22,7 +22,7 @@
 <body ng-app="angularDemo">
   <div id="tasksContainer" ng-controller="angularDemoController as tsk" ng-cloak>
     <md-content layout-padding>
-      <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}">
+      <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}" ng-submit="tsk.createNewTask(tsk.taskForm.$valid)">
         <h2 class="form-heading">Add Task</h2>
         <div layout="row">
           <md-input-container class="md-block" flex=33>
@@ -62,7 +62,7 @@
 
         <div layout-gt-sm="column" class="side-block">
           <md-input-container class="md-block text-right" flex-gt-sm>
-            <md-button type="submit" class="md-raised md-btn-success btn" ng-click="tsk.createNewTask(tsk.taskForm.$valid)" aria-label="Save"><i class="fa fa-save mg-rt-5"></i><span> {{tsk.buttonName}}</span></md-button>
+            <md-button type="submit" class="md-raised md-btn-success btn"  aria-label="Save"><i class="fa fa-save mg-rt-5"></i><span> {{tsk.buttonName}}</span></md-button>
           </md-input-container>
         </div>
       </form>

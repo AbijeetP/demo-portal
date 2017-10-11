@@ -1,6 +1,6 @@
 angular.module('angularDemo', ['ngMaterial', 'ngMessages', 'ngStorage']).controller('angularDemoController', angularDemoController);
 
-function angularDemoController($scope, $http, $compile, $localStorage) {
+function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog) {
   var tsk = this;
   const BASE_URL = 'http://10.0.0.160/demo-api/';
   const TASK_STATUS = 'task-statuses';
@@ -214,12 +214,31 @@ function angularDemoController($scope, $http, $compile, $localStorage) {
 
   // On click on delete, delete row.
   angular.element('#tasksGrid').on('click', '.delete-setting', function () {
-    var deleteTaskIndex = dtObj.row(this.parentElement).index();
-    $localStorage.tasks.splice(deleteTaskIndex, 1);
-    bindDataToTable();
+    tsk.deleteTaskIndex = dtObj.row(this.parentElement).index();
+    // Show delete dialog
+    $mdDialog.show({
+      scope: $scope,
+      preserveScope: true,
+      controller: deleteTaskController,
+      templateUrl: 'delete-dialog.html',
+      parent: angular.element(document.body),
+      escapeToClose: true,
+    });
+
+    function deleteTaskController(scope) {
+      scope.cancelDelete = function () {
+        $mdDialog.hide();
+      };
+     // On click on delete, delete that row from datatable.
+      scope.deleteTask = function () {
+        $localStorage.tasks.splice(tsk.deleteTaskIndex, 1);
+        bindDataToTable();
+        $mdDialog.hide();
+      };
+    }
   });
 
- // Handle mark as done functionality.
+  // Handle mark as done functionality.
   angular.element('#tasksGrid').on('click', '.mark-as-done', function () {
     var doneTaskIndex = dtObj.row(this.parentElement).index();
     $localStorage.tasks[doneTaskIndex].statusID = DONE_STATUS;
