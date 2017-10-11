@@ -14,6 +14,13 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
   tsk.isUpdate = false;
   getStatus();
   configureToastr();
+  showHelpModel();
+
+  function showHelpModel() {
+    angular.element('.nav-link').click(function () {
+      angular.element('.help-modal').modal('show');
+    });
+  }
 
   /**
    * Configure toastr
@@ -229,7 +236,7 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
       scope.cancelDelete = function () {
         $mdDialog.hide();
       };
-     // On click on delete, delete that row from datatable.
+      // On click on delete, delete that row from datatable.
       scope.deleteTask = function () {
         $localStorage.tasks.splice(tsk.deleteTaskIndex, 1);
         bindDataToTable();
