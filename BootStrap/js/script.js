@@ -24,110 +24,122 @@ $(document).ready(function () {
   function randomScalingFactor() {
     return Math.round(Math.random() * 100);
   };
-  var config = {
-    type: 'pie',
-    data: {
-      datasets: [{
-        data: [
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-        ],
-        backgroundColor: [
-          '#ff0000',
-          '#ffa500',
-          '#ffff00',
-          '#228B22',
-          '#0000ff'
-        ],
-        label: 'Dataset 1'
-      }],
-      labels: [
-        "Red",
-        "Orange",
-        "Yellow",
-        "Green",
-        "Blue"
-      ]
-    },
-    options: {
-      responsive: true
-    }
+
+  /**
+   * Function to
+   * make the API call to get the task count based on statuses and
+   * show the response data in a pie chart
+   */
+  function GetPieChartData() {
+    $.ajax({
+      url: 'http://10.0.0.160/demo-api/tasks/fetchTasksByStatus',
+      method: 'GET',
+      dataType: 'json',
+      success: function (response) {
+        var respData = response.data;
+        var chartLabels = [];
+        var chartData = [];
+        for (var i = 0; i < respData.length; i++) {
+          chartLabels.push(respData[i].statusName);
+          chartData.push(respData[i].totalTasksCount);
+        }
+        if (chartLabels.length && chartData.length) {
+          var pieChartConfig = {
+            type: 'pie',
+            data: {
+              datasets: [{
+                data: chartData,
+                backgroundColor: [
+                  '#ffa500',
+                  '#E83E3E',
+                  '#00CCCC',
+                  '#228B22'
+                ]
+              }],
+              labels: chartLabels
+            },
+            options: {
+              responsive: true
+            }
+          };
+
+          var ctxPie = document.getElementById("canvas-pie-chart").getContext("2d");
+          myPieChart = new Chart(ctxPie, pieChartConfig);
+        }
+      },
+    });
   };
 
-  var ctxPie = document.getElementById("canvas-pie-chart").getContext("2d");
-  myPieChart = new Chart(ctxPie, config);
-
-  var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  var lineConfig = {
-    type: 'line',
-    data: {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
-      datasets: [{
-        label: "My First dataset",
-        backgroundColor: '#ff0000',
-        borderColor: '#ff0000',
-        data: [
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor()
-        ],
-        fill: false,
-      }, {
-        label: "My Second dataset",
-        fill: false,
-        backgroundColor: '#0000ff',
-        borderColor: '#0000ff',
-        data: [
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor()
-        ],
-      }]
-    },
-    options: {
-      responsive: true,
-      title: {
-        display: true,
-        text: 'Chart.js Line Chart'
+  /**
+   * Function to
+   * make the API call to get the completed task count per day and
+   * show the response data in a Line chart
+   */
+  function GetLineChartData() {
+    $.ajax({
+      url: 'http://10.0.0.160/demo-api/tasks/getCompletedTasksByDay',
+      method: 'GET',
+      dataType: 'json',
+      success: function (response) {
+        var respData = response.data;
+        var chartLabels = [];
+        var chartData = [];
+        for (var i = 0; i < respData.length; i++) {
+          chartLabels.push(respData[i].completedOn);
+          chartData.push(respData[i].totalTasksCount);
+        }
+        if (chartLabels.length && chartData.length) {
+          var lineChartConfig = {
+            type: 'line',
+            data: {
+              labels: chartLabels,
+              datasets: [{
+                label: "Task completed per day",
+                backgroundColor: '#E83E3E',
+                borderColor: '#E83E3E',
+                data: chartData,
+                fill: false,
+              }]
+            },
+            options: {
+              responsive: true,
+              tooltips: {
+                mode: 'index',
+                intersect: false,
+              },
+              hover: {
+                mode: 'nearest',
+                intersect: true
+              },
+              scales: {
+                xAxes: [{
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Dates'
+                  }
+                }],
+                yAxes: [{
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Number of tasks'
+                  },
+                  ticks: {
+                    stepSize: 1
+                  }
+                }]
+              }
+            }
+          };
+          var ctxPie = document.getElementById("canvas-line-chart").getContext("2d");
+          myPieChart = new Chart(ctxPie, lineChartConfig);
+        }
       },
-      tooltips: {
-        mode: 'index',
-        intersect: false,
-      },
-      hover: {
-        mode: 'nearest',
-        intersect: true
-      },
-      scales: {
-        xAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Month'
-          }
-        }],
-        yAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Value'
-          }
-        }]
-      }
-    }
+    });
   };
-  var ctxLine = document.getElementById("canvas-line-chart").getContext("2d");
-  myLineChart = new Chart(ctxLine, lineConfig);
+
+  GetLineChartData();
+  GetPieChartData();
 });
 
