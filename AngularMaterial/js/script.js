@@ -229,7 +229,7 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
       scope.cancelDelete = function () {
         $mdDialog.hide();
       };
-     // On click on delete, delete that row from datatable.
+      // On click on delete, delete that row from datatable.
       scope.deleteTask = function () {
         $localStorage.tasks.splice(tsk.deleteTaskIndex, 1);
         bindDataToTable();
