@@ -26,7 +26,7 @@
     "angular-aria": "~1.5.11",
     "angular-messages": "~1.5.10",
     "angular-material": "~1.1.1",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "v4.0.0-alpha.6",
     "components-font-awesome": "^4.7.0",
     "datatables.net-bs4": "^3.2.2",
     "datatables.net-bs": "^2.1.1",

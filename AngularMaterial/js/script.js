@@ -14,6 +14,13 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
   tsk.isUpdate = false;
   getStatus();
   configureToastr();
+  showHelpModel();
+
+  function showHelpModel() {
+    angular.element('.nav-link').click(function () {
+      angular.element('.help-modal').modal('show');
+    });
+  }
 
   /**
    * Configure toastr
