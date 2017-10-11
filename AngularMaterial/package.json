@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "angular-material-demo",
   "version": "1.0.0",
   "description": "A demo project for Angular Material.",
@@ -25,5 +25,8 @@
     "prestart": "npm install",
     "start": "grunt dev && http-server -a localhost -p 8000 -c-1 ./src -o -g"
   },
-  "dependencies": {}
+  "dependencies": {
+    "datatables.net-colreorder-bs4": "^1.4.1",
+    "datatables.net-responsive-bs4": "^2.2.0"
+  }
 }

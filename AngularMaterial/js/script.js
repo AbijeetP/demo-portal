@@ -137,6 +137,8 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
   }];
 
   var dtConfig = {
+    responsive: true,
+    colReorder: true,
     columns: dtColumns,
     data: [],
     dom: '<"search"f>rtipl', // To activate default search textbox for grid.
@@ -147,9 +149,8 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     search: {
       smart: false
     },
-    autoWidth: false,
-    isFullWidth: true,
-    responsive: true
+    autoWidth: true,
+    isFullWidth: true
   };
   var $tasksGrid = angular.element('#tasksGrid');
   var dtObj = $tasksGrid.DataTable(dtConfig);
