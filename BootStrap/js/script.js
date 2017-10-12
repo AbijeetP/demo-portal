@@ -92,7 +92,6 @@ $(document).ready(function () {
                 statusHtml += '<option value="' + result[prop].statusID + '">' + result[prop].statusName + '</option>';
             }
             $('#tastStatus').html(statusHtml);
-            localStorage.setItem('tasksStatuses', JSON.stringify(result));
         } else {
             // TODO : Show errors
         }
@@ -171,12 +170,6 @@ $(document).ready(function () {
         return JSON.parse(taskDataJSON);
     }
 
-    // Getting tasksData from local storage
-    function getTaskStatusesFromLocalStorage() {
-        var taskStatusesDataJSON = localStorage.getItem('tasksStatuses');
-        return JSON.parse(taskDataJSON);
-    }
-
     // Setting tasksData from parameter if it is passed
     // Else setting it from datatable
     function setTasksInLocalStorage(tasksData) {
@@ -218,7 +211,6 @@ $(document).ready(function () {
      * passing the updated tasks statuses and their counts to the createPieChart method.
      */
     function udpatePieChartData() {
-        // var taskStatuses = getTaskStatusesFromLocalStorage();
         var taskData = [];
         var tasks = getTasksFromLocalStorage();
         for (var i = 0; i < tasks.length; i++) {
