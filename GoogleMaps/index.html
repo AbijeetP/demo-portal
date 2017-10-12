@@ -42,7 +42,26 @@
   </div>
   <section class="main-container map-container" ng-controller="MapsController as vm">
     <ng-map zoom="5" center="[40.74, -74.18]" default-style="false" class="google-maps">
-      <marker ng-repeat="user in vm.users" position="{{user.pos}}" title="{{user.name}}" icon="{{user.image}}"></marker>
+      <marker ng-repeat="user in vm.users" position="{{user.pos}}" id="{{user.username}}" title="{{user.name}}" icon="{{user.image}}"
+        on-click="vm.showDetails(event,user)">
+      </marker>
+      <info-window id="infoWindow">
+        <div ng-non-bindable>
+          <div class="content">
+            <div class="contributor-image">
+                <img src={{vm.user.image.url}}>
+            </div>
+            <div class="contributor-details">
+                <span ng-if="vm.user.name" class="contributor-name"><a target="window" href="{{vm.user.profile}}" class="profile-link">{{vm.user.name}}</a></span>
+                <div class="contributor-bio">
+                  <div class="contributor-follow">Followers - {{vm.user.followers}}</div>
+                   <div class="contributor-follow">Following - {{vm.user.following}}</div>
+                </div>
+                <span ng-if="vm.user.email" class="contributor-email">Email - {{vm.user.email}}</span>
+            </div>
+          </div>
+        </div>
+      </info-window>
     </ng-map>
   </section>
 

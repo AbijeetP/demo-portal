@@ -4,17 +4,29 @@ angular.module('googleMaps').controller('MapsController', function (NgMap, $time
   NgMap.getMap().then(function (map) {
     MapsService.fetchUsers().then(function (response) {
       for (var i = 0; i < response.length; i++) {
+        vm.map = map;
         vm.users.push({
           pos: response[i].location ? [response[i].location.lat, response[i].location.lng] : [0, 0],
           image: {
             url: response[i].profile_pic,
             scaledSize: [50, 50],
-            origin: [0,0],
-            anchor: [25,25]
+            origin: [0, 0],
+            anchor: [25, 25]
           },
-          name: response[i].name
+          name: response[i].name,
+          username: response[i].username,
+          email: response[i].email,
+          followers: response[i].followers,
+          following: response[i].following,
+          profile: response[i].profile_url
         });
       }
     });
   });
+
+  vm.showDetails = function (e, user) {
+    console.log(user.username);
+    vm.user = user;
+    vm.map.showInfoWindow("infoWindow", this);
+  }
 });
