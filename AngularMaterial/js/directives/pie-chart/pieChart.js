@@ -19,10 +19,8 @@ angular
             pieChartElement = null;
           }
           pieChartElement = $ele.find('#pieChart')[0].getContext('2d');
-          if (pieChart) {
-            pieChart.destroy();
-          }
-          pieChart = new Chart(pieChartElement, {
+
+          var chartConfig = {
             type: 'pie',
             responsive: true,
             data: {
@@ -37,7 +35,12 @@ angular
                 data: chartData.data
               }]
             }
-          });
+          };
+          if (pieChart) {
+            pieChart.destroy();
+          }
+          pieChart = new Chart(pieChartElement, chartConfig);
+
         }
 
         function chartUpdate() {
@@ -46,6 +49,15 @@ angular
           chartInfo.labels = [];
           chartInfo.data = [];
           var statuscount = {};
+          statusInfo = statusInfo.sort(function (a, b) {
+            var stName = a.statusName.toLowerCase();
+            var statusName = b.statusName.toLowerCase()
+            if (stName < statusName) //sort string ascending
+              return -1
+            if (stName > statusName)
+              return 1
+            return 0 //default return value (no sorting)
+          });
           for (var lblIndex = 0; lblIndex < statusInfo.length; lblIndex++) {
             if (chartInfo.labels.indexOf(statusInfo[lblIndex].statusName) === -1) {
               chartInfo.labels.push(statusInfo[lblIndex].statusName);
