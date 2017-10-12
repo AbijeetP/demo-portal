@@ -4,64 +4,206 @@ $(document).ready(function () {
     var myLineChart = null;
     var $currentRow = '';
     var isEdit = false;
-    var table = $('#task-grid').DataTable({
-        "ajax": BASE_API_URL + "tasks",
-        "columns": [
-            {data: "taskName"},
-            {data: "dueDate"},
-            {data: "createdOn"},
-            {data: "statusName"},
-            {
-                data: null,
-                width: "20%",
-                defaultContent: '<a class="btn btn-danger icon-delete" title="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a><a class="btn btn-warning icon-edit" title="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>',
-                orderable: false
-            }
-        ]
+    var dateFormat = 'dd-mm-yyyy';
+    var DONE_STATUS = 2;
+    var $tasksGrid = $('#task-grid');
+
+    $('#dueDate').datepicker({
+        format: dateFormat
     });
-    var $tableContainer = $(table.table().container());
+    // Table columns
+    var dtColumns = [{
+            data: 'taskName',
+            title: 'Task Name',
+        }, {
+            data: 'dueDate',
+            title: 'Due Date'
+        }, {
+            data: 'createdOn',
+            title: 'Created On'
+        }, {
+            data: 'statusName',
+            title: 'Status'
+        },
+        {
+            data: '',
+            title: 'Edit',
+            render: function (data, type, row) {
+                return '<span><span class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
+            },
+            className: 'text-center'
+        },
+        {
+            data: '',
+            title: 'Delete',
+            render: function (data, type, row) {
+                return '<span><span class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
+            },
+            className: 'text-center'
+        },
+        {
+            data: '',
+            title: 'Mark As Done',
+            render: function (data, type, row) {
+                var elem = null;
+                if (row.statusID !== DONE_STATUS) {
+                    elem = '<span><span class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>';
+                } else {
+                    elem = '<span><span class="mark-as-done row-action">--</i></span>';
+                }
+                return elem;
+            },
+            className: 'text-center'
+        }];
+
+    var dtConfig = {
+        responsive: true,
+        colReorder: true,
+        columns: dtColumns,
+        data: [],
+        autoWidth: true,
+        isFullWidth: true
+    };
+    var dtObj = $tasksGrid.DataTable(dtConfig);
+
+    // Making ajax call to get all task status and bind to dropdown
+    makeAjaxCall('tasks', cbBindTaskDataToGrid);
+
+    function cbBindTaskDataToGrid(response) {
+        if (response.hasOwnProperty('success') && response.success) {
+            var taskData = response.data;
+            dtObj.rows.add(taskData).draw();
+            setTasksInLocalStorage(taskData);
+
+        } else {
+            // TODO : Show errors
+        }
+    }
+
+    // Fixing issues with Datatable bootstrap 4 UI
+    var $tableContainer = $(dtObj.table().container());
     $tableContainer.removeClass('form-inline');
     var $cols = $tableContainer.find('.col-xs-12')
     for (var i = 0; i <= $cols.length; i++) {
         $($cols[i]).removeClass('col-xs-12').addClass('col-sm-12');
     }
-    setTimeout(function () {
-        $tableContainer.find('.pagination').addClass('right-align');
-    });
 
-    $('#task-grid tbody').on('click', 'a.icon-delete', function () {
-        table
+    // Making ajax call to get all task status and bind to dropdown
+    makeAjaxCall('task-statuses', cbBindStatus);
+
+    //This function will show error messages and success messages according to the response.
+    function cbBindStatus(response) {
+        if (response.hasOwnProperty('success') && response.success) {
+            var statusHtml = '<option value="">Select a status</option>';
+            var result = response.data;
+            for (var prop in result) {
+                statusHtml += '<option value="' + result[prop].statusID + '">' + result[prop].statusName + '</option>';
+            }
+            $('#tastStatus').html(statusHtml);
+
+        } else {
+            // TODO : Show errors
+        }
+
+    }
+
+    // Click event for delete icon in the grid
+    $tasksGrid.on('click', '.delete-setting', function () {
+        // TODO : Show delete dialog
+        dtObj
                 .row($(this).parents('tr'))
                 .remove()
                 .draw();
+        setTasksInLocalStorage();
     });
 
-    $('#task-grid tbody').on('click', 'a.icon-edit', function () {
+    // Click event for edit icon in the grid
+    $tasksGrid.on('click', '.edit-setting', function () {
         $currentRow = $(this).parents('tr');
-        var rowData = table.row($(this).parents('tr')).data();
+        var rowData = dtObj.row($(this).parents('tr')).data();
         isEdit = true;
         fillDetailsInForm(rowData);
-
-
     });
 
     function fillDetailsInForm(rowData) {
         var $addTaskForm = $('.add-task-form');
         for (var prop in rowData) {
-            $addTaskForm.find('input[name="' + prop + '"]').val(rowData[prop]);
+            if (prop === 'statusID') {
+                $addTaskForm.find('select[name="' + prop + '"]').val(rowData[prop]);
+            } else {
+                $addTaskForm.find('input[name="' + prop + '"]').val(rowData[prop]);
+            }
+
         }
     }
 
+    // Submitting the add/edit task form
     $('.task-submit').click(function () {
-        var rowData = $('.add-task-form').serializeArray();
-        if (isEdit) {
-            table
-                    .row($currentRow)
-                    .data(rowData)
-                    .draw();
-        } else {
-
+        var $taskForm = $('.add-task-form');
+        var response = Validator.validateFormCntrls($taskForm, this);
+        if (!response.hasError) {
+            var rowData = getFormData();
+            if (isEdit) {
+                isEdit = false;
+                dtObj
+                        .row($currentRow)
+                        .data(rowData)
+                        .draw();
+            } else {
+                dtObj.row.add(rowData).draw(false);
+            }
+            setTasksInLocalStorage();
+            $('.add-task-form')[0].reset();
         }
+    });
+
+    // Handle mark as done functionality.
+    $tasksGrid.on('click', '.mark-as-done', function () {
+        var $rowToUpdate = $(this).parents('tr');
+        var rowData = dtObj.row($rowToUpdate).data();
+        rowData.statusID = DONE_STATUS;
+        rowData.statusName = 'Done';
+        dtObj
+                .row($rowToUpdate)
+                .data(rowData)
+                .draw();
+        setTasksInLocalStorage();
+    });
+
+    // Getting tasksData from local storage
+    function getTasksFromLocalStorage() {
+        var taskDataJSON = localStorage.getItem('tasksData');
+        return JSON.parse(taskDataJSON);
+    }
+
+    // Setting tasksData from parameter if it is passed
+    // Else setting it from datatable
+    function setTasksInLocalStorage(tasksData) {
+        if (!tasksData) {
+            tasksData = dtObj.rows().data();
+            var updatedTaskData = [];
+            for (var i = 0; i < tasksData.length; i++) {
+                updatedTaskData[i] = tasksData[i];
+            }
+        } else {
+            updatedTaskData = tasksData;
+        }
+        localStorage.setItem('tasksData', JSON.stringify(updatedTaskData));
+    }
+
+    function getFormData() {
+        var $taskForm = $('.add-task-form');
+        var rowData = {};
+        rowData.taskName = $taskForm.find('input[name="taskName"]').val();
+        rowData.dueDate = $taskForm.find('input[name="dueDate"]').val();
+        rowData.statusName = $('#tastStatus option:selected').html()
+        rowData.statusID = $taskForm.find('select[name="statusID"]').val();
+        rowData.createdOn = $taskForm.find('input[name="createdOn"]').val();
+        return rowData;
+    }
+
+    $('.nav-link').click(function () {
+        $('.help-modal').modal('show');
     });
 
     function randomScalingFactor() {
@@ -187,5 +329,35 @@ $(document).ready(function () {
 
     GetLineChartData();
     GetPieChartData();
+
+    function makeAjaxCall(MethodName, callback, message, showProcessing) {
+        jQuery.ajax({
+            url: BASE_API_URL + MethodName,
+            type: 'GET',
+            beforeSend: function () {
+
+                if (showProcessing !== false) {
+                    if (!message) {
+                        message = 'Processing....';
+                    }
+                    jQuery.blockUI({
+                        message: '<div class="loading-div">' + message + '</div>',
+                        baseZ: 2000
+                    });
+                }
+
+            },
+            complete: function () {
+                jQuery.unblockUI();
+            }
+        }).done(function (response) {
+            jQuery.unblockUI();
+            callback(response);
+        }).fail(function () {
+            jQuery.unblockUI();
+        });
+    }
+
+
 });
 
