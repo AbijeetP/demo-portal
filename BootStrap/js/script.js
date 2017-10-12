@@ -4,8 +4,13 @@ $(document).ready(function () {
     var myLineChart = null;
     var $currentRow = '';
     var isEdit = false;
+    var dateFormat = 'dd-mm-yyyy';
     var DONE_STATUS = 2;
     var $tasksGrid = $('#task-grid');
+
+    $('#dueDate').datepicker({
+        format: dateFormat
+    });
     // Table columns
     var dtColumns = [{
             data: 'taskName',
@@ -52,8 +57,12 @@ $(document).ready(function () {
         }];
 
     var dtConfig = {
+        responsive: true,
+        colReorder: true,
         columns: dtColumns,
-        data: []
+        data: [],
+        autoWidth: true,
+        isFullWidth: true
     };
     var dtObj = $tasksGrid.DataTable(dtConfig);
 
