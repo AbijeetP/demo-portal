@@ -6,6 +6,7 @@ angular
       templateUrl: 'js/directives/pie-chart/pieChart.html',
       link: function ($scope, $ele, $atr) {
         var pieChartElement = null;
+        var pieChart = null;
         $scope.$on('dt-update', function () {
           if (!$localStorage.tasks) {
             return;
@@ -15,11 +16,13 @@ angular
         // To initialize the pie chart
         function initPieChart(chartData) {
           if (pieChartElement) {
-            pieChartElement.destroy();
-          } else {
-            pieChartElement = $ele.find('#pieChart')[0].getContext('2d');
+            pieChartElement = null;
           }
-          var lineChart = new Chart(pieChartElement, {
+          pieChartElement = $ele.find('#pieChart')[0].getContext('2d');
+          if (pieChart) {
+            pieChart.destroy();
+          }
+          pieChart = new Chart(pieChartElement, {
             type: 'pie',
             responsive: true,
             data: {
