@@ -6,6 +6,7 @@ $(document).ready(function () {
     var isEdit = false;
     var dateFormat = 'dd-mm-yyyy';
     var DONE_STATUS = 2;
+    var pieChartConfig = {};
     var $tasksGrid = $('#task-grid');
 
     $('#dueDate').datepicker({
@@ -13,48 +14,48 @@ $(document).ready(function () {
     });
     // Table columns
     var dtColumns = [{
-            data: 'taskName',
-            title: 'Task Name',
-        }, {
-            data: 'dueDate',
-            title: 'Due Date'
-        }, {
-            data: 'createdOn',
-            title: 'Created On'
-        }, {
-            data: 'statusName',
-            title: 'Status'
+        data: 'taskName',
+        title: 'Task Name',
+    }, {
+        data: 'dueDate',
+        title: 'Due Date'
+    }, {
+        data: 'createdOn',
+        title: 'Created On'
+    }, {
+        data: 'statusName',
+        title: 'Status'
+    },
+    {
+        data: '',
+        title: 'Edit',
+        render: function (data, type, row) {
+            return '<span><span class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
         },
-        {
-            data: '',
-            title: 'Edit',
-            render: function (data, type, row) {
-                return '<span><span class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
-            },
-            className: 'text-center'
+        className: 'text-center'
+    },
+    {
+        data: '',
+        title: 'Delete',
+        render: function (data, type, row) {
+            return '<span><span class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
         },
-        {
-            data: '',
-            title: 'Delete',
-            render: function (data, type, row) {
-                return '<span><span class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
-            },
-            className: 'text-center'
+        className: 'text-center'
+    },
+    {
+        data: '',
+        title: 'Mark As Done',
+        render: function (data, type, row) {
+            var elem = null;
+            if (row.statusID !== DONE_STATUS) {
+                elem = '<span><span class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>';
+            } else {
+                elem = '<span><span class="mark-as-done row-action">--</i></span>';
+            }
+            return elem;
         },
-        {
-            data: '',
-            title: 'Mark As Done',
-            render: function (data, type, row) {
-                var elem = null;
-                if (row.statusID !== DONE_STATUS) {
-                    elem = '<span><span class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>';
-                } else {
-                    elem = '<span><span class="mark-as-done row-action">--</i></span>';
-                }
-                return elem;
-            },
-            className: 'text-center'
-        }];
+        className: 'text-center'
+    }];
 
     var dtConfig = {
         responsive: true,
@@ -100,7 +101,6 @@ $(document).ready(function () {
                 statusHtml += '<option value="' + result[prop].statusID + '">' + result[prop].statusName + '</option>';
             }
             $('#tastStatus').html(statusHtml);
-
         } else {
             // TODO : Show errors
         }
@@ -111,10 +111,11 @@ $(document).ready(function () {
     $tasksGrid.on('click', '.delete-setting', function () {
         // TODO : Show delete dialog
         dtObj
-                .row($(this).parents('tr'))
-                .remove()
-                .draw();
+            .row($(this).parents('tr'))
+            .remove()
+            .draw();
         setTasksInLocalStorage();
+        udpatePieChartData();
     });
 
     // Click event for edit icon in the grid
@@ -146,13 +147,14 @@ $(document).ready(function () {
             if (isEdit) {
                 isEdit = false;
                 dtObj
-                        .row($currentRow)
-                        .data(rowData)
-                        .draw();
+                    .row($currentRow)
+                    .data(rowData)
+                    .draw();
             } else {
                 dtObj.row.add(rowData).draw(false);
             }
             setTasksInLocalStorage();
+            udpatePieChartData();
             $('.add-task-form')[0].reset();
         }
     });
@@ -164,10 +166,11 @@ $(document).ready(function () {
         rowData.statusID = DONE_STATUS;
         rowData.statusName = 'Done';
         dtObj
-                .row($rowToUpdate)
-                .data(rowData)
-                .draw();
+            .row($rowToUpdate)
+            .data(rowData)
+            .draw();
         setTasksInLocalStorage();
+        udpatePieChartData();
     });
 
     // Getting tasksData from local storage
@@ -208,127 +211,157 @@ $(document).ready(function () {
 
     function randomScalingFactor() {
         return Math.round(Math.random() * 100);
-    }
-    ;
+    };
 
     /**
-     * Function to
-     * make the API call to get the task count based on statuses and
-     * show the response data in a pie chart
+     * Function to update the pie chart data by
+     * getting the updated tasks lists from the local storage and
+     * creating the required chart array data by calculating the total task statuses and their respective counts and
+     * passing the updated tasks statuses and their counts to the createPieChart method.
      */
-    function GetPieChartData() {
-        $.ajax({
-            url: BASE_API_URL + 'tasks/fetchTasksByStatus',
-            method: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                var respData = response.data;
-                var chartLabels = [];
-                var chartData = [];
-                for (var i = 0; i < respData.length; i++) {
-                    chartLabels.push(respData[i].statusName);
-                    chartData.push(respData[i].totalTasksCount);
+    function udpatePieChartData() {
+        var taskData = [];
+        var tasks = getTasksFromLocalStorage();
+        for (var i = 0; i < tasks.length; i++) {
+            var obj = {};
+            obj.statusId = tasks[i].statusID;
+            obj.statusName = tasks[i].statusName;
+            if (!taskData.length) {
+                obj.totalTasksCount = 1;
+                taskData.push(obj);
+            } else {
+                var taskStatusPresent = false;
+                for (var j = 0; j < taskData.length; j++) {
+                    if (taskData[j].statusId == obj.statusId) {
+                        taskStatusPresent = true;
+                        taskData[j].totalTasksCount = taskData[j].totalTasksCount + 1;
+                        break;
+                    }
                 }
-                if (chartLabels.length && chartData.length) {
-                    var pieChartConfig = {
-                        type: 'pie',
-                        data: {
-                            datasets: [{
-                                    data: chartData,
-                                    backgroundColor: [
-                                        '#ffa500',
-                                        '#E83E3E',
-                                        '#00CCCC',
-                                        '#228B22'
-                                    ]
-                                }],
-                            labels: chartLabels
-                        },
-                        options: {
-                            responsive: true
-                        }
-                    };
-
-                    var ctxPie = document.getElementById("canvas-pie-chart").getContext("2d");
-                    myPieChart = new Chart(ctxPie, pieChartConfig);
+                if (!taskStatusPresent) {
+                    obj.totalTasksCount = 1;
+                    taskData.push(obj);
                 }
-            },
-        });
+            }
+        }
+        taskData.sort(function (a, b) { return parseInt(a.statusId, 10) - parseInt(b.statusId) });
+        var requestData = {
+            data: taskData,
+            isUpdate: true
+        }
+        createUpdatePieChart(requestData);
     }
-    ;
 
     /**
-     * Function to
-     * make the API call to get the completed task count per day and
-     * show the response data in a Line chart
+     * Function to create or update the Pie chart
+     * @param {*} response
      */
-    function GetLineChartData() {
-        $.ajax({
-            url: BASE_API_URL + 'tasks/getCompletedTasksByDay',
-            method: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                var respData = response.data;
-                var chartLabels = [];
-                var chartData = [];
-                for (var i = 0; i < respData.length; i++) {
-                    chartLabels.push(respData[i].completedOn);
-                    chartData.push(respData[i].totalTasksCount);
-                }
-                if (chartLabels.length && chartData.length) {
-                    var lineChartConfig = {
-                        type: 'line',
-                        data: {
-                            labels: chartLabels,
-                            datasets: [{
-                                    label: "Task completed per day",
-                                    backgroundColor: '#00CCCC',
-                                    borderColor: '#00CCCC',
-                                    data: chartData,
-                                    fill: false,
-                                }]
-                        },
-                        options: {
-                            responsive: true,
-                            tooltips: {
-                                mode: 'index',
-                                intersect: false,
-                            },
-                            hover: {
-                                mode: 'nearest',
-                                intersect: true
-                            },
-                            scales: {
-                                xAxes: [{
-                                        display: true,
-                                        scaleLabel: {
-                                            display: true,
-                                            labelString: 'Dates'
-                                        }
-                                    }],
-                                yAxes: [{
-                                        display: true,
-                                        scaleLabel: {
-                                            display: true,
-                                            labelString: 'Number of tasks'
-                                        },
-                                        ticks: {
-                                            stepSize: 1
-                                        }
-                                    }]
+    function createUpdatePieChart(response) {
+
+        var respData = response.data;
+        var chartLabels = [];
+        var chartData = [];
+        for (var i = 0; i < respData.length; i++) {
+            chartLabels.push(respData[i].statusName);
+            chartData.push(respData[i].totalTasksCount);
+        }
+        if (response.isUpdate) {
+            pieChartConfig.data.datasets[0].data = chartData;
+            myPieChart.update();
+        } else {
+            if (chartLabels.length && chartData.length) {
+                pieChartConfig = {
+                    type: 'pie',
+                    data: {
+                        datasets: [{
+                            data: chartData,
+                            backgroundColor: [
+                                "#2ecc71",
+                                "#3498db",
+                                "#95a5a6",
+                                "#9b59b6"
+                            ]
+                        }],
+                        labels: chartLabels
+                    },
+                    options: {
+                        responsive: true
+                    }
+                };
+
+                var ctxPie = document.getElementById("canvas-pie-chart").getContext("2d");
+                myPieChart = new Chart(ctxPie, pieChartConfig);
+            }
+        }
+    }
+
+    /**
+     * Function to create or update the Line chart
+     * @param {*} response
+     */
+    function createUpdateLineChart(response) {
+        var respData = response.data;
+        var chartLabels = [];
+        var chartData = [];
+        for (var i = 0; i < respData.length; i++) {
+            chartLabels.push(respData[i].completedOn);
+            chartData.push(respData[i].totalTasksCount);
+        }
+        if (chartLabels.length && chartData.length) {
+            var lineChartConfig = {
+                type: 'line',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: "Task completed",
+                        backgroundColor: 'rgb(0, 202, 202)',
+                        borderColor: 'rgb(0, 202, 202)',
+                        borderCapStyle: 'butt',
+                        pointBackgroundColor: 'rgb(0, 202, 202)',
+                        data: chartData,
+                        fill: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Dates'
                             }
-                        }
-                    };
-                    var ctxPie = document.getElementById("canvas-line-chart").getContext("2d");
-                    myPieChart = new Chart(ctxPie, lineChartConfig);
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Number of tasks'
+                            },
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }]
+                    }
                 }
-            },
-        });
-    }
-    ;
+            };
+            var ctxPie = document.getElementById("canvas-line-chart").getContext("2d");
+            myLineChart = new Chart(ctxPie, lineChartConfig);
+        }
+    };
 
-    GetLineChartData();
-    GetPieChartData();
+    // Making ajax call to get the task count based on statuses show the response data in a Pie chart
+    makeAjaxCall('tasks/fetchTasksByStatus', createUpdatePieChart);
+    // Making ajax call to get the completed task count per day and show the response data in a Line chart
+    makeAjaxCall('tasks/getCompletedTasksByDay', createUpdateLineChart);
 
     function makeAjaxCall(MethodName, callback, message, showProcessing) {
         jQuery.ajax({
@@ -357,7 +390,6 @@ $(document).ready(function () {
             jQuery.unblockUI();
         });
     }
-
 
 });
 
