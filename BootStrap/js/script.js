@@ -108,6 +108,7 @@ $(document).ready(function () {
                 statusHtml += '<option value="' + result[prop].statusID + '">' + result[prop].statusName + '</option>';
             }
             $('#tastStatus').html(statusHtml);
+            localStorage.setItem('tasksStatuses', JSON.stringify(result));
         } else {
             // TODO : Show errors
         }
@@ -186,6 +187,12 @@ $(document).ready(function () {
         return JSON.parse(taskDataJSON);
     }
 
+    // Getting tasksData from local storage
+    function getTaskStatusesFromLocalStorage() {
+        var taskStatusesDataJSON = localStorage.getItem('tasksStatuses');
+        return JSON.parse(taskStatusesDataJSON);
+    }
+
     // Setting tasksData from parameter if it is passed
     // Else setting it from datatable
     function setTasksInLocalStorage(tasksData) {
@@ -227,6 +234,7 @@ $(document).ready(function () {
      * passing the updated tasks statuses and their counts to the createPieChart method.
      */
     function udpatePieChartData() {
+        var taskStatuses = getTaskStatusesFromLocalStorage();
         var taskData = [];
         var tasks = getTasksFromLocalStorage();
         for (var i = 0; i < tasks.length; i++) {
@@ -249,6 +257,27 @@ $(document).ready(function () {
                     obj.totalTasksCount = 1;
                     taskData.push(obj);
                 }
+            }
+        }
+
+        // Check if the task status is not present in the current tasks list.
+        // If yes create a object with the status details and the count as 0 and push it to the taskData array.
+        for (var k = 0; k < taskStatuses.length; k++) {
+            var taskStatus = taskStatuses[k];
+            var statusIsPresent = false;
+            for (var l = 0; l < taskData.length; l++) {
+                if (parseInt(taskData[l].statusId, 10) === parseInt(taskStatus.statusID, 10)) {
+                    statusIsPresent = true;
+                    break;
+                }
+            }
+            if (!statusIsPresent) {
+                var statusObj = {
+                    statusId: taskStatus.statusID,
+                    statusName: taskStatus.statusName,
+                    totalTasksCount: 0
+                }
+                taskData.push(statusObj);
             }
         }
         taskData.sort(function (a, b) { return parseInt(a.statusId, 10) - parseInt(b.statusId) });
@@ -320,7 +349,7 @@ $(document).ready(function () {
                 data: {
                     labels: chartLabels,
                     datasets: [{
-                        label: "Task completed",
+                        label: "Tasks completed",
                         backgroundColor: 'rgb(0, 202, 202)',
                         borderColor: 'rgb(0, 202, 202)',
                         borderCapStyle: 'butt',
