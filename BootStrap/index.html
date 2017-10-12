@@ -12,6 +12,9 @@
   <link rel="apple-touch-icon" href="dist/img/favicon.jpg">
   <link rel="shortcut icon" type="image/x-icon" href="dist/img/favicon.jpg">
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="lib/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" type="text/css" href="lib/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css">
+  <link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css">
   <link rel="stylesheet" href="lib/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="dist/css/style.css">
@@ -54,14 +57,15 @@
         <div class="form-group row">
           <label for="dueDate" class="col-2 col-form-label">Due Date</label>
           <div class="col-10">
-            <input class="form-control reqCntrl" name="dueDate" type="text" value="" id="dueDate">
+              <div class="input-group date">
+                <input type="text" class="form-control reqCntrl" id="dueDate" name="dueDate"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+            </div>
           </div>
         </div>
         <div class="form-group row">
           <label for="tastStatus" class="col-2">Status</label>
           <div class="col-10">
             <select class="form-control reqCntrl" name="statusID" id="tastStatus">
-
             </select>
           </div>
         </div>
@@ -95,8 +99,12 @@
   <script src="lib/tether/dist/js/tether.min.js"></script>
   <script src="lib/popper.js/dist/umd/popper.min.js"></script>
   <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
   <script src="lib/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="lib/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script type="text/javascript" src="lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script type="text/javascript" src="lib/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script type="text/javascript" src="lib/datatables.net-colreorder/js/dataTables.colReorder.min.js"></script>
   <script src="lib/blockUI/jquery.blockUI.js"></script>
   <script src="lib/chart.js/dist/Chart.bundle.js"></script>
   <script src="js/validator.js"></script>

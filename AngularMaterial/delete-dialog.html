@@ -1,0 +1,16 @@
+<md-dialog md-theme="default">
+  <md-dialog-content class="md-dialog-content custom-confirm-class">
+    <h2 class="md-title">Delete</h2>
+    <div class="md-dialog-content-body">
+      <p>Are you sure you want to delete?</p>
+    </div>
+
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button class="md-primary md-raised" ng-click="cancelDelete()">
+     Cancel
+    </md-button>
+    <md-button class="md-warn md-raised" ng-click="deleteTask()">
+      Delete
+    </md-button>
+</md-dialog>
