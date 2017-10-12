@@ -16,18 +16,23 @@ $(document).ready(function () {
     var dtColumns = [{
         data: 'taskName',
         title: 'Task Name',
+        width: '40%'
     }, {
         data: 'dueDate',
-        title: 'Due Date'
+        title: 'Due Date',
+        width: '10%'
     }, {
         data: 'createdOn',
-        title: 'Created On'
+        title: 'Created On',
+        width: '10%'
     }, {
         data: 'statusName',
-        title: 'Status'
+        title: 'Status',
+        width: '10%'
     },
     {
         data: '',
+        width: '10%',
         title: 'Edit',
         render: function (data, type, row) {
             return '<span><span class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
@@ -36,6 +41,7 @@ $(document).ready(function () {
     },
     {
         data: '',
+        width: '10%',
         title: 'Delete',
         render: function (data, type, row) {
             return '<span><span class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
@@ -44,6 +50,7 @@ $(document).ready(function () {
     },
     {
         data: '',
+        width: '10%',
         title: 'Mark As Done',
         render: function (data, type, row) {
             var elem = null;
