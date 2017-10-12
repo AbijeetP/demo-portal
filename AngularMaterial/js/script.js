@@ -100,20 +100,25 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
   }
 
   // Table columns
-  var dtColumns = [{
+  tsk.dtColumns = [{
     data: 'taskName',
     title: 'Task Name',
+    width: '40%',
+    isRequired: true
   }, {
     data: 'dueDate',
     title: 'Due Date',
-    render: formatDate
+    render: formatDate,
+    width: '10%'
   }, {
     data: 'createdOn',
     title: 'Created On',
-    render: formatDate
+    render: formatDate,
+    width: '10%'
   }, {
     data: 'statusName',
-    title: 'Status'
+    title: 'Status',
+    width: '10%'
   },
   {
     data: '',
@@ -123,7 +128,9 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
       elem = $compile('<span><span class="edit-setting row-action" title="Edit"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0];
       return elem.innerHTML;
     },
-    className: 'text-center'
+    className: 'text-center',
+    width: '10%',
+    isRequired: true
   },
   {
     data: '',
@@ -133,7 +140,9 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
       elem = $compile('<span><span class="delete-setting row-action" title="Delete"><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0];
       return elem.innerHTML;
     },
-    className: 'text-center'
+    className: 'text-center',
+    width: '10%',
+    isRequired: true
   },
   {
     data: '',
@@ -143,31 +152,41 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
       if (row.statusID !== DONE_STATUS) {
         elem = $compile('<span><span title="Mark as done" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0];
       } else {
-        elem = $compile('<span><span class="mark-as-done row-action">--</i></span>')($scope)[0];
+        elem = $compile('<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0];
       }
       return elem.innerHTML;
     },
-    className: 'text-center'
+    className: 'text-center',
+    width: '20%',
+    isRequired: true
   }];
 
   var dtConfig = {
     responsive: true,
     colReorder: true,
-    columns: dtColumns,
+    stateSave: true,
+    columns: tsk.dtColumns,
     data: [],
     dom: '<"search"f>rtipl', // To activate default search textbox for grid.
-    language: {
-      lengthMenu: '_MENU_'
-    },
     scrollX: false,
-    search: {
-      smart: false
-    },
-    autoWidth: true,
+    autoWidth: false,
     isFullWidth: true
   };
   var $tasksGrid = angular.element('#tasksGrid');
   var dtObj = $tasksGrid.DataTable(dtConfig);
+  tsk.isForFistTime = true;
+
+  // Toggle columns visibility.
+  tsk.columnVisibilityChanged = function (columnData) {
+    for (var i = 0; i < tsk.dtColumns.length; i++) {
+      if (tsk.dtColumns[i].data === columnData) {
+        // Get the column API object
+        var column = dtObj.column(i);
+        column.visible(!column.visible());
+        break;
+      }
+    }
+  };
 
   // Get tasks and bind data to the grid.
   getTasks().then(function (response) {
@@ -232,6 +251,11 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     tsk.taskDetails.status = rowData.statusID;
     $scope.$apply();
     tsk.editTaskIndex = dtObj.row(this.parentElement).index();
+
+    angular.element('html,body').animate({
+      scrollTop: angular.element('.add-task-form ').offset().top
+    },
+      'slow');
   });
 
   // On click on delete, delete row.
@@ -262,10 +286,12 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
 
   // Handle mark as done functionality.
   angular.element('#tasksGrid').on('click', '.mark-as-done', function () {
-    var doneTaskIndex = dtObj.row(this.parentElement).index();
-    $localStorage.tasks[doneTaskIndex].statusID = DONE_STATUS;
-    $localStorage.tasks[doneTaskIndex].statusName = 'Done';
-    bindDataToTable();
+    if (!angular.element(this).hasClass('disabled')) {
+      var doneTaskIndex = dtObj.row(this.parentElement).index();
+      $localStorage.tasks[doneTaskIndex].statusID = DONE_STATUS;
+      $localStorage.tasks[doneTaskIndex].statusName = 'Done';
+      bindDataToTable();
+    }
   });
 
 

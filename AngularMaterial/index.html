@@ -94,6 +94,12 @@
         </div>
       </form>
     </md-content>
+    <div>
+      <p class="toggle-column-heading">Toggle columns :</p>
+      <span class="toggle-column-column" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-click="tsk.columnVisibilityChanged(column.data)">
+          {{column.title}}
+      </span>
+    </div>
     <table class="table table-striped table-bordered" width="100%" id="tasksGrid">
 
     </table>
