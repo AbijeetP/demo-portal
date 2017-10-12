@@ -333,7 +333,7 @@ $(document).ready(function () {
                 data: {
                     labels: chartLabels,
                     datasets: [{
-                        label: "Task completed",
+                        label: "Tasks completed",
                         backgroundColor: 'rgb(0, 202, 202)',
                         borderColor: 'rgb(0, 202, 202)',
                         borderCapStyle: 'butt',
