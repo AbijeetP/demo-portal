@@ -10,6 +10,8 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
   const FETCH_ERROR_MESSAGE_2 = '. Please try again later.';
   const DEFAULT_DATE_FORMAT = 'DD-MM-YYYY';
   const DONE_STATUS = 2;
+  const CREATE_MESSAGE = 'Successfully created the task.';
+  const UPDATE_MESSAGE = 'Successfully updated the task.';
   tsk.buttonName = 'Save';
   tsk.isUpdate = false;
   getStatus();
@@ -40,6 +42,9 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
       $localStorage.tasks.splice(tsk.editTaskIndex, 1);
       tsk.isUpdate = false;
       tsk.buttonName = 'Save';
+      showSuccessMessage(UPDATE_MESSAGE);
+    } else {
+      showSuccessMessage(CREATE_MESSAGE);
     }
     var tasks = $localStorage.tasks ? $localStorage.tasks : [];
     tsk.taskDetails.statusName = getSelectedStatus(tsk.taskDetails.status);
@@ -85,6 +90,15 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     toastr.error(message);
   }
 
+  /**
+   * To show the success message
+   * @param {*} message
+   */
+  function showSuccessMessage(message) {
+    toastr.remove();
+    toastr.success(message);
+  }
+
   // Table columns
   var dtColumns = [{
     data: 'taskName',
@@ -106,7 +120,7 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     title: 'Edit',
     render: function (data, type, row) {
       var elem = null;
-      elem = $compile('<span><span class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0];
+      elem = $compile('<span><span class="edit-setting row-action" title="Edit"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0];
       return elem.innerHTML;
     },
     className: 'text-center'
@@ -116,7 +130,7 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     title: 'Delete',
     render: function (data, type, row) {
       var elem = null;
-      elem = $compile('<span><span class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0];
+      elem = $compile('<span><span class="delete-setting row-action" title="Delete"><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0];
       return elem.innerHTML;
     },
     className: 'text-center'
@@ -127,7 +141,7 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     render: function (data, type, row) {
       var elem = null;
       if (row.statusID !== DONE_STATUS) {
-        elem = $compile('<span><span class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0];
+        elem = $compile('<span><span title="Mark as done" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0];
       } else {
         elem = $compile('<span><span class="mark-as-done row-action">--</i></span>')($scope)[0];
       }
