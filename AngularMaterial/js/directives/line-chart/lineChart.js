@@ -18,10 +18,10 @@ angular
         // Render the chart with localstorage.
         function chartUpdate() {
           var completedTasks = $localStorage.tasks;
-          completedTasks.sort(function (a, b) {
-            a = a.completedOn.split('-').reverse().join('');
-            b = b.completedOn.split('-').reverse().join('');
-            return a > b ? 1 : a < b ? -1 : 0;
+          completedTasks.sort(function (taskObj, taskObjStatus) {
+            taskObj = taskObj.completedOn.split('-').reverse().join('');
+            taskObjStatus = taskObjStatus.completedOn.split('-').reverse().join('');
+            return taskObj > taskObjStatus ? 1 : taskObj < taskObjStatus ? -1 : 0;
           });
           var chartInfo = {};
           var doneStatusCount = {};
