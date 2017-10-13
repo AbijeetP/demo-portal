@@ -219,7 +219,7 @@ $(document).ready(function () {
         return rowData;
     }
 
-    $('.nav-link').click(function () {
+    $('.nav-link.help-link').click(function () {
         $('.help-modal').modal('show');
     });
 
