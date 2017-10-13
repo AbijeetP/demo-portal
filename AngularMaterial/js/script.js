@@ -31,6 +31,7 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     toastr.options.timeOut = 4000;
     toastr.options.positionClass = 'toast-bottom-right';
   }
+
   // Create or update a task
   tsk.createNewTask = function (isValid) {
     tsk.submitted = false;
@@ -50,6 +51,7 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     tsk.taskDetails.statusName = getSelectedStatus(tsk.taskDetails.status);
     tsk.taskDetails.createdOn = formatDate(new Date());
     tsk.taskDetails.statusID = tsk.taskDetails.status;
+    tsk.taskDetails = addCompletedOn(tsk.taskDetails);
     tasks.push(tsk.taskDetails);
     $localStorage.tasks = tasks;
     bindDataToTable();
@@ -58,6 +60,20 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     tsk.taskForm.$setUntouched();
     tsk.taskDetails = {};
   };
+
+  /**
+   * Chang completed on date.
+   * @param {*} tskDetails
+   */
+  function addCompletedOn(tskDetails) {
+    if (tskDetails.statusID === DONE_STATUS) {
+      tskDetails.completedOn = formatDate(new Date());
+    } else {
+      tskDetails.completedOn = '';
+    }
+    return tskDetails;
+  }
+
 
   function getSelectedStatus(statusId) {
     for (var i = 0; i < tsk.status.length; i++) {
@@ -288,11 +304,12 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
   angular.element('#tasksGrid').on('click', '.mark-as-done', function () {
     if (!angular.element(this).hasClass('disabled')) {
       var doneTaskIndex = dtObj.row(this.parentElement).index();
-      $localStorage.tasks[doneTaskIndex].statusID = DONE_STATUS;
-      $localStorage.tasks[doneTaskIndex].statusName = 'Done';
+      var doneTask = $localStorage.tasks[doneTaskIndex];
+      doneTask.statusID = DONE_STATUS;
+      doneTask.statusName = 'Done';
+      doneTask.completedOn = formatDate(new Date());
+      $localStorage.tasks[doneTaskIndex] = doneTask;
       bindDataToTable();
     }
   });
-
-
 }
