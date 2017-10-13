@@ -47,7 +47,31 @@
     <!-- <pre>{{vm.places | json}}</pre> -->
     <ng-map center='current-position' geo-fallback-center="[40.74, -74.18]" map-initialized="vm.myCallBack(map)" default-style="false"
       class="google-maps">
-      <marker ng-repeat="place in vm.places" position="{{place.currPos}}" title="{{place.name}}" icon={{place.icon}}></marker>
+      <marker ng-repeat="place in vm.places" position="{{place.currPos}}" title="{{place.name}}" icon={{place.customIcon}} on-click="vm.showDetails(event,place)"></marker>
+
+      <info-window id="infoWindow">
+        <div ng-non-bindable>
+          <div class="content">
+            <div class="restaurants-image">
+              <img src="{{vm.place.photos[0].getUrl({ 'maxWidth': 60, 'maxHeight': 60 })}}">
+            </div>
+            <div class="contributor-details">
+              <span ng-if="vm.place.name" class="contributor-name">{{vm.place.name}}</span>
+              <div class="star">
+                <div class="star-ratings-sprite">
+                  <span style="width:{{vm.place.rating * 10}}%" class="star-ratings-sprite-rating"></span>
+                </div>
+                <h5>{{vm.place.rating}}</h5>
+              </div>
+              <div class="contributor-bio">
+                <div ng-if="vm.place.formatted_address" title="{{vm.place.formatted_address}}" class="places-address">{{vm.place.formatted_address}}</div>
+              </div>
+              <span ng-if="vm.user.email" class="contributor-email">Email - </span>
+            </div>
+          </div>
+        </div>
+      </info-window>
+
     </ng-map>
   </section>
 

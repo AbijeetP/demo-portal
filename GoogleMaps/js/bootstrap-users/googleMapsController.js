@@ -25,7 +25,6 @@ angular.module('googleMaps').controller('MapsController', function (NgMap, $time
   });
 
   vm.showDetails = function (e, user) {
-    console.log(user.username);
     vm.user = user;
     vm.map.showInfoWindow("infoWindow", this);
   }
