@@ -1,6 +1,6 @@
 angular.module('angularDemo', ['ngMaterial', 'ngMessages', 'ngStorage']).controller('angularDemoController', angularDemoController);
 
-function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog) {
+function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog, $timeout) {
   var tsk = this;
   const BASE_URL = 'http://10.0.0.160/demo-api/';
   const TASK_STATUS = 'task-statuses';
@@ -10,6 +10,8 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
   const FETCH_ERROR_MESSAGE_2 = '. Please try again later.';
   const DEFAULT_DATE_FORMAT = 'DD-MM-YYYY';
   const DONE_STATUS = 2;
+  const CREATE_MESSAGE = 'Successfully created the task.';
+  const UPDATE_MESSAGE = 'Successfully updated the task.';
   tsk.buttonName = 'Save';
   tsk.isUpdate = false;
   getStatus();
@@ -17,7 +19,7 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
   showHelpModel();
 
   function showHelpModel() {
-    angular.element('.nav-link').click(function () {
+    angular.element('.nav-link.help-link').click(function () {
       angular.element('.help-modal').modal('show');
     });
   }
@@ -40,6 +42,9 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
       $localStorage.tasks.splice(tsk.editTaskIndex, 1);
       tsk.isUpdate = false;
       tsk.buttonName = 'Save';
+      showSuccessMessage(UPDATE_MESSAGE);
+    } else {
+      showSuccessMessage(CREATE_MESSAGE);
     }
     var tasks = $localStorage.tasks ? $localStorage.tasks : [];
     tsk.taskDetails.statusName = getSelectedStatus(tsk.taskDetails.status);
@@ -85,41 +90,59 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     toastr.error(message);
   }
 
+  /**
+   * To show the success message
+   * @param {*} message
+   */
+  function showSuccessMessage(message) {
+    toastr.remove();
+    toastr.success(message);
+  }
+
   // Table columns
-  var dtColumns = [{
+  tsk.dtColumns = [{
     data: 'taskName',
     title: 'Task Name',
+    width: '40%',
+    isRequired: true
   }, {
     data: 'dueDate',
     title: 'Due Date',
-    render: formatDate
+    render: formatDate,
+    width: '10%'
   }, {
     data: 'createdOn',
     title: 'Created On',
-    render: formatDate
+    render: formatDate,
+    width: '10%'
   }, {
     data: 'statusName',
-    title: 'Status'
+    title: 'Status',
+    width: '10%'
   },
   {
     data: '',
     title: 'Edit',
     render: function (data, type, row) {
       var elem = null;
-      elem = $compile('<span><span class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0];
+      elem = $compile('<span><span class="edit-setting row-action" title="Edit"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0];
       return elem.innerHTML;
     },
-    className: 'text-center'
+    className: 'text-center',
+    width: '10%',
+    isRequired: true
   },
   {
     data: '',
     title: 'Delete',
     render: function (data, type, row) {
       var elem = null;
-      elem = $compile('<span><span class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0];
+      elem = $compile('<span><span class="delete-setting row-action" title="Delete"><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0];
       return elem.innerHTML;
     },
-    className: 'text-center'
+    className: 'text-center',
+    width: '10%',
+    isRequired: true
   },
   {
     data: '',
@@ -127,33 +150,43 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     render: function (data, type, row) {
       var elem = null;
       if (row.statusID !== DONE_STATUS) {
-        elem = $compile('<span><span class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0];
+        elem = $compile('<span><span title="Mark as done" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0];
       } else {
-        elem = $compile('<span><span class="mark-as-done row-action">--</i></span>')($scope)[0];
+        elem = $compile('<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0];
       }
       return elem.innerHTML;
     },
-    className: 'text-center'
+    className: 'text-center',
+    width: '20%',
+    isRequired: true
   }];
 
   var dtConfig = {
     responsive: true,
     colReorder: true,
-    columns: dtColumns,
+    stateSave: true,
+    columns: tsk.dtColumns,
     data: [],
     dom: '<"search"f>rtipl', // To activate default search textbox for grid.
-    language: {
-      lengthMenu: '_MENU_'
-    },
     scrollX: false,
-    search: {
-      smart: false
-    },
-    autoWidth: true,
+    autoWidth: false,
     isFullWidth: true
   };
   var $tasksGrid = angular.element('#tasksGrid');
   var dtObj = $tasksGrid.DataTable(dtConfig);
+  tsk.isForFistTime = true;
+
+  // Toggle columns visibility.
+  tsk.columnVisibilityChanged = function (columnData) {
+    for (var i = 0; i < tsk.dtColumns.length; i++) {
+      if (tsk.dtColumns[i].data === columnData) {
+        // Get the column API object
+        var column = dtObj.column(i);
+        column.visible(!column.visible());
+        break;
+      }
+    }
+  };
 
   // Get tasks and bind data to the grid.
   getTasks().then(function (response) {
@@ -181,6 +214,9 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
       settings.oLanguage.sEmptyTable = 'No tasks found';
     });
     dtObj.draw();
+    $timeout(function () {
+      $scope.$parent.$broadcast('dt-update');
+    }, 200);
   }
 
   /**
@@ -218,6 +254,11 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     tsk.taskDetails.status = rowData.statusID;
     $scope.$apply();
     tsk.editTaskIndex = dtObj.row(this.parentElement).index();
+
+    angular.element('html,body').animate({
+      scrollTop: angular.element('.add-task-form ').offset().top
+    },
+      'slow');
   });
 
   // On click on delete, delete row.
@@ -242,17 +283,28 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
         $localStorage.tasks.splice(tsk.deleteTaskIndex, 1);
         bindDataToTable();
         $mdDialog.hide();
+
       };
     }
   });
 
   // Handle mark as done functionality.
   angular.element('#tasksGrid').on('click', '.mark-as-done', function () {
-    var doneTaskIndex = dtObj.row(this.parentElement).index();
-    $localStorage.tasks[doneTaskIndex].statusID = DONE_STATUS;
-    $localStorage.tasks[doneTaskIndex].statusName = 'Done';
-    bindDataToTable();
+    if (!angular.element(this).hasClass('disabled')) {
+      var doneTaskIndex = dtObj.row(this.parentElement).index();
+      $localStorage.tasks[doneTaskIndex].statusID = DONE_STATUS;
+      $localStorage.tasks[doneTaskIndex].statusName = 'Done';
+      bindDataToTable();
+    }
   });
 
 
 }
+
+
+angular
+  .module('angularDemo').constant('DemoConstants', {
+    API_URL: 'http://10.0.0.160/demo-api/',
+    TASKS_STATUSES: 'tasks/fetchTasksByStatus',
+    TASKS_COMPLETED: 'tasks/getCompletedTasksByDay'
+  });

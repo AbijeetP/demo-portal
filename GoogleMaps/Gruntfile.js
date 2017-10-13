@@ -6,7 +6,9 @@ module.exports = function (grunt) {
   var pkg = grunt.file.readJSON('package.json');
 
   var jsFiles = [
-    'script.js'
+    jsPath + 'bootstrap-users/googleMapsModule.js',
+    jsPath + 'bootstrap-users/googleMapsController.js',
+    jsPath + 'bootstrap-users/googleMapsService.js'
   ];
 
   var cssFiles = {};
@@ -52,6 +54,11 @@ module.exports = function (grunt) {
           'dist/css/lib.min.css': [
             libPath + 'bootstrap/dist/css/bootstrap.min.css',
             libPath + 'components-font-awesome/css/font-awesome.min.css'
+          ],
+          'dist/js/script.js' : [
+            jsPath + 'bootstrap-users/googleMapsModule.js',
+            jsPath + 'bootstrap-users/googleMapsController.js',
+            jsPath + 'bootstrap-users/googleMapsService.js'
           ]
         },
       },
@@ -100,7 +107,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: jsPath + '**/*.js',
-        tasks: [],
+        tasks: ['concat'],
         options: {
           livereload: true,
           spawn: false
@@ -121,6 +128,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('dev', function () {
     grunt.task.run('less');
+    grunt.task.run('concat');
   });
 
   // Load the plugin that provides the "uglify" task.
