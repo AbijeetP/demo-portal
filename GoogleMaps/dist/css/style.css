@@ -23,8 +23,29 @@ nav {
   height: 38px;
 }
 .nav-link {
-  cursor: pointer;
+  margin-left: 5px;
 }
 .google-maps {
   width: 100%;
+}
+.contributor-email {
+  display: block;
+}
+.contributor-image img {
+  width: 60px;
+  height: 60px;
+}
+.contributor-details,
+.contributor-image {
+  display: inline-block;
+  vertical-align: middle;
+}
+.contributor-details {
+  margin-left: 15px;
+}
+.contributor-name {
+  font-weight: bold;
+}
+.contributor-name a {
+  text-decoration: none;
 }

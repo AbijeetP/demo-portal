@@ -1,6 +1,6 @@
 angular.module('angularDemo', ['ngMaterial', 'ngMessages', 'ngStorage']).controller('angularDemoController', angularDemoController);
 
-function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog) {
+function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog, $timeout) {
   var tsk = this;
   const BASE_URL = 'http://10.0.0.160/demo-api/';
   const TASK_STATUS = 'task-statuses';
@@ -230,6 +230,9 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
       settings.oLanguage.sEmptyTable = 'No tasks found';
     });
     dtObj.draw();
+    $timeout(function () {
+      $scope.$parent.$broadcast('dt-update');
+    }, 200);
   }
 
   /**
@@ -313,3 +316,11 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     }
   });
 }
+
+
+angular
+  .module('angularDemo').constant('DemoConstants', {
+    API_URL: 'http://10.0.0.160/demo-api/',
+    TASKS_STATUSES: 'tasks/fetchTasksByStatus',
+    TASKS_COMPLETED: 'tasks/getCompletedTasksByDay'
+  });
