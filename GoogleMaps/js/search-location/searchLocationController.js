@@ -3,6 +3,7 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
   vm.pos = [];
   vm.places = [];
   vm.myCallBack = function (map) {
+    vm.map = map;
     navigator.geolocation.getCurrentPosition(function (position) {
       var pos = {
         lat: position.coords.latitude,
@@ -19,11 +20,16 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
       service.textSearch(request, function (results, status, pagination) {
         vm.places = vm.places.concat(results);
         vm.places.map(function (location) {
-          location.currPos = [location.geometry.location.lat(), location.geometry.location.lng()]
-          console.log(location.currPos);
+          location.currPos = [location.geometry.location.lat(), location.geometry.location.lng()],
+          location.customIcon = '../../img/restaurant.png';
         })
         $scope.$digest();
       });
     });
+  }
+
+  vm.showDetails = function (event,place) {
+    vm.place = place;
+    vm.map.showInfoWindow("infoWindow", this);
   }
 });
