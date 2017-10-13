@@ -81,7 +81,8 @@ angular
                     labelString: 'Number of tasks'
                   },
                   ticks: {
-                    stepSize: 1
+                    stepSize: 1,
+                    max: 10
                   }
                 }]
               }
