@@ -19,7 +19,7 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
   showHelpModel();
 
   function showHelpModel() {
-    angular.element('.nav-link').click(function () {
+    angular.element('.nav-link.help-link').click(function () {
       angular.element('.help-modal').modal('show');
     });
   }
