@@ -22,6 +22,9 @@
     </a>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
+        <a class="nav-link" href="../">Introduction</a>
+      </li>
+      <li class="nav-item active">
         <a class="nav-link">Help<span class="sr-only">(current)</span></a>
       </li>
     </ul>
@@ -30,7 +33,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Google maps</h5>
+          <h5 class="modal-title">Google maps</h5>
         </div>
         <div class="modal-body">
           <p>This portal will have two things,</p>
@@ -49,15 +52,15 @@
         <div ng-non-bindable>
           <div class="content">
             <div class="contributor-image">
-                <img src={{vm.user.image.url}}>
+              <img src={{vm.user.image.url}}>
             </div>
             <div class="contributor-details">
-                <span ng-if="vm.user.name" class="contributor-name"><a target="window" href="{{vm.user.profile}}" class="profile-link">{{vm.user.name}}</a></span>
-                <div class="contributor-bio">
-                  <div class="contributor-follow">Followers - {{vm.user.followers}}</div>
-                   <div class="contributor-follow">Following - {{vm.user.following}}</div>
-                </div>
-                <span ng-if="vm.user.email" class="contributor-email">Email - {{vm.user.email}}</span>
+              <span ng-if="vm.user.name" class="contributor-name"><a target="window" href="{{vm.user.profile}}" class="profile-link">{{vm.user.name}}</a></span>
+              <div class="contributor-bio">
+                <div class="contributor-follow">Followers - {{vm.user.followers}}</div>
+                <div class="contributor-follow">Following - {{vm.user.following}}</div>
+              </div>
+              <span ng-if="vm.user.email" class="contributor-email">Email - {{vm.user.email}}</span>
             </div>
           </div>
         </div>
