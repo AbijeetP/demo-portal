@@ -82,6 +82,7 @@ angular
                   },
                   ticks: {
                     stepSize: 1,
+                    beginAtZero: true,
                     max: 10
                   }
                 }]

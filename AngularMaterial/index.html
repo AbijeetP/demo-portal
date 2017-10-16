@@ -117,13 +117,20 @@
         </md-content>
       </md-card>
     </section>
-
-    <section layout="row">
-      <div>
-        <pie-chart></pie-chart>
-      </div>
-      <div>
-        <line-chart></line-chart>
+    <section layout="row" layout-padding class="statistics-heading padding-botton-0">
+      <h2>Statistics</h2>
+    </section>
+    <section class="statistics-container" flex>
+      <div layout="row" flex>
+        <div layout="row" layout-xs="column" flex>
+          <!-- define layout here -->
+          <div class="parent" layout="column" flex>
+            <pie-chart></pie-chart>
+          </div>
+          <div class="parent" layout="column" flex>
+            <line-chart></line-chart>
+          </div>
+        </div>
       </div>
     </section>
   </section>
