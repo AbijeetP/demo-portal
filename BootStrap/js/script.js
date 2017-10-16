@@ -44,36 +44,19 @@ $(document).ready(function () {
     },
     {
         data: '',
-        width: '10%',
-        title: 'Edit',
+        width: '20%',
+        title: 'Actions',
         render: function (data, type, row) {
-            return '<span><span title="Edit" class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
-        },
-        className: 'text-center'
-    },
-    {
-        data: '',
-        width: '10%',
-        title: 'Delete',
-        render: function (data, type, row) {
-            return '<span><span title="Delete" class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
-        },
-        className: 'text-center'
-    },
-    {
-        data: '',
-        width: '10%',
-        title: 'Mark As Done',
-        render: function (data, type, row) {
-            var elem = null;
+            var actions = '<span><span title="Edit" class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
+            actions += '<span><span title="Delete" class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
             if (row.statusID != DONE_STATUS) {
-                elem = '<span><span title="Mark as done" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>';
+                actions += '<span><span title="Mark as done" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>';
             } else {
-                elem = '<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
+                actions += '<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
             }
-            return elem;
+            return actions;
         },
-        className: 'text-center'
+        className: 'table-actions text-center'
     }];
 
     var dtConfig = {
