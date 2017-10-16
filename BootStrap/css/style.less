@@ -1,6 +1,10 @@
 @import "../../css/main.less";
 body {
     font-size: 16px;
+    h1 {
+        font-size: 1.5em;
+        margin: 1em 0em;
+    }
 }
 .add-task-form {
     width: 97%;
@@ -64,4 +68,21 @@ body {
   box-sizing: border-box;
   padding: 10px;
   margin-top: 15px;
+}
+
+.toggle-column-heading{
+  font-weight: bold;
+  display: inline;
+}
+.toggle-column-column{
+  color: #0275d8;
+}
+.delete-setting{
+  color: rgb(244,81,30);
+}
+.mark-as-done{
+  color: #4caf50;
+}
+.mark-as-done.disabled{
+  cursor: not-allowed;
 }

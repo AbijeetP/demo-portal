@@ -50,7 +50,7 @@
   <div class="main-container body-container container">
     <div class="row add-edit-task-container">
       <form class="add-task-form col-lg-12 custom-card">
-        <h2>Add Task</h2>
+        <h1>Add Task</h1>
         <div class="form-group row">
           <label for="txtTaskName" class="col-2 col-form-label">Task Name</label>
           <div class="col-10">
@@ -61,7 +61,7 @@
           <label for="dueDate" class="col-2 col-form-label">Due Date</label>
           <div class="col-10">
             <div class="input-group date">
-              <input type="text" class="form-control reqCntrl" id="dueDate" name="dueDate"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+              <input type="text" class="form-control reqCntrl datepicker" id="dueDate" name="dueDate"><span class="input-group-addon open-datepicker"><i class="fa fa-calendar" aria-hidden="true"></i></span>
             </div>
           </div>
         </div>
@@ -72,29 +72,49 @@
             </select>
           </div>
         </div>
-        <input type="hidden" name="createdOn" value="11-10-2017">
+        <input type="hidden" id="createdOn" name="createdOn" value="">
         <button type="button" class="btn btn-primary task-submit pull-right">Submit</button>
       </form>
     </div>
     <div class="row">
       <div class="col-lg-12 custom-card">
+        <h1>Task list</h1>
         <table id="task-grid" class="table table-striped table-bordered" cellspacing="0" width="100%">
         </table>
+	<div class="modal delete-confirmation-modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="delete-confirmation">Delete</h5>
+              </div>
+              <div class="modal-body">
+                    <p>Are you sure you want to delete?.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+                <button type="button" class="btn btn-primary confirm-dlt-btn">DELETE</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="row charts-container">
-      <div class="col-lg-6 custom-pie-chart">
-        <div class="col-lg-12 custom-card">
-          <span>Task Status</span>
-          <canvas id="canvas-pie-chart"></canvas>
+    <div class="charts-container">
+        <h1>Statistics</h1>
+        <div class="row">
+          <div class="col-lg-6 custom-pie-chart">
+            <div class="col-lg-12 custom-card">
+              <span>Task Status</span>
+              <canvas id="canvas-pie-chart"></canvas>
+            </div>
+          </div>
+          <div class="col-lg-6 custom-line-chart">
+            <div class="col-lg-12 custom-card">
+              <span>Task Compeleted per day</span>
+              <canvas id="canvas-line-chart"></canvas>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="col-lg-6 custom-line-chart">
-        <div class="col-lg-12 custom-card">
-          <span>Task Compeleted per day</span>
-          <canvas id="canvas-line-chart"></canvas>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -102,11 +122,12 @@
   <footer class="footer">
     <div class="container">
       <div class="text-center">
-        Developed with &hearts; at <a href="http://osmosys.asia/" target="_blank">Osmosys Software Solutions</a>
+        Developed with &hearts; at <a href="http://osmosys.asia/" target="_blank">Osmosys Software Solutions Pvt. Ltd</a>
       </div>
     </div>
   </footer>
   <script src="lib/jquery/dist/jquery.min.js"></script>
+  <script src="lib/moment/min/moment.min.js"></script>
   <script src="lib/tether/dist/js/tether.min.js"></script>
   <script src="lib/popper.js/dist/umd/popper.min.js"></script>
   <script src="lib/bootstrap/dist/js/bootstrap.js"></script>

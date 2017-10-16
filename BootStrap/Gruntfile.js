@@ -14,6 +14,7 @@ module.exports = function (grunt) {
 
     var initialLoadScripts = [
         'jquery/dist/jquery.min.js',
+        'moment/min/moment.min.js',
         'bootstrap/dist/js/bootstrap.min.js',
         'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
         'datatables.net-responsive/js/dataTables.responsive.min.js',

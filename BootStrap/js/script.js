@@ -4,14 +4,24 @@ $(document).ready(function () {
     var myLineChart = null;
     var $currentRow = '';
     var isEdit = false;
-    var dateFormat = 'dd-mm-yyyy';
+    var DEFAULT_DATE_FORMAT = 'DD-MM-YYYY';
     var DONE_STATUS = 2;
     var pieChartConfig = {};
     var $tasksGrid = $('#task-grid');
+    var $currentRowToDlt = '';
+    
+    $('#createdOn').val(formatDate(new Date()));
 
     $('#dueDate').datepicker({
-        format: dateFormat
+        format: 'dd-mm-yyyy',
+        todayHighlight: true
     });
+    
+    $('.open-datepicker').click(function(event){
+        event.preventDefault();
+        $(this).parent().find('input').datepicker('show');
+    });
+
     // Table columns
     var dtColumns = [{
         data: 'taskName',
@@ -20,10 +30,12 @@ $(document).ready(function () {
     }, {
         data: 'dueDate',
         title: 'Due Date',
+        render: formatDate,
         width: '10%'
     }, {
         data: 'createdOn',
         title: 'Created On',
+        render: formatDate,
         width: '10%'
     }, {
         data: 'statusName',
@@ -35,7 +47,7 @@ $(document).ready(function () {
         width: '10%',
         title: 'Edit',
         render: function (data, type, row) {
-            return '<span><span class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
+            return '<span><span title="Edit" class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
         },
         className: 'text-center'
     },
@@ -44,7 +56,7 @@ $(document).ready(function () {
         width: '10%',
         title: 'Delete',
         render: function (data, type, row) {
-            return '<span><span class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
+            return '<span><span title="Delete" class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
         },
         className: 'text-center'
     },
@@ -54,10 +66,10 @@ $(document).ready(function () {
         title: 'Mark As Done',
         render: function (data, type, row) {
             var elem = null;
-            if (row.statusID !== DONE_STATUS) {
-                elem = '<span><span class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>';
+            if (row.statusID != DONE_STATUS) {
+                elem = '<span><span title="Mark as done" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>';
             } else {
-                elem = '<span><span class="mark-as-done row-action">--</i></span>';
+                elem = '<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
             }
             return elem;
         },
@@ -116,14 +128,21 @@ $(document).ready(function () {
     }
 
     // Click event for delete icon in the grid
+    var $dltConfirmationModal = $('.delete-confirmation-modal');
     $tasksGrid.on('click', '.delete-setting', function () {
-        // TODO : Show delete dialog
+        $currentRowToDlt = $(this).parents('tr');
+        $dltConfirmationModal.modal('show');
+    });
+    
+    $dltConfirmationModal.find('.confirm-dlt-btn').click(function() {
         dtObj
-            .row($(this).parents('tr'))
+            .row($currentRowToDlt)
             .remove()
             .draw();
         setTasksInLocalStorage();
         udpatePieChartData();
+        $dltConfirmationModal.modal('hide');
+        $currentRowToDlt = '';
     });
 
     // Click event for edit icon in the grid
@@ -132,15 +151,21 @@ $(document).ready(function () {
         var rowData = dtObj.row($(this).parents('tr')).data();
         isEdit = true;
         fillDetailsInForm(rowData);
+        $('.add-task-form').find('input')[0].focus();
     });
-
+    
     function fillDetailsInForm(rowData) {
         var $addTaskForm = $('.add-task-form');
         for (var prop in rowData) {
             if (prop === 'statusID') {
                 $addTaskForm.find('select[name="' + prop + '"]').val(rowData[prop]);
             } else {
-                $addTaskForm.find('input[name="' + prop + '"]').val(rowData[prop]);
+                var $currentFormInput = $addTaskForm.find('input[name="' + prop + '"]');
+                $currentFormInput.val(rowData[prop]);
+                if($currentFormInput.hasClass('datepicker')) {
+                    $currentFormInput.datepicker("setDate", formatDate(rowData[prop]));
+                } 
+                
             }
 
         }
@@ -152,6 +177,7 @@ $(document).ready(function () {
         var response = Validator.validateFormCntrls($taskForm, this);
         if (!response.hasError) {
             var rowData = getFormData();
+            addCompletedOn(rowData);
             if (isEdit) {
                 isEdit = false;
                 dtObj
@@ -163,22 +189,39 @@ $(document).ready(function () {
             }
             setTasksInLocalStorage();
             udpatePieChartData();
+            $('#createdOn').val(formatDate(new Date()));
             $('.add-task-form')[0].reset();
         }
     });
+    
+    /**
+    * Chang completed on date.
+    * @param {*} tskDetails
+    */
+    function addCompletedOn(tskDetails) {
+        if (tskDetails.statusID == DONE_STATUS) {
+            tskDetails.completedOn = formatDate(new Date());
+        } else {
+            tskDetails.completedOn = '';
+        }
+        return tskDetails;
+    }
 
     // Handle mark as done functionality.
     $tasksGrid.on('click', '.mark-as-done', function () {
-        var $rowToUpdate = $(this).parents('tr');
-        var rowData = dtObj.row($rowToUpdate).data();
-        rowData.statusID = DONE_STATUS;
-        rowData.statusName = 'Done';
-        dtObj
-            .row($rowToUpdate)
-            .data(rowData)
-            .draw();
-        setTasksInLocalStorage();
-        udpatePieChartData();
+        if (!$(this).hasClass('disabled')) {
+            var $rowToUpdate = $(this).parents('tr');
+            var rowData = dtObj.row($rowToUpdate).data();
+            rowData.statusID = DONE_STATUS;
+            rowData.statusName = 'Done';
+            rowData.completedOn = formatDate(new Date());
+            dtObj
+                .row($rowToUpdate)
+                .data(rowData)
+                .draw();
+            setTasksInLocalStorage();
+            udpatePieChartData();
+        }
     });
 
     // Getting tasksData from local storage
@@ -222,10 +265,18 @@ $(document).ready(function () {
     $('.nav-link.help-link').click(function () {
         $('.help-modal').modal('show');
     });
+    
+    /**
+    * converting string to date.
+    */
+    function convertStringToDate(date) {
+        return moment(date, DEFAULT_DATE_FORMAT).toDate();
+    }
 
-    function randomScalingFactor() {
-        return Math.round(Math.random() * 100);
-    };
+    function formatDate(date) {
+        var dateObj = convertStringToDate(date);
+        return moment(dateObj).format(DEFAULT_DATE_FORMAT);
+    }
 
     /**
      * Function to update the pie chart data by
