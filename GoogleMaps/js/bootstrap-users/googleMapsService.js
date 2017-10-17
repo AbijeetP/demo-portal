@@ -12,10 +12,10 @@ angular.module('googleMaps').factory('MapsService', function ($http, bootstrapCo
           toastr.error(bootstrapContributors.ERROR_MESSAGE);
         }
       } catch (ex) {
-        return ex
+        toastr.error(bootstrapContributors.ERROR_MESSAGE);
       }
     }, function (xhr, error) {
-      return xhr;
+      toastr.error(error);
     });
   }
 });

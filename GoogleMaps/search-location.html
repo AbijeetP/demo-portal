@@ -12,7 +12,8 @@
   <link rel="apple-touch-icon" href="dist/img/favicon.jpg">
   <link rel="shortcut icon" type="image/x-icon" href="dist/img/favicon.jpg">
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="lib/toastr/toastr.css">
+<link rel="stylesheet" href="lib/toastr/toastr.css">
+  <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
   <link rel="stylesheet" href="dist/css/style.css">
 </head>
 
@@ -39,17 +40,49 @@
         <div class="modal-body">
           <p>This portal will have two things,</p>
           <h5>Search nearest movies/restaurants</h5>
-          <p>This will call our CakePHP API. The CakePHP API will return the raw JSON to the portal along with the lat / long.</p>
+          <p>For this we will need to ask the user for their location with the HTML 5 Location API. If the user rejects, we need to show a clear message to the user.</p>
+          <p>Once the user gives us access, we will allow them to select moves or restaurants from a drop down and click on search button. We will also allow them to enter the distance in kilometers.</p>
         </div>
       </div>
     </div>
   </div>
   <section class="main-container map-container" ng-controller="SearchLocationController as vm">
-    <!-- <pre>{{vm.places | json}}</pre> -->
-    <ng-map center='current-position' geo-fallback-center="[40.74, -74.18]" map-initialized="vm.myCallBack(map)" default-style="false"
+    <md-content ng-if="vm.locationEnabled" layout-padding class="locations-filter">
+      <div>
+        <form class="location-form" name="userForm" ng-submit="vm.searchLocation()" novalidate>
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block ddl-location" flex-gt-xs="35">
+              <label>Place</label>
+              <md-select ng-model="vm.selectedPlace">
+                <md-option ng-repeat="place in vm.locations" value="{{place.key}}">
+                  {{place.name}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <div flex="5" hide-xs hide-sm>
+              <!-- Spacer //-->
+            </div>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Distance(km)</label>
+              <input type="number" ng-model="vm.distance" name="distance" max="50" min="0">
+              <div ng-messages="userForm.distance.$error">
+                  <div ng-message="max">Please enter more than 0 kms</div>
+                  <div ng-message="max">Please enter less than 50 kms</div>
+              </div>
+            </md-input-container>
+            <div flex="5" hide-xs hide-sm>
+              <!-- Spacer //-->
+            </div>
+            <md-input-container class="md-block btn-search" flex-gt-xs>
+              <md-button type="submit" class="md-raised md-primary">Search</md-button>
+            </md-input-container>
+          </div>
+        </form>
+      </div>
+    </md-content>
+    <ng-map center="[17.385044, 78.486671]" geo-fallback-center="[40.74, -74.18]" map-initialized="vm.myCallBack(map)" default-style="false"
       class="google-maps">
-      <marker ng-repeat="place in vm.places" position="{{place.currPos}}" title="{{place.name}}" icon={{place.customIcon}} on-click="vm.showDetails(event,place)"></marker>
-
+      <marker ng-repeat="place in vm.places" position="{{place.currPos}}" title="{{place.name}}" icon={{place.customIcon}} on-mouseover="vm.showDetails(event,place)"></marker>
       <info-window id="infoWindow">
         <div ng-non-bindable>
           <div class="content">
@@ -60,7 +93,7 @@
               <span ng-if="vm.place.name" class="contributor-name">{{vm.place.name}}</span>
               <div class="star">
                 <div class="star-ratings-sprite">
-                  <span style="width:{{vm.place.rating * 10}}%" class="star-ratings-sprite-rating"></span>
+                  <span ng-style="{width: vm.place.actualRating}" class="star-ratings-sprite-rating"></span>
                 </div>
                 <h5>{{vm.place.rating}}</h5>
               </div>
@@ -80,9 +113,13 @@
   <script src="lib/tether/dist/js/tether.min.js"></script>
   <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- Angular Material requires Angular.js Libraries -->
-  <script src="http://maps.google.com/maps/api/js?key=AIzaSyB1TgcfHxJc57VbtzoLUMpB8Z4E6QUI_Fg&libraries=places"></script>
   <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/angular-animate/angular-animate.min.js"></script>
+  <script src="lib/angular-aria/angular-aria.min.js"></script>
+  <script src="lib/angular-messages/angular-messages.min.js"></script>
+  <script src="lib/angular-material/angular-material.min.js"></script>
   <script src="lib/ngmap/build/scripts/ng-map.min.js"></script>
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyB1TgcfHxJc57VbtzoLUMpB8Z4E6QUI_Fg&libraries=places"></script>
   <script src="lib/toastr/toastr.min.js"></script>
   <script src="js/search-location/searchLocationModule.js"></script>
   <script src="js/search-location/searchLocationController.js"></script>

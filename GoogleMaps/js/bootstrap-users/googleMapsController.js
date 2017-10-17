@@ -31,6 +31,7 @@ angular.module('googleMaps').controller('MapsController', function (NgMap, $time
 
   vm.showDetails = function (e, user) {
     vm.user = user;
+    vm.position = user.pos;
     vm.map.showInfoWindow("infoWindow", this);
   }
 });

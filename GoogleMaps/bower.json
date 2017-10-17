@@ -18,6 +18,10 @@
   ],
   "dependencies": {
     "jquery": "^3.2.1",
+    "angular-animate": "~1.5.11",
+    "angular-aria": "~1.5.11",
+    "angular-messages": "~1.5.10",
+    "angular-material": "~1.1.1",
     "bootstrap": "v4.0.0-alpha.6",
     "angular": "1.6.6",
     "components-font-awesome": "^4.7.0",

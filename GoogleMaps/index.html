@@ -46,8 +46,8 @@
   </div>
   <section class="main-container map-container" ng-controller="MapsController as vm">
     <ng-map zoom="5" center="[40.74, -74.18]" default-style="false" class="google-maps">
-      <marker ng-repeat="user in vm.users" position="{{user.pos}}" id="{{user.username}}" title="{{user.name}}" icon="{{user.image}}"
-        on-click="vm.showDetails(event,user)">
+      <marker ng-repeat="user in vm.users" position="{{user.pos}}" id="{{user.username}}" icon="{{user.image}}"
+        on-mouseover="vm.showDetails(event,user)">
       </marker>
       <info-window id="infoWindow">
         <div ng-non-bindable>
@@ -87,5 +87,4 @@
     </div>
   </footer>
 </body>
-
 </html>
