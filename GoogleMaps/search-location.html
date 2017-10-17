@@ -39,7 +39,8 @@
         <div class="modal-body">
           <p>This portal will have two things,</p>
           <h5>Search nearest movies/restaurants</h5>
-          <p>This will call our CakePHP API. The CakePHP API will return the raw JSON to the portal along with the lat / long.</p>
+          <p>For this we will need to ask the user for their location with the HTML 5 Location API. If the user rejects, we need to show a clear message to the user.</p>
+          <p>Once the user gives us access, we will allow them to select moves or restaurants from a drop down and click on search button. We will also allow them to enter the distance in kilometers.</p>
         </div>
       </div>
     </div>
@@ -47,9 +48,9 @@
   <section class="main-container map-container" ng-controller="SearchLocationController as vm">
     <md-content layout-padding class="locations-filter">
       <div>
-        <form name="userForm" ng-submit="vm.searchLocation()" novalidate>
+        <form class="location-form" name="userForm" ng-submit="vm.searchLocation()" novalidate>
           <div layout-gt-xs="row">
-            <md-input-container class="md-block" flex-gt-xs>
+            <md-input-container class="md-block ddl-location" flex-gt-xs="35">
               <label>Location</label>
               <md-select ng-model="vm.selectedPlace">
                 <md-option ng-repeat="place in vm.locations" value="{{place.key}}">
@@ -71,7 +72,7 @@
             <div flex="5" hide-xs hide-sm>
               <!-- Spacer //-->
             </div>
-            <md-input-container class="md-block" flex-gt-xs>
+            <md-input-container class="md-block btn-search" flex-gt-xs>
               <md-button type="submit" class="md-raised md-primary">Search</md-button>
             </md-input-container>
           </div>
