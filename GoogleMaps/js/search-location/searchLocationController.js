@@ -1,4 +1,11 @@
-angular.module('googleSearchLocation').controller('SearchLocationController', function ($scope) {
+angular.module('googleSearchLocation').controller('SearchLocationController', function ($scope, searchLocationConstants) {
+  configureToastr();
+
+  function configureToastr() {
+    toastr.options.timeOut = 4000;
+    toastr.options.positionClass = 'toast-bottom-right';
+  }
+
   var vm = this;
   vm.pos = [];
   vm.places = [];
@@ -21,14 +28,26 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
         vm.places = vm.places.concat(results);
         vm.places.map(function (location) {
           location.currPos = [location.geometry.location.lat(), location.geometry.location.lng()],
-          location.customIcon = '../../img/restaurant.png';
+            location.customIcon = '../../img/restaurant.png';
         })
         $scope.$digest();
       });
+    }, function (error) {
+      if (error.code === searchLocationConstants.LOCATION_BLOCKED) {
+        showErrorMessage(error.message);
+      }
     });
   }
 
-  vm.showDetails = function (event,place) {
+  /**
+   * To show error messgaes.
+   */
+  function showErrorMessage(message) {
+    toastr.remove();
+    toastr.error(message);
+  }
+
+  vm.showDetails = function (event, place) {
     vm.place = place;
     vm.map.showInfoWindow("infoWindow", this);
   }
