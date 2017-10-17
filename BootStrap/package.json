@@ -1,1 +1,38 @@
-﻿
+{
+  "name": "Accident-Informer-Website",
+  "version": "1.0.0",
+  "description": "A mobile application that is being designed for providing information about accidents.",
+  "main": "index.js",
+  "dependencies": {
+    "chart.js": "^2.7.0",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^2.1.0",
+    "grunt-contrib-imagemin": "^1.0.1",
+    "grunt-contrib-less": "^1.4.0",
+    "grunt-contrib-uglify": "^2.3.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-preprocess": "^5.1.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-htmlmin": "^2.4.0",
+    "grunt-npm-install": "^0.3.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://10.0.0.150/accident-reporter/website.git"
+  },
+  "keywords": [
+    "accident",
+    "reporter",
+    "watcher",
+    "informer",
+    "accident informer"
+  ],
+  "author": "Osmosys software solutions",
+  "license": "ISC"
+}

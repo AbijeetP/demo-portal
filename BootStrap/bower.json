@@ -1,14 +1,14 @@
 {
-  "name": "Accident-informer-Website",
+  "name": "Bootstrap-Demo",
   "authors": [
     "Osmosys Software Solutions Private Limited"
   ],
-  "description": "A mobile application that is being designed for providing information about accidents.",
+  "description": "A demo project for bootstrap.",
   "main": "index.html",
   "keywords": [
-    "accident",
-    "accident informer",
-    "accident watcher"
+    "demo",
+    "bootstrap",
+    "demo-bootstrap"
   ],
   "license": "MIT",
   "homepage": "index.html",
@@ -22,8 +22,16 @@
   ],
   "dependencies": {
     "jquery": "^3.2.1",
-    "bootstrap": "^3.3.7",
+    "moment": "^2.19.0",
+    "bootstrap": "v4.0.0-alpha.6",
     "components-font-awesome": "^4.7.0",
-    "blockUI": "blockui#*"
+    "blockUI": "blockui#*",
+    "popper.js": "^1.12.5",
+    "datatables.net": "^1.10.16",
+    "datatables.net-bs4": "^3.2.2",
+    "chart.js": "^2.7.0",
+    "bootstrap-datepicker": "^1.7.1",
+    "datatables.net-colreorder-bs4": "^1.4.1",
+    "datatables.net-responsive-bs4": "^2.2.0"
   }
 }

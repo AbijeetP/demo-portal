@@ -1,0 +1,97 @@
+@import "../../css/main.less";
+body {
+  font-family: sans-serif !important;
+}
+#tasksContainer {
+  width: 80%;
+  margin: auto;
+  margin-top: 2em;
+  margin-bottom: 3em;
+}
+.btn {
+  cursor: pointer;
+}
+.form-heading {
+  margin-bottom: 60px;
+}
+a:focus, a:hover {
+  text-decoration: none;
+}
+button.btn.md-btn-success , button.btn.md-button.md-raised.md-btn-success:hover{
+  background-color: #4caf50;
+  color: #fff;
+}
+/**
+ * Fix for form reset not clearing ng-message, bug here -
+ * https://github.com/angular/material/issues/9543
+ */
+ .frm-is-submitted .ng-untouched ~ .md-input-messages-animation {
+  height: 0;
+  opacity: 0;
+}
+.row-action {
+  cursor: pointer
+}
+md-dialog-actions{
+  padding-right: 16px;
+}
+
+// http://dn.datatables.net/forums/discussion/41421/bootstrap-4-dom-alignment
+// To fix alignment issue.
+#tasksGrid_wrapper .search{
+  width: 100%;
+}
+#tasksGrid_wrapper{
+  clear: both;
+}
+#tasksGrid_filter label{
+  display: inline-block;
+}
+#tasksGrid_paginate{
+  flex-grow: 2;
+  order: 2;
+  .pagination{
+    float: right;
+    padding-top: 6px;
+  }
+}
+#tasksGrid_length {
+  padding-top: 15px;
+  margin-left: 10px;
+}
+
+
+.toggle-column-heading{
+  font-weight: bold;
+  display: inline;
+}
+.toggle-column-column{
+  color: #0275d8;
+  padding: 10px;
+}
+.delete-setting{
+  color: rgb(244,81,30);
+}
+.mark-as-done{
+  color: #4caf50;
+}
+.mark-as-done.disabled{
+  cursor: not-allowed;
+}
+.task-table{
+  md-card-title-text {
+    display: inline;
+  }
+}
+.pie-chart-card, .line-chart-card {
+  padding-bottom: 25px;
+}
+.padding-botton-0 {
+  padding-bottom: 0;
+}
+.statistics-heading {
+  margin-top: 20px;
+}
+.statistics-container {
+ margin-bottom:35px;
+}

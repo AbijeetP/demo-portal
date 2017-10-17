@@ -1,0 +1,51 @@
+html {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+nav {
+  flex: 0 0 auto;
+}
+.main-container {
+  flex: 1 0 auto;
+}
+.footer {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #f5f5f5;
+}
+.navbar-brand img {
+  height: 38px;
+}
+.nav-link {
+  margin-left: 5px;
+}
+.google-maps {
+  width: 100%;
+}
+.contributor-email {
+  display: block;
+}
+.contributor-image img {
+  width: 60px;
+  height: 60px;
+}
+.contributor-details,
+.contributor-image {
+  display: inline-block;
+  vertical-align: middle;
+}
+.contributor-details {
+  margin-left: 15px;
+}
+.contributor-name {
+  font-weight: bold;
+}
+.contributor-name a {
+  text-decoration: none;
+}
