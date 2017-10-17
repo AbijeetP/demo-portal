@@ -1,10 +1,12 @@
 html {
   height: 100%;
+  background-color: #f8f7f7;
 }
 body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: #f8f7f7;
 }
 nav {
   flex: 0 0 auto;
@@ -23,10 +25,13 @@ nav {
   height: 38px;
 }
 .nav-link {
-  margin-left: 5px;
+  margin-left: 1em;
 }
 .google-maps {
   width: 100%;
+}
+.user-image img {
+  border-radius: 50%;
 }
 .contributor-email {
   display: block;
@@ -35,8 +40,13 @@ nav {
   width: 60px;
   height: 60px;
 }
+.restaurants-image img {
+  width: 85px;
+  height: 90px;
+}
 .contributor-details,
-.contributor-image {
+.contributor-image,
+.restaurants-image {
   display: inline-block;
   vertical-align: middle;
 }
@@ -48,4 +58,26 @@ nav {
 }
 .contributor-name a {
   text-decoration: none;
+}
+.places-address {
+  width: 185px;
+  max-height: 46px;
+  overflow-y: hidden;
+}
+.star-ratings-sprite-rating {
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png") repeat-x;
+  background-position: 0 100%;
+  float: left;
+  height: 20px;
+  display: block;
+  margin-right: 15px;
+}
+.star {
+  align-items: center;
+  margin-top: 6px;
+}
+.locations-filter {
+  position: absolute;
+  z-index: 10;
+  width: auto;
 }
