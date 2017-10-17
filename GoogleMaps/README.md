@@ -57,11 +57,6 @@ git config --global merge.tool meld
 git config --global diff.tool meld
 ```
 
-After configuration, go through the following sections on [this page](http://10.0.0.155/books/faq-php/page/git-conventions) -
-
-1. Daily Workflow
-2. Other rules
-
 #### 2. Node.JS and npm
 
 We also use a number of Node.js tools. You must have node.js and its package manager (npm) installed.
@@ -111,7 +106,7 @@ npm start
 2. Run the command **npm install grunt**
 3. After you are done with the installation, run the common **grunt watch**
 
-Now browse to the app at `http://localhost:8000/dashboard.html`.
+Now browse to the app at `http://localhost:8000
 
 > Note that the server is configured to refresh the page automatically when you make a change to your JS / HTML  or CSS code.
 
