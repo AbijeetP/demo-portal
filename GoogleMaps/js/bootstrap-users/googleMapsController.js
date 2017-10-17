@@ -1,4 +1,9 @@
 angular.module('googleMaps').controller('MapsController', function (NgMap, $timeout, MapsService) {
+  configureToastr ();
+  function configureToastr() {
+    toastr.options.timeOut = 4000;
+    toastr.options.positionClass = 'toast-bottom-right';
+  }
   var vm = this;
   vm.users = [];
   NgMap.getMap().then(function (map) {

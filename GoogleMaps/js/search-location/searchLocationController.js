@@ -1,6 +1,15 @@
-angular.module('googleSearchLocation').controller('SearchLocationController', function ($scope) {
+angular.module('googleSearchLocation').controller('SearchLocationController', function ($scope, searchLocationConstants) {
+  configureToastr();
+  checkForLocationAccess();
+
+  function configureToastr() {
+    toastr.options.timeOut = 4000;
+    toastr.options.positionClass = 'toast-bottom-right';
+  }
+
   var vm = this;
   var pos;
+  vm.locationEnabled = false;
   vm.pos = [];
   vm.places = [];
   vm.locations = [{
@@ -12,6 +21,24 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
     name: 'Restaurants',
     img: 'restaurant.png'
   }];
+
+  /**
+   * Function to check whether user gave access to current location.
+   */
+  function checkForLocationAccess() {
+    navigator.permissions.query({ name: 'geolocation' }).then(function (permissionStatus) {
+      if (permissionStatus.state === 'granted') {
+        vm.locationEnabled = true;
+      }
+      permissionStatus.onchange = function () {
+        if (this.state === 'granted') {
+          vm.locationEnabled = true;
+          $scope.$digest();
+        }
+      };
+    });
+  };
+
   vm.myCallBack = function (map) {
     vm.map = map;
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -20,8 +47,13 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
         lng: position.coords.longitude
       };
       vm.pos = [pos.lat, pos.lng];
+    }, function (error) {
+      if (error.code === searchLocationConstants.LOCATION_BLOCKED) {
+        showErrorMessage(error.message);
+      }
     });
-  }
+  };
+
 
   vm.searchLocation = function () {
     vm.places = [];
@@ -44,11 +76,19 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
       }
       $scope.$digest();
     });
+  };
+
+  /**
+   * To show error messgaes.
+   */
+  function showErrorMessage(message) {
+    toastr.remove();
+    toastr.error(message);
   }
 
   vm.showDetails = function (event, place) {
     vm.place = place;
     vm.place.actualRating = (place.rating * 10) + '%';
     vm.map.showInfoWindow("infoWindow", this);
-  }
+  };
 });
