@@ -106,12 +106,12 @@ npm start
 2. Run the command **npm install grunt**
 3. After you are done with the installation, run the common **grunt watch**
 
-Now browse to the app at `http://localhost:8000
+Now browse to the app at `http://localhost:8000`
 
 > Note that the server is configured to refresh the page automatically when you make a change to your JS / HTML  or CSS code.
 
 
 
-## Development Guidelines
+## Please go through Documentation
 
 Please go through the page [here](http://10.0.0.155/books/faq-php/page/requirements)
