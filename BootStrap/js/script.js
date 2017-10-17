@@ -10,6 +10,13 @@ $(document).ready(function () {
   var lineChartConfig = {};
   var $tasksGrid = $('#task-grid');
   var $currentRowToDlt = '';
+  var COLOR_CONSTANTS = {
+    BLOCKED: '#2ecc71',
+    DONE: '#3498db',
+    INPROGRESS: '#95a5a6',
+    PLANNED: '#9b59b6',
+    TASKS_COMPLETED: '#00caca'
+  }
 
   $('#createdOn').val(formatDate(new Date()));
 
@@ -367,12 +374,12 @@ $(document).ready(function () {
     for (var i = 0; i < respData.length; i++) {
       chartLabels.push(respData[i].statusName);
       chartData.push(respData[i].totalTasksCount);
-      if(respData[i].totalTasksCount > 0) {
+      if (respData[i].totalTasksCount > 0) {
         validDataCount++;
       }
     }
 
-      if (validDataCount === 0) {
+    if (validDataCount === 0) {
       pieChart.addClass('hide-div');
       if (emptyPie.hasClass('hide-div')) {
         emptyPie.removeClass('hide-div');
@@ -394,10 +401,10 @@ $(document).ready(function () {
             datasets: [{
               data: chartData,
               backgroundColor: [
-                "#2ecc71",
-                "#3498db",
-                "#95a5a6",
-                "#9b59b6"
+                COLOR_CONSTANTS.BLOCKED,
+                COLOR_CONSTANTS.DONE,
+                COLOR_CONSTANTS.INPROGRESS,
+                COLOR_CONSTANTS.PLANNED
               ]
             }],
             labels: chartLabels
@@ -455,10 +462,10 @@ $(document).ready(function () {
             labels: chartLabels,
             datasets: [{
               label: "Tasks completed",
-              backgroundColor: 'rgb(0, 202, 202)',
-              borderColor: 'rgb(0, 202, 202)',
+              backgroundColor: COLOR_CONSTANTS.TASKS_COMPLETED,
+              borderColor: COLOR_CONSTANTS.TASKS_COMPLETED,
               borderCapStyle: 'butt',
-              pointBackgroundColor: 'rgb(0, 202, 202)',
+              pointBackgroundColor: COLOR_CONSTANTS.TASKS_COMPLETED,
               data: chartData,
               fill: false,
             }]
