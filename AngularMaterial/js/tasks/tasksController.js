@@ -53,6 +53,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.taskForm.$setPristine();
     tsk.taskForm.$setUntouched();
     tsk.taskDetails = {};
+    tsk.reset();
   };
 
   /**

@@ -7,7 +7,7 @@
   <meta name="description" content="A demo application on Angular Material">
   <meta name="keywords" content="angular material demo, demo on angular material, angular material">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Angular Material Demo</title>
+  <title>Osmosys Demo :: Angular Material</title>
 
   <link rel="shortcut icon" type="image/x-icon" href="img/osmIcon.png">
   <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="dist/css/style.css">
 </head>
 
-<body ng-app="angularDemo">
+<body ng-app="angularDemo" ng-controller="angularDemoController as tsk">
   <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
     <a class="navbar-brand" href="http://osmosys.asia/">
       <img src="img/osmosys-logo.png" alt="logo">
@@ -49,8 +49,8 @@
       </div>
     </div>
   </div>
-  <div id="tasksContainer" class="main-container" ng-controller="angularDemoController as tsk" ng-cloak>
-    <md-content layout-padding>
+  <section class="container main-container" id="tasksContainer">
+    <section>
       <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}" ng-submit="tsk.createNewTask(tsk.taskForm.$valid)">
         <h2 class="form-heading">Add Task</h2>
         <div layout="row">
@@ -96,31 +96,40 @@
           </md-input-container>
         </div>
       </form>
-    </md-content>
-    <div class="toggle-col-drop-down">
-      <div class="cls-row-padding" ng-click="tsk.toggleColumnsDropDown()">
-        <i class="fa fa-list-alt droplnk"></i>
+    </section>
+    <section>
+      <div class="toggle-col-drop-down">
+        <div class="cls-row-padding" ng-click="tsk.toggleColumnsDropDown()">
+          <i class="fa fa-list-alt droplnk"></i>
+        </div>
+        <div class="toggle-dropdown-content hide">
+          <md-checkbox class="green" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-model="tsk.isCheckedColumn[column.data]"
+            ng-change="tsk.columnVisibilityChanged(column.data, this)">
+            {{column.title}}
+          </md-checkbox>
+        </div>
       </div>
-      <div class="toggle-dropdown-content hide">
-        <md-checkbox class="green" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-model="tsk.isCheckedColumn[column.data]"
-          ng-change="tsk.columnVisibilityChanged(column.data, this)">
-          {{column.title}}
-        </md-checkbox>
-      </div>
-    </div>
-    <table class="table table-striped table-bordered" width="100%" id="tasksGrid">
+      <table class="table table-striped table-bordered" width="100%" id="tasksGrid">
 
-    </table>
-
-    <section layout="row" layout-wrap="" layout-align="center" class="layout-wrap layout-align-center-stretch layout-row">
-      <div>
-        <pie-chart></pie-chart>
-      </div>
-      <div>
-        <line-chart></line-chart>
+      </table>
+    </section>
+    <section layout="row" layout-padding class="statistics-heading padding-botton-0">
+      <h2>Statistics</h2>
+    </section>
+    <section class="statistics-container" flex>
+      <div layout="row" flex>
+        <div layout="row" layout-xs="column" flex>
+          <!-- define layout here -->
+          <div class="parent" layout="column" flex>
+            <pie-chart></pie-chart>
+          </div>
+          <div class="parent" layout="column" flex>
+            <line-chart></line-chart>
+          </div>
+        </div>
       </div>
     </section>
-  </div>
+  </section>
   <!--  Footer section starts here -->
   <footer class="footer">
     <div class="container">
