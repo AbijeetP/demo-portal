@@ -7,23 +7,22 @@
   <meta name="description" content="A demo application on Angular Material">
   <meta name="keywords" content="angular material demo, demo on angular material, angular material">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Osmosys Demo :: Angular Material</title>
+  <title>Angular Material Demo</title>
 
   <link rel="shortcut icon" type="image/x-icon" href="img/osmIcon.png">
   <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="lib/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="lib/material-design-lite/material.min.css">
+  <link rel="stylesheet" href="lib/datatables/media/css/dataTables.material.css">
   <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="lib/toastr/toastr.css">
   <link rel="stylesheet" href="lib/tether/dist/css/tether.min.css">
-  <link rel="stylesheet" type="text/css" href="node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
-  />
-  <link rel="stylesheet" type="text/css" href="node_modules/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css"
-  />
+  <link rel="stylesheet" type="text/css" href="lib/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="lib/datatables.net-colreorder-bs/css/colReorder.bootstrap.min.css" />
   <link rel="stylesheet" href="dist/css/style.css">
 </head>
 
-<body ng-app="angularDemo" ng-controller="angularDemoController as tsk">
+<body ng-app="angularDemo">
   <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
     <a class="navbar-brand" href="http://osmosys.asia/">
       <img src="img/osmosys-logo.png" alt="logo">
@@ -50,90 +49,78 @@
       </div>
     </div>
   </div>
-  <section class="container">
-    <section>
-      <md-card md-theme="default" md-theme-watch>
-        <md-content layout-padding>
-          <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}" ng-submit="tsk.createNewTask(tsk.taskForm.$valid)">
-            <h2 class="form-heading">Add Task</h2>
-            <div layout="row">
-              <md-input-container class="md-block" flex=33>
-                <label>Task Name</label>
-                <input required name="taskName" ng-model="tsk.taskDetails.taskName">
-                <div ng-messages="tsk.taskForm.taskName.$error">
-                  <div ng-message="required">This is required.</div>
-                </div>
-              </md-input-container>
-              <div flex=33>
-
-              </div>
-              <md-input-container class="md-block" flex=33>
-                <label>Status</label>
-                <md-select name="status" name="" ng-model="tsk.taskDetails.status" required>
-                  <md-option ng-if="!tsk.status.length">No status found</md-option>
-                  <md-option ng-if="tsk.status.length" ng-repeat="status in tsk.status" ng-value="status.statusID">
-                    {{status.statusName}}
-                  </md-option>
-                </md-select>
-                <div ng-messages="tsk.taskForm.status.$error">
-                  <div ng-message="required">This is required.</div>
-                </div>
-              </md-input-container>
+  <div id="tasksContainer" class="main-container" ng-controller="angularDemoController as tsk" ng-cloak>
+    <md-content layout-padding>
+      <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}" ng-submit="tsk.createNewTask(tsk.taskForm.$valid)">
+        <h2 class="form-heading">Add Task</h2>
+        <div layout="row">
+          <md-input-container class="md-block" flex=33>
+            <label>Task Name</label>
+            <input required name="taskName" ng-model="tsk.taskDetails.taskName">
+            <div ng-messages="tsk.taskForm.taskName.$error">
+              <div ng-message="required">This is required.</div>
             </div>
+          </md-input-container>
+          <div flex=33>
 
-            <div layout="row">
-              <md-input-container flex=33 class="md-block">
-                <label>Due Date</label>
-                <md-datepicker name="dueDate" ng-model="tsk.taskDetails.dueDate" required></md-datepicker>
-                <div ng-messages="tsk.taskForm.dueDate.$error">
-                  <div ng-message="required">This is required.</div>
-                </div>
-              </md-input-container>
-            </div>
-
-
-            <div layout-gt-sm="column" class="side-block">
-              <md-input-container class="md-block text-right" flex-gt-sm>
-                <md-button type="submit" class="md-raised md-btn-success btn" aria-label="Save"><i class="fa fa-save mg-rt-5"></i><span> {{tsk.buttonName}}</span></md-button>
-              </md-input-container>
-            </div>
-          </form>
-        </md-content>
-      </md-card>
-    </section>
-    <section layout="row">
-      <md-card md-theme="default" class="task-table" md-theme-watch>
-        <md-card-title>
-          <md-card-title-text>
-            <p class="toggle-column-heading">Toggle columns :</p>
-            <span class="toggle-column-column" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-click="tsk.columnVisibilityChanged(column.data)">
-          {{column.title}}
-      </span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-content layout-padding>
-          <table class="table table-striped table-bordered" width="100%" id="tasksGrid">
-          </table>
-        </md-content>
-      </md-card>
-    </section>
-    <section layout="row" layout-padding class="statistics-heading padding-botton-0">
-      <h2>Statistics</h2>
-    </section>
-    <section class="statistics-container" flex>
-      <div layout="row" flex>
-        <div layout="row" layout-xs="column" flex>
-          <!-- define layout here -->
-          <div class="parent" layout="column" flex>
-            <pie-chart></pie-chart>
           </div>
-          <div class="parent" layout="column" flex>
-            <line-chart></line-chart>
-          </div>
+          <md-input-container class="md-block" flex=33>
+            <label>Status</label>
+            <md-select name="status" name="" ng-model="tsk.taskDetails.status" required>
+              <md-option ng-if="!tsk.status.length">No status found</md-option>
+              <md-option ng-if="tsk.status.length" ng-repeat="status in tsk.status" ng-value="status.statusID">
+                {{status.statusName}}
+              </md-option>
+            </md-select>
+            <div ng-messages="tsk.taskForm.status.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
         </div>
+
+        <div layout="row">
+          <md-input-container flex=33 class="md-block">
+            <label>Due Date</label>
+            <md-datepicker name="dueDate" ng-model="tsk.taskDetails.dueDate" required></md-datepicker>
+            <div ng-messages="tsk.taskForm.dueDate.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+        </div>
+
+
+        <div layout-gt-sm="column" class="side-block">
+          <md-input-container class="md-block text-right" flex-gt-sm>
+            <md-button type="submit" class="md-raised md-btn-success btn" aria-label="Save"><i class="fa fa-save mg-rt-5"></i><span> {{tsk.buttonName}}</span></md-button>
+            <md-button class="md-raised md-btn-danger btn" aria-label="Save" ng-click="tsk.reset()"><span> Reset</span></md-button>
+          </md-input-container>
+        </div>
+      </form>
+    </md-content>
+    <div class="toggle-col-drop-down">
+      <div class="cls-row-padding" ng-click="tsk.toggleColumnsDropDown()">
+        <i class="fa fa-list-alt droplnk"></i>
+      </div>
+      <div class="toggle-dropdown-content hide">
+        <md-checkbox class="green" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-model="tsk.isCheckedColumn[column.data]"
+          ng-change="tsk.columnVisibilityChanged(column.data, this)">
+          {{column.title}}
+        </md-checkbox>
+      </div>
+    </div>
+    <table class="table table-striped table-bordered" width="100%" id="tasksGrid">
+
+    </table>
+
+    <section layout="row" layout-wrap="" layout-align="center" class="layout-wrap layout-align-center-stretch layout-row">
+      <div>
+        <pie-chart></pie-chart>
+      </div>
+      <div>
+        <line-chart></line-chart>
       </div>
     </section>
-  </section>
+  </div>
   <!--  Footer section starts here -->
   <footer class="footer">
     <div class="container">
@@ -157,15 +144,20 @@
   <script src="lib/tether/dist/js/tether.min.js"></script>
   <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="lib/datatables.net/js/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" src="lib/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-  <script type="text/javascript" src="node_modules/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-  <script type="text/javascript" src="node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-  <script type="text/javascript" src="node_modules/datatables.net-colreorder/js/dataTables.colReorder.min.js"></script>
+  <script type="text/javascript" src="lib/datatables/media/js/dataTables.material.min.js"></script>
+  <script type="text/javascript" src="lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script type="text/javascript" src="lib/datatables.net-responsive-bs/js/responsive.bootstrap.min.js"></script>
+  <script type="text/javascript" src="lib/datatables.net-colreorder/js/dataTables.colReorder.min.js"></script>
 
   <script src="lib/toastr/toastr.min.js"></script>
   <script src="lib/moment/min/moment.min.js"></script>
   <script src="lib/ngstorage/ngStorage.min.js"></script>
-  <script src="js/script.js"></script>
+
+  <!-- Tasks scripts -->
+  <script src="js/tasks/tasksModule.js"></script>
+  <script src="js/tasks/tasksService.js"></script>
+  <script src="js/tasks/tasksController.js"></script>
+
   <script src="lib/chart.js/dist/Chart.min.js"></script>
   <script src="js/directives/pie-chart/pieChart.js"></script>
   <script src="js/directives/line-chart/lineChart.js"></script>

@@ -318,7 +318,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.submitted = true;
   };
 
-  tsk.toggleWidgetDropDown = function () {
+  tsk.toggleColumnsDropDown = function () {
     angular.element('.toggle-dropdown-content').toggleClass('hide');
   };
 });
