@@ -57,7 +57,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   };
 
   /**
-   * Chang completed on date.
+   * Change completed on date.
    * @param {*} tskDetails
    */
   function addCompletedOn(tskDetails) {
@@ -113,6 +113,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     toastr.remove();
     toastr.success(message);
   }
+
   tsk.isCheckedColumn = {
     'taskName': true,
     'dueDate': true,
@@ -312,6 +313,9 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     }
   });
 
+  /**
+   * Reset the form.
+   */
   tsk.reset = function () {
     tsk.taskForm.$setPristine();
     tsk.taskForm.$setUntouched();
@@ -319,6 +323,9 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.submitted = true;
   };
 
+  /**
+   * Handle toggle dropdown click event.
+   */
   tsk.toggleColumnsDropDown = function () {
     angular.element('.toggle-dropdown-content').toggleClass('hide');
   };
