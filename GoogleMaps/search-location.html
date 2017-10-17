@@ -51,7 +51,7 @@
         <form class="location-form" name="userForm" ng-submit="vm.searchLocation()" novalidate>
           <div layout-gt-xs="row">
             <md-input-container class="md-block ddl-location" flex-gt-xs="35">
-              <label>Location</label>
+              <label>Place</label>
               <md-select ng-model="vm.selectedPlace">
                 <md-option ng-repeat="place in vm.locations" value="{{place.key}}">
                   {{place.name}}

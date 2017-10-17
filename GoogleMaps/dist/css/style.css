@@ -81,3 +81,13 @@ nav {
   z-index: 10;
   width: auto;
 }
+.location-form md-input-container.md-block {
+  margin-bottom: 0px;
+}
+.location-form .ddl-location {
+  max-width: 200px;
+  min-width: 200px;
+}
+.location-form .btn-search {
+  margin-top: 0px;
+}
