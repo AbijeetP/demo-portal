@@ -1,1 +1,1 @@
-angular.module('googleSearchLocation', ['ngMap']);
+angular.module('googleSearchLocation', ['ngMap', 'ngMaterial', 'ngMessages']);
