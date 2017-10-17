@@ -38,7 +38,6 @@
           <h5 class="modal-title">Google maps</h5>
         </div>
         <div class="modal-body">
-          <p>This portal will have two things,</p>
           <h5>Search nearest movies/restaurants</h5>
           <p>For this we will need to ask the user for their location with the HTML 5 Location API. If the user rejects, we need to show a clear message to the user.</p>
           <p>Once the user gives us access, we will allow them to select moves or restaurants from a drop down and click on search button. We will also allow them to enter the distance in kilometers.</p>
@@ -80,6 +79,7 @@
         </form>
       </div>
     </md-content>
+    <!-- FIXME - Please remove the hard-coded lat, lon with user location. -->
     <ng-map center="[17.385044, 78.486671]" geo-fallback-center="[40.74, -74.18]" map-initialized="vm.myCallBack(map)" default-style="false"
       class="google-maps">
       <marker ng-repeat="place in vm.places" position="{{place.currPos}}" title="{{place.name}}" icon={{place.customIcon}} on-mouseover="vm.showDetails(event,place)"></marker>
