@@ -75,6 +75,9 @@ md-dialog-actions{
 .mark-as-done{
   color: #4caf50;
 }
+.toggle-dropdown-content md-checkbox.md-checked .md-icon {
+  background-color: #4caf50;
+}
 .mark-as-done.disabled{
   cursor: not-allowed;
 }
@@ -105,6 +108,9 @@ md-dialog-actions{
 	color: #fff;
 }
 .toggle-col-drop-down {
+  .cls-row-padding{
+    outline: none !important;
+  }
 	float: right;
 	position: relative;
 	.toggle-dropdown-content {
@@ -128,4 +134,44 @@ md-dialog-actions{
 }
 .hide {
 	display: none;
+}
+.row-action:not(:last-child){
+  margin-right: 20px;
+}
+.header-container {
+  background-color: #292b2c!important;
+}
+.header-container {
+  .logo, .links{
+    display: inline-block;
+    line-height: 65px;
+    margin: 0px 20px;
+  }
+  .links {
+    float: right;
+    ul{
+      line-height: 65px;
+      margin: 0px;
+      li{
+        display: inline-block;
+        font-size: 18px;
+        a{
+          color: #ffffff;
+          cursor: pointer;
+        }
+        .help-link{
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+}
+a {
+  color: #007bff;
+}
+#tasksGrid td{
+  padding: 15px 18px;
+}
+.text-center{
+  text-align: center !important;
 }
