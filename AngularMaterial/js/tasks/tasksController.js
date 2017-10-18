@@ -5,7 +5,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   const FETCH_ERROR_MESSAGE_2 = '. Please try again later.';
   const CREATE_MESSAGE = 'Successfully created the task.';
   const UPDATE_MESSAGE = 'Successfully updated the task.';
-  tsk.buttonName = 'Save';
+  tsk.buttonName = 'Submit';
   tsk.isUpdate = false;
   var highestIndex = 0;
 
@@ -38,7 +38,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
       tsk.editTaskIndex = getTaskIndex(tsk.editTaskData);
       $localStorage.tasks.splice(tsk.editTaskIndex, 1);
       tsk.isUpdate = false;
-      tsk.buttonName = 'Save';
+      tsk.buttonName = 'Submit';
       showSuccessMessage(UPDATE_MESSAGE);
     } else {
       showSuccessMessage(CREATE_MESSAGE);
@@ -151,7 +151,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   },
   {
     data: '',
-    title: 'Action',
+    title: 'Actions',
     render: function (data, type, row) {
       var elem = null;
       elem = $compile('<span><span class="edit-setting row-action" title="Edit"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0].innerHTML;
