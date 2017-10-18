@@ -35,6 +35,7 @@
     "material-design-lite": "^1.3.0",
     "datatables.net-colreorder-bs": "^1.4.1",
     "datatables.net-responsive-bs": "^2.2.0",
-    "datatables-material-design": "^0.1.2"
+    "datatables-material-design": "^0.1.2",
+    "tether": "^1.4.0"
   }
 }
