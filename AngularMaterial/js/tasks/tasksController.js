@@ -151,7 +151,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   },
   {
     data: '',
-    title: 'Action',
+    title: 'Actions',
     render: function (data, type, row) {
       var elem = null;
       elem = $compile('<span><span class="edit-setting row-action" title="Edit"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0].innerHTML;
