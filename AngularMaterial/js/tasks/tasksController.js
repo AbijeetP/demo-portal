@@ -1,19 +1,13 @@
-angular.module('angularDemo', ['ngMaterial', 'ngMessages', 'ngStorage']).controller('angularDemoController', angularDemoController);
-
-function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog, $timeout) {
+angular.module('angularDemo').controller('angularDemoController', function ($scope, $http, $compile, $localStorage, $mdDialog, $timeout, DemoConstants, tasksService) {
   var tsk = this;
-  const BASE_URL = 'http://10.0.0.160/demo-api/';
-  const TASK_STATUS = 'task-statuses';
-  const TASKS = 'tasks';
-  const SUCCESSS_CODE = 200;
+
   const FETCH_ERROR_MESSAGE = 'Some problem has occurred while fetching ';
   const FETCH_ERROR_MESSAGE_2 = '. Please try again later.';
-  const DEFAULT_DATE_FORMAT = 'DD-MM-YYYY';
-  const DONE_STATUS = 2;
   const CREATE_MESSAGE = 'Successfully created the task.';
   const UPDATE_MESSAGE = 'Successfully updated the task.';
   tsk.buttonName = 'Save';
   tsk.isUpdate = false;
+
   getStatus();
   configureToastr();
   showHelpModel();
@@ -28,7 +22,7 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
    * Configure toastr
    */
   function configureToastr() {
-    toastr.options.timeOut = 4000;
+    toastr.options.timeOut = DemoConstants.TOASTR_TIMEOUT;
     toastr.options.positionClass = 'toast-bottom-right';
   }
 
@@ -59,14 +53,15 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     tsk.taskForm.$setPristine();
     tsk.taskForm.$setUntouched();
     tsk.taskDetails = {};
+    tsk.reset();
   };
 
   /**
-   * Chang completed on date.
+   * Change completed on date.
    * @param {*} tskDetails
    */
   function addCompletedOn(tskDetails) {
-    if (tskDetails.statusID === DONE_STATUS) {
+    if (tskDetails.statusID === DemoConstants.DONE_STATUS) {
       tskDetails.completedOn = formatDate(new Date());
     } else {
       tskDetails.completedOn = '';
@@ -74,7 +69,10 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     return tskDetails;
   }
 
-
+  /**
+   * It return status named based on status id.
+   * @param {*} statusId
+   */
   function getSelectedStatus(statusId) {
     for (var i = 0; i < tsk.status.length; i++) {
       if (+tsk.status[i].statusID === +statusId) {
@@ -82,13 +80,14 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
       }
     }
   }
+
   /**
    * Call to getStatus API.
    */
   function getStatus() {
     tsk.status = [];
-    return $http.get(BASE_URL + TASK_STATUS).then(function (response) {
-      if (response.data.code === SUCCESSS_CODE) {
+    return tasksService.fetchStatus().then(function (response) {
+      if (response.data.code === DemoConstants.SUCCESSS_CODE) {
         tsk.status = response.data.data;
       } else {
         showErrorMessage(FETCH_ERROR_MESSAGE + 'status' + FETCH_ERROR_MESSAGE_2);
@@ -114,6 +113,13 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     toastr.remove();
     toastr.success(message);
   }
+
+  tsk.isCheckedColumn = {
+    'taskName': true,
+    'dueDate': true,
+    'createdOn': true,
+    'statusName': true
+  };
 
   // Table columns
   tsk.dtColumns = [{
@@ -165,7 +171,7 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     title: 'Mark As Done',
     render: function (data, type, row) {
       var elem = null;
-      if (row.statusID !== DONE_STATUS) {
+      if (row.statusID !== DemoConstants.DONE_STATUS) {
         elem = $compile('<span><span title="Mark as done" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0];
       } else {
         elem = $compile('<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0];
@@ -180,11 +186,8 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
   var dtConfig = {
     responsive: true,
     colReorder: true,
-    stateSave: true,
     columns: tsk.dtColumns,
     data: [],
-    dom: '<"search"f>rtipl', // To activate default search textbox for grid.
-    scrollX: false,
     autoWidth: false,
     isFullWidth: true
   };
@@ -205,8 +208,8 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
   };
 
   // Get tasks and bind data to the grid.
-  getTasks().then(function (response) {
-    if (response.data.code === SUCCESSS_CODE) {
+  tasksService.fetchTasks().then(function (response) {
+    if (response.data.code === DemoConstants.SUCCESSS_CODE) {
       var tasks = response.data.data;
       if (tasks) {
         $localStorage.tasks = tasks;
@@ -239,24 +242,18 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
    * converting string to date.
    */
   function convertStringToDate(date) {
-    return moment(date, DEFAULT_DATE_FORMAT).toDate();
-  }
-
-  function formatDate(date) {
-    var dateObj = convertStringToDate(date);
-    return moment(dateObj).format(DEFAULT_DATE_FORMAT);
+    return moment(date, DemoConstants.DEFAULT_DATE_FORMAT).toDate();
   }
 
   /**
-   * Get tasks
+   * It converts date int0 DEFAULT_DATE_FORMAT
+   * @param {*} date
    */
-  function getTasks() {
-    return $http.get(BASE_URL + TASKS).then(function (response) {
-      return response;
-    }, function (error) {
-      return error;
-    });
+  function formatDate(date) {
+    var dateObj = convertStringToDate(date);
+    return moment(dateObj).format(DemoConstants.DEFAULT_DATE_FORMAT);
   }
+
 
   // On click on edit, populate form with data.
   angular.element('#tasksGrid').on('click', '.edit-setting', function () {
@@ -308,19 +305,28 @@ function angularDemoController($scope, $http, $compile, $localStorage, $mdDialog
     if (!angular.element(this).hasClass('disabled')) {
       var doneTaskIndex = dtObj.row(this.parentElement).index();
       var doneTask = $localStorage.tasks[doneTaskIndex];
-      doneTask.statusID = DONE_STATUS;
+      doneTask.statusID = DemoConstants.DONE_STATUS;
       doneTask.statusName = 'Done';
       doneTask.completedOn = formatDate(new Date());
       $localStorage.tasks[doneTaskIndex] = doneTask;
       bindDataToTable();
     }
   });
-}
 
+  /**
+   * Reset the form.
+   */
+  tsk.reset = function () {
+    tsk.taskForm.$setPristine();
+    tsk.taskForm.$setUntouched();
+    tsk.taskDetails = {};
+    tsk.submitted = true;
+  };
 
-angular
-  .module('angularDemo').constant('DemoConstants', {
-    API_URL: 'http://10.0.0.160/demo-api/',
-    TASKS_STATUSES: 'tasks/fetchTasksByStatus',
-    TASKS_COMPLETED: 'tasks/getCompletedTasksByDay'
-  });
+  /**
+   * Handle toggle dropdown click event.
+   */
+  tsk.toggleColumnsDropDown = function () {
+    angular.element('.toggle-dropdown-content').toggleClass('hide');
+  };
+});
