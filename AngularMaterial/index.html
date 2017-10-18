@@ -69,7 +69,7 @@
             <label>Task Name</label>
             <input required name="taskName" ng-model="tsk.taskDetails.taskName" maxlength="50">
             <div ng-messages="tsk.taskForm.taskName.$error">
-              <div ng-message="required">>This field is required.</div>
+              <div ng-message="required">This field is required.</div>
             </div>
           </md-input-container>
           <div flex=33>
@@ -94,7 +94,7 @@
             <label>Due Date</label>
             <md-datepicker name="dueDate" ng-model="tsk.taskDetails.dueDate" required></md-datepicker>
             <div ng-messages="tsk.taskForm.dueDate.$error">
-              <div ng-message="required">>This field is required.</div>
+              <div ng-message="required">This field is required.</div>
             </div>
           </md-input-container>
         </div>
