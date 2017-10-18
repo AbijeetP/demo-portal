@@ -112,7 +112,7 @@
       <h2 class="form-heading">Task List</h2>
       <div class="toggle-col-drop-down">
         <div class="cls-row-padding" ng-click="tsk.toggleColumnsDropDown()">
-          <i class="fa fa-list-alt droplnk"></i>
+          <i class="fa fa-list-alt droplnk" title="Click here to select the columns which you want to view in the below table."></i>
         </div>
         <div class="toggle-dropdown-content hide">
           <md-checkbox class="green" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-model="tsk.isCheckedColumn[column.data]"
