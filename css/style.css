@@ -22,3 +22,6 @@ body {
 .right-align {
   justify-content: flex-end;
 }
+.description-table ul {
+  list-style: none;
+}
