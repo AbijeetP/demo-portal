@@ -1,4 +1,4 @@
-angular.module('angularDemo').controller('angularDemoController', function ($scope, $http, $compile, $localStorage, $mdDialog, $timeout, DemoConstants, tasksService) {
+angular.module('angularDemo').controller('angularDemoController', function ($scope, $document, $http, $compile, $localStorage, $mdDialog, $timeout, DemoConstants, tasksService) {
   var tsk = this;
 
   const FETCH_ERROR_MESSAGE = 'Some problem has occurred while fetching ';
@@ -7,13 +7,14 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   const UPDATE_MESSAGE = 'Successfully updated the task.';
   tsk.buttonName = 'Save';
   tsk.isUpdate = false;
+  var highestIndex = 0;
 
   getStatus();
   configureToastr();
   showHelpModel();
 
   function showHelpModel() {
-    angular.element('.nav-link.help-link').click(function () {
+    angular.element('.help-link').click(function () {
       angular.element('.help-modal').modal('show');
     });
   }
@@ -34,12 +35,14 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     }
     // Save the details.
     if (tsk.isUpdate) {
+      tsk.editTaskIndex = getTaskIndex(tsk.editTaskData);
       $localStorage.tasks.splice(tsk.editTaskIndex, 1);
       tsk.isUpdate = false;
       tsk.buttonName = 'Save';
       showSuccessMessage(UPDATE_MESSAGE);
     } else {
       showSuccessMessage(CREATE_MESSAGE);
+      tsk.taskDetails.id = ++highestIndex;
     }
     var tasks = $localStorage.tasks ? $localStorage.tasks : [];
     tsk.taskDetails.statusName = getSelectedStatus(tsk.taskDetails.status);
@@ -87,7 +90,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   function getStatus() {
     tsk.status = [];
     return tasksService.fetchStatus().then(function (response) {
-      if (response.data.code === DemoConstants.SUCCESSS_CODE) {
+      if (response && response.data && response.data.code === DemoConstants.SUCCESSS_CODE) {
         tsk.status = response.data.data;
       } else {
         showErrorMessage(FETCH_ERROR_MESSAGE + 'status' + FETCH_ERROR_MESSAGE_2);
@@ -125,62 +128,44 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   tsk.dtColumns = [{
     data: 'taskName',
     title: 'Task Name',
-    width: '40%',
-    isRequired: true
+    width: '55%',
+    isRequired: true,
+    className: 'mdl-data-table__cell--non-numeric'
   }, {
     data: 'dueDate',
     title: 'Due Date',
     render: formatDate,
-    width: '10%'
+    width: '10%',
+    className: 'mdl-data-table__cell--non-numeric'
   }, {
     data: 'createdOn',
     title: 'Created On',
     render: formatDate,
-    width: '10%'
+    width: '10%',
+    className: 'mdl-data-table__cell--non-numeric'
   }, {
     data: 'statusName',
     title: 'Status',
-    width: '10%'
-  },
-  {
-    data: '',
-    title: 'Edit',
-    render: function (data, type, row) {
-      var elem = null;
-      elem = $compile('<span><span class="edit-setting row-action" title="Edit"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0];
-      return elem.innerHTML;
-    },
-    className: 'text-center',
     width: '10%',
-    isRequired: true
+    className: 'mdl-data-table__cell--non-numeric'
   },
   {
     data: '',
-    title: 'Delete',
+    title: 'Action',
     render: function (data, type, row) {
       var elem = null;
-      elem = $compile('<span><span class="delete-setting row-action" title="Delete"><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0];
-      return elem.innerHTML;
-    },
-    className: 'text-center',
-    width: '10%',
-    isRequired: true
-  },
-  {
-    data: '',
-    title: 'Mark As Done',
-    render: function (data, type, row) {
-      var elem = null;
+      elem = $compile('<span><span class="edit-setting row-action" title="Edit"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0].innerHTML;
+      elem += $compile('<span><span class="delete-setting row-action" title="Delete"><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0].innerHTML;
       if (row.statusID !== DemoConstants.DONE_STATUS) {
-        elem = $compile('<span><span title="Mark as done" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0];
+        elem += $compile('<span><span title="Mark as done" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0].innerHTML;
       } else {
-        elem = $compile('<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0];
+        elem += $compile('<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0].innerHTML;
       }
-      return elem.innerHTML;
+      return elem;
     },
-    className: 'text-center',
-    width: '20%',
-    isRequired: true
+    className: 'text-center mdl-data-table__cell--non-numeric',
+    width: '25%',
+    isRequired: true,
   }];
 
   var dtConfig = {
@@ -209,10 +194,11 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
 
   // Get tasks and bind data to the grid.
   tasksService.fetchTasks().then(function (response) {
-    if (response.data.code === DemoConstants.SUCCESSS_CODE) {
+    if (response && response.data && response.data.code === DemoConstants.SUCCESSS_CODE) {
       var tasks = response.data.data;
       if (tasks) {
         $localStorage.tasks = tasks;
+        highestIndex = tasks.length;
         bindDataToTable();
         return;
       }
@@ -266,7 +252,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.taskDetails.createdOn = convertStringToDate(rowData.createdOn);
     tsk.taskDetails.status = rowData.statusID;
     $scope.$apply();
-    tsk.editTaskIndex = dtObj.row(this.parentElement).index();
+    tsk.editTaskData = dtObj.row(this.parentElement).data();
 
     angular.element('html,body').animate({
       scrollTop: angular.element('.add-task-form ').offset().top
@@ -276,7 +262,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
 
   // On click on delete, delete row.
   angular.element('#tasksGrid').on('click', '.delete-setting', function () {
-    tsk.deleteTaskIndex = dtObj.row(this.parentElement).index();
+    var rowData = dtObj.row(this.parentElement).data();
     // Show delete dialog
     $mdDialog.show({
       scope: $scope,
@@ -291,19 +277,38 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
       scope.cancelDelete = function () {
         $mdDialog.hide();
       };
+
       // On click on delete, delete that row from datatable.
       scope.deleteTask = function () {
-        $localStorage.tasks.splice(tsk.deleteTaskIndex, 1);
+        var deleteTaskIndex = getTaskIndex(rowData);
+        $localStorage.tasks.splice(deleteTaskIndex, 1);
         bindDataToTable();
         $mdDialog.hide();
       };
     }
   });
 
+  /**
+   * It will return the index of selected task.
+   * @param {*} rowData
+   */
+  function getTaskIndex(rowData) {
+    var index = '';
+    var tasks = $localStorage.tasks;
+    for (var i = 0; i < tasks.length; i++) {
+      if (rowData.id === tasks[i].id) {
+        index = i;
+        break;
+      }
+    }
+    return index;
+  }
+
   // Handle mark as done functionality.
   angular.element('#tasksGrid').on('click', '.mark-as-done', function () {
     if (!angular.element(this).hasClass('disabled')) {
-      var doneTaskIndex = dtObj.row(this.parentElement).index();
+      var doneTaskData = dtObj.row(this.parentElement).data();
+      var doneTaskIndex = getTaskIndex(doneTaskData);
       var doneTask = $localStorage.tasks[doneTaskIndex];
       doneTask.statusID = DemoConstants.DONE_STATUS;
       doneTask.statusName = 'Done';
@@ -329,4 +334,13 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   tsk.toggleColumnsDropDown = function () {
     angular.element('.toggle-dropdown-content').toggleClass('hide');
   };
+
+  // On click on document hide the toggle column dropdown if it is opened.
+  $document.mouseup(function (e) {
+    var isHidden = angular.element('.toggle-dropdown-content').hasClass('hide');
+    var isToggleClmnDrpdwn = (e.target === angular.element('.toggle-dropdown-content')[0] || angular.element('.toggle-dropdown-content').has(e.target).length === 0);
+    if (isToggleClmnDrpdwn && !isHidden) {
+      angular.element('.toggle-dropdown-content').addClass('hide');
+    }
+  });
 });

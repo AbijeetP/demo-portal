@@ -38,17 +38,17 @@ md-dialog-actions{
 
 // http://dn.datatables.net/forums/discussion/41421/bootstrap-4-dom-alignment
 // To fix alignment issue.
-#tasksGrid_wrapper .search{
+#tasksGrid_wrapper .search {
   width: 100%;
 }
-#tasksGrid_wrapper{
+#tasksGrid_wrapper {
   clear: both;
   width: 100%;
 }
-#tasksGrid_filter label{
+#tasksGrid_filter label {
   display: inline-block;
 }
-#tasksGrid_paginate{
+#tasksGrid_paginate {
   flex-grow: 2;
   order: 2;
   .pagination{
@@ -61,21 +61,24 @@ md-dialog-actions{
   margin-left: 10px;
 }
 
-.toggle-column-heading{
+.toggle-column-heading {
   font-weight: bold;
   display: inline;
 }
-.toggle-column-column{
+.toggle-column-column {
   color: #0275d8;
   padding: 10px;
 }
-.delete-setting{
+.delete-setting {
   color: rgb(244,81,30);
 }
-.mark-as-done{
+.mark-as-done {
   color: #4caf50;
 }
-.mark-as-done.disabled{
+.toggle-dropdown-content md-checkbox.md-checked .md-icon {
+  background-color: #4caf50;
+}
+.mark-as-done.disabled {
   cursor: not-allowed;
 }
 .task-table{
@@ -105,6 +108,9 @@ md-dialog-actions{
 	color: #fff;
 }
 .toggle-col-drop-down {
+  .cls-row-padding {
+    outline: none !important;
+  }
 	float: right;
 	position: relative;
 	.toggle-dropdown-content {
@@ -128,4 +134,51 @@ md-dialog-actions{
 }
 .hide {
 	display: none;
+}
+.row-action:not(:last-child) {
+  margin-right: 20px;
+}
+.header-container {
+  background-color: #292b2c!important;
+}
+.header-container {
+  .logo, .links {
+    display: inline-block;
+    line-height: 65px;
+    margin: 0px 20px;
+  }
+  .links {
+    float: right;
+    ul {
+      line-height: 65px;
+      margin: 0px;
+      li {
+        display: inline-block;
+        font-size: 18px;
+        a{
+          color: #ffffff;
+          cursor: pointer;
+        }
+        .help-link {
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+}
+a {
+  color: #007bff;
+}
+#tasksGrid {
+  white-space: normal;
+  td {
+    padding: 15px 18px;
+  }
+}
+.text-center {
+  text-align: center !important;
+}
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child,
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child {
+  padding-left: 30px !important;
 }
