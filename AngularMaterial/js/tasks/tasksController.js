@@ -338,7 +338,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   // On click on document hide the toggle column dropdown if it is opened.
   $document.mouseup(function (e) {
     var isHidden = angular.element('.toggle-dropdown-content').hasClass('hide');
-    var isToggleClmnDrpdwn = (e.target === angular.element('.toggle-dropdown-content')[0] || angular.element('.toggle-dropdown-content').has(e.target).length === 0);
+    var isToggleClmnDrpdwn = (e.target === angular.element('.toggle-col-drop-down')[0] || angular.element('.toggle-col-drop-down').has(e.target).length === 0);
     if (isToggleClmnDrpdwn && !isHidden) {
       angular.element('.toggle-dropdown-content').addClass('hide');
     }
