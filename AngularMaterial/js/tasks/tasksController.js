@@ -90,7 +90,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   function getStatus() {
     tsk.status = [];
     return tasksService.fetchStatus().then(function (response) {
-      if (response && response.data.code === DemoConstants.SUCCESSS_CODE) {
+      if (response && response.data && response.data.code === DemoConstants.SUCCESSS_CODE) {
         tsk.status = response.data.data;
       } else {
         showErrorMessage(FETCH_ERROR_MESSAGE + 'status' + FETCH_ERROR_MESSAGE_2);
@@ -194,7 +194,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
 
   // Get tasks and bind data to the grid.
   tasksService.fetchTasks().then(function (response) {
-    if (response && response.data.code === DemoConstants.SUCCESSS_CODE) {
+    if (response && response.data && response.data.code === DemoConstants.SUCCESSS_CODE) {
       var tasks = response.data.data;
       if (tasks) {
         $localStorage.tasks = tasks;
@@ -288,6 +288,10 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     }
   });
 
+  /**
+   * It will return the index of selected task.
+   * @param {*} rowData
+   */
   function getTaskIndex(rowData) {
     var index = '';
     var tasks = $localStorage.tasks;
@@ -330,6 +334,8 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   tsk.toggleColumnsDropDown = function () {
     angular.element('.toggle-dropdown-content').toggleClass('hide');
   };
+
+  // On click on document hide the toggle column dropdown if it is opened.
   $document.mouseup(function (e) {
     var isHidden = angular.element('.toggle-dropdown-content').hasClass('hide');
     var isToggleClmnDrpdwn = (e.target === angular.element('.toggle-dropdown-content')[0] || angular.element('.toggle-dropdown-content').has(e.target).length === 0);
