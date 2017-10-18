@@ -34,7 +34,8 @@ $(document).ready(function () {
   var dtColumns = [{
     data: 'taskName',
     title: 'Task Name',
-    width: '40%'
+    width: '40%',
+    isRequired: true
   }, {
     data: 'dueDate',
     title: 'Due Date',
@@ -64,7 +65,8 @@ $(document).ready(function () {
       }
       return actions;
     },
-    className: 'table-actions text-center'
+    className: 'table-actions text-center',
+    isRequired: true
   }];
 
   var dtConfig = {
@@ -75,7 +77,29 @@ $(document).ready(function () {
     autoWidth: true,
     isFullWidth: true
   };
+
   var dtObj = $tasksGrid.DataTable(dtConfig);
+  var elements = '';
+  for (var index = 0; index < dtColumns.length; index++) {
+    if (!dtColumns[index].isRequired) {
+      elements = elements + '<span  class="dropdown-item dt-column-list" data- value="' + dtColumns[index].title + '" > <input style="display:none;" id="' + dtColumns[index].data + '" type="checkbox"  checked="true"/> <span class="check-box"></span> <label >&nbsp; ' + dtColumns[index].title + ' </label></span>';
+    }
+  }
+
+  $('#dropdown-list').html(elements);
+
+  $('#dropdown-list').on('click', '.dt-column-list', function (e) {
+    $(this).find('input').prop('checked', !$(this).find('input').is(':checked'));
+    for (var i = 0; i < dtColumns.length; i++) {
+      if (dtColumns[i].data === $(this).find('input').attr('id')) {
+        // Get the column API object
+        var column = dtObj.column(i);
+        column.visible(!column.visible());
+        break;
+      }
+    }
+    e.stopPropagation();
+  });
 
   // Making ajax call to get all task status and bind to dropdown
   makeAjaxCall('tasks', cbBindTaskDataToGrid);

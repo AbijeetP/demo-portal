@@ -112,3 +112,52 @@ body {
 .hide-div {
   display: none !important;
 }
+
+#dropdown-list {
+  span {
+     cursor: pointer;
+  }
+
+}
+.dt-dropdown-toggle {
+  border:none;
+}
+.dt-dropdown-toggle::after {
+  content:none;
+}
+
+input[type="checkbox"] {
+    display:none;
+}
+input[type="checkbox"] + .check-box   {
+    padding-left:7px;
+    padding-right:7px;
+    width:30px;
+    height:30px;
+    margin: 0 4px 0 0;
+    vertical-align:middle;
+    background: none;
+    cursor:pointer;
+    line-height: 14px;
+    text-align: center;
+    border: solid 1px #000000;
+}
+input[type="checkbox"] + .check-box::after {
+    color: white;
+    content:'✔';
+    font-size: 14px;
+}
+
+input[type="checkbox"]:checked + .check-box {
+    background-color: green;
+    border: none;
+    color: white;
+}
+
+input[type="checkbox"]:checked + .check-box::after {
+  content:'✔';
+  font-size: 14px;
+}
+.task-submit {
+  margin-right: 15px;
+}
