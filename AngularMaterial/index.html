@@ -61,52 +61,52 @@
     </div>
   </div>
   <section class="container main-container" id="tasksContainer">
+    <section layout="row" layout-padding class="statistics-heading padding-botton-0 padding-left-0">
+      <h3 class="form-heading">Add Task</h3>
+    </section>
     <section>
-      <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}" ng-submit="tsk.createNewTask(tsk.taskForm.$valid)">
-        <h3 class="form-heading">Add Task</h3>
-        <div layout="row" layout-xs="column">
-          <md-input-container class="md-block" flex>
-            <label>Task Name</label>
-            <input required name="taskName" ng-model="tsk.taskDetails.taskName" maxlength="50">
-            <div ng-messages="tsk.taskForm.taskName.$error">
-              <div ng-message="required">This field is required.</div>
+      <md-card md-theme="default" md-theme-watch>
+        <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}" ng-submit="tsk.createNewTask(tsk.taskForm.$valid)">
+          <h3 class="form-heading"></h3>
+          <div layout="row" layout-xs="column">
+            <md-input-container class="md-block" flex>
+              <label>Task Name</label>
+              <input required name="taskName" ng-model="tsk.taskDetails.taskName" maxlength="50">
+              <div ng-messages="tsk.taskForm.taskName.$error">
+                <div ng-message="required">This field is required.</div>
+              </div>
+            </md-input-container>
+            <div flex="10" hide-xs hide-sm>
+              <!-- Spacer //-->
             </div>
-          </md-input-container>
-          <div flex hide-sm>
-
+            <md-input-container class="md-block" flex>
+              <label>Status</label>
+              <md-select name="status" name="" ng-model="tsk.taskDetails.status" required>
+                <md-option ng-if="!tsk.status.length">No status found</md-option>
+                <md-option ng-if="tsk.status.length" ng-repeat="status in tsk.status" ng-value="status.statusID">
+                  {{status.statusName}}
+                </md-option>
+              </md-select>
+              <div ng-messages="tsk.taskForm.status.$error">
+                <div ng-message="required">This field is required.</div>
+              </div>
+            </md-input-container>
           </div>
-          <md-input-container class="md-block" flex>
-            <label>Status</label>
-            <md-select name="status" name="" ng-model="tsk.taskDetails.status" required>
-              <md-option ng-if="!tsk.status.length">No status found</md-option>
-              <md-option ng-if="tsk.status.length" ng-repeat="status in tsk.status" ng-value="status.statusID">
-                {{status.statusName}}
-              </md-option>
-            </md-select>
-            <div ng-messages="tsk.taskForm.status.$error">
-              <div ng-message="required">This field is required.</div>
-            </div>
-          </md-input-container>
-        </div>
-
-        <div layout="row">
-          <md-input-container class="md-block date-picker">
-            <label>Due Date</label>
-            <md-datepicker name="dueDate" ng-model="tsk.taskDetails.dueDate" required></md-datepicker>
-            <div ng-messages="tsk.taskForm.dueDate.$error">
-              <div ng-message="required">This field is required.</div>
-            </div>
-          </md-input-container>
-        </div>
-
-
-        <div layout-gt-sm="column" class="side-block">
-          <md-input-container class="md-block text-right" flex-gt-sm>
-            <md-button type="submit" class="md-raised md-btn-success btn" aria-label="Save"><i class="fa fa-save mg-rt-5"></i><span> {{tsk.buttonName}}</span></md-button>
-            <md-button class="md-raised md-btn-danger btn" aria-label="Save" ng-click="tsk.reset()"><span> Reset</span></md-button>
-          </md-input-container>
-        </div>
-      </form>
+          <div layout="row">
+            <md-input-container class="md-block date-picker" flex-gt-sm>
+              <label>Due Date</label>
+              <md-datepicker name="dueDate" ng-model="tsk.taskDetails.dueDate" required></md-datepicker>
+              <div ng-messages="tsk.taskForm.dueDate.$error">
+                <div ng-message="required">This field is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block text-right" flex-gt-sm>
+              <md-button type="submit" class="md-raised md-btn-success btn" aria-label="Save"><i class="fa fa-save mg-rt-5"></i><span> {{tsk.buttonName}}</span></md-button>
+              <md-button class="md-raised md-btn-danger btn margin-right-zero" aria-label="Save" ng-click="tsk.reset()"><span> Reset</span></md-button>
+            </md-input-container>
+          </div>
+        </form>
+      </md-card>
     </section>
     <section>
       <h3 class="form-heading task-list-header">Task List</h3>
@@ -124,8 +124,8 @@
 
       </table>
     </section>
-    <section layout="row" layout-padding class="statistics-heading padding-botton-0">
-      <h3>Statistics</h3>
+    <section layout="row" layout-padding class="statistics-heading padding-botton-0 padding-left-0">
+      <h3 class="form-heading margin-top-zero">Statistics</h3>
     </section>
     <section class="statistics-container" flex>
       <div layout="row" flex>
