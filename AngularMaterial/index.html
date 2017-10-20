@@ -26,8 +26,8 @@
   <div class="header-container">
     <div class="logo">
       <a href="http://osmosys.asia/">
-          <img src="img/osmosys-logo.png" alt="logo">
-        </a>
+        <img src="img/osmosys-logo.png" alt="logo">
+      </a>
     </div>
     <div class="links">
       <ul>
@@ -111,9 +111,8 @@
     <section>
       <h2 class="form-heading">Task List</h2>
       <div class="toggle-col-drop-down">
-        <div class="cls-row-padding" ng-click="tsk.toggleColumnsDropDown()">
-          <i class="fa fa-list-alt droplnk" title="Click here to select the columns which you want to view in the below table."></i>
-        </div>
+        <button class="btn btn-secondary dropdown-toggle dt-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" ng-click="tsk.toggleColumnsDropDown()" title="Click here to select the columns which you want to view in the below table."> <i class="fa fa-list-alt"></i></button>
         <div class="toggle-dropdown-content hide">
           <md-checkbox class="green" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-model="tsk.isCheckedColumn[column.data]"
             ng-change="tsk.columnVisibilityChanged(column.data, this)">
