@@ -63,7 +63,7 @@
   <section class="container main-container" id="tasksContainer">
     <section>
       <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}" ng-submit="tsk.createNewTask(tsk.taskForm.$valid)">
-        <h2 class="form-heading">Add Task</h2>
+        <h3 class="form-heading">Add Task</h3>
         <div layout="row" layout-xs="column">
           <md-input-container class="md-block" flex>
             <label>Task Name</label>
@@ -109,7 +109,7 @@
       </form>
     </section>
     <section>
-      <h2 class="form-heading">Task List</h2>
+      <h3 class="form-heading task-list-header">Task List</h3>
       <div class="toggle-col-drop-down">
         <button class="btn btn-secondary dropdown-toggle dt-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false" ng-click="tsk.toggleColumnsDropDown()" title="Click here to select the columns which you want to view in the below table."> <i class="fa fa-list-alt"></i></button>
@@ -125,7 +125,7 @@
       </table>
     </section>
     <section layout="row" layout-padding class="statistics-heading padding-botton-0">
-      <h2>Statistics</h2>
+      <h3>Statistics</h3>
     </section>
     <section class="statistics-container" flex>
       <div layout="row" flex>

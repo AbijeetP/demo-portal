@@ -1,4 +1,36 @@
-@import "../../css/main.less";
+html {
+  height: 100%;
+  background-color: #f8f7f7;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #f8f7f7;
+}
+nav {
+  flex: 0 0 auto;
+}
+.main-container {
+  flex: 1 0 auto;
+}
+.main-container h3 {
+  margin: 5px 0;
+  padding: 0px;
+}
+.footer {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #f5f5f5;
+}
+.navbar-brand img {
+  height: 38px;
+}
+.nav-link {
+  margin-left: 1em;
+}
 body {
   font-family: sans-serif !important;
 }
@@ -11,13 +43,13 @@ body {
 .btn {
   cursor: pointer;
 }
-.form-heading {
-  margin-bottom: 60px;
-}
-a:focus, a:hover {
+
+a:focus,
+a:hover {
   text-decoration: none;
 }
-button.btn.md-btn-success , button.btn.md-button.md-raised.md-btn-success:hover{
+button.btn.md-btn-success,
+button.btn.md-button.md-raised.md-btn-success:hover {
   background-color: #4caf50;
   color: #fff;
 }
@@ -25,19 +57,16 @@ button.btn.md-btn-success , button.btn.md-button.md-raised.md-btn-success:hover{
  * Fix for form reset not clearing ng-message, bug here -
  * https://github.com/angular/material/issues/9543
  */
- .frm-is-submitted .ng-untouched ~ .md-input-messages-animation {
+.frm-is-submitted .ng-untouched ~ .md-input-messages-animation {
   height: 0;
   opacity: 0;
 }
 .row-action {
-  cursor: pointer
+  cursor: pointer;
 }
-md-dialog-actions{
+md-dialog-actions {
   padding-right: 16px;
 }
-
-// http://dn.datatables.net/forums/discussion/41421/bootstrap-4-dom-alignment
-// To fix alignment issue.
 #tasksGrid_wrapper .search {
   width: 100%;
 }
@@ -50,16 +79,11 @@ md-dialog-actions{
 #tasksGrid_paginate {
   flex-grow: 2;
   order: 2;
-  .pagination{
-    float: right;
-    padding-top: 6px;
-  }
 }
-#tasksGrid_length {
-  padding-top: 15px;
-  margin-left: 10px;
+#tasksGrid_paginate .pagination {
+  float: right;
+  padding-top: 6px;
 }
-
 .toggle-column-heading {
   font-weight: bold;
   display: inline;
@@ -69,7 +93,7 @@ md-dialog-actions{
   padding: 10px;
 }
 .delete-setting {
-  color: rgb(244,81,30);
+  color: #f4511e;
 }
 .mark-as-done {
   color: #4caf50;
@@ -80,59 +104,55 @@ md-dialog-actions{
 .mark-as-done.disabled {
   cursor: not-allowed;
 }
-.task-table{
-  md-card-title-text {
-    display: inline;
-  }
+.task-table md-card-title-text {
+  display: inline;
 }
-.pie-chart-card, .line-chart-card {
+.pie-chart-card,
+.line-chart-card {
   padding-bottom: 25px;
 }
 .padding-botton-0 {
   padding-bottom: 0;
 }
-.statistics-heading {
-  margin-top: 20px;
-}
 .statistics-container {
- margin-bottom:35px;
+  margin-bottom: 35px;
 }
 .edit-setting {
-	color: #0275d8;
+  color: #0275d8;
 }
 .md-button.md-raised,
 .md-button.md-raised.md-button:hover {
-	background-color:#ef0000;
-	box-shadow: 0 2px 5px 0 rgba(239, 0, 0, 0.7);
-	color: #fff;
+  background-color: #ef0000;
+  box-shadow: 0 2px 5px 0 rgba(239, 0, 0, 0.7);
+  color: #fff;
 }
 .toggle-col-drop-down {
-  .cls-row-padding {
-    outline: none !important;
-  }
-	float: right;
-	position: relative;
-	.toggle-dropdown-content {
-		position: absolute;
-		top: 30px;
-		right: 6px;
-		min-width: 160px;
-		background-color: #fff;
-		box-shadow: 0px 0px 1px 1px #DADADA;
-		z-index: 4;
-		border-radius: 3px;
-		padding: 10px;
-		md-checkbox {
-			display: block;
-		}
-	}
-	.droplnk {
-		margin-right: 20px;
-		font-size: 25px;
-	}
+  float: right;
+  position: relative;
+}
+.toggle-col-drop-down .cls-row-padding {
+  outline: none !important;
+}
+.toggle-col-drop-down .toggle-dropdown-content {
+  position: absolute;
+  top: 30px;
+  right: 6px;
+  min-width: 160px;
+  background-color: #fff;
+  box-shadow: 0px 0px 1px 1px #DADADA;
+  z-index: 4;
+  border-radius: 3px;
+  padding: 10px;
+}
+.toggle-col-drop-down .toggle-dropdown-content md-checkbox {
+  display: block;
+}
+.toggle-col-drop-down .droplnk {
+  margin-right: 20px;
+  font-size: 25px;
 }
 .hide {
-	display: none;
+  display: none;
 }
 .row-action:not(:last-child) {
   margin-right: 20px;
@@ -140,61 +160,58 @@ md-dialog-actions{
 .header-container {
   background-color: #292b2c!important;
 }
-.header-container {
-  .logo, .links {
-    display: inline-block;
-    line-height: 65px;
-    margin: 0px 20px;
-  }
-  .links {
-    float: right;
-    ul {
-      line-height: 65px;
-      margin: 0px;
-      li {
-        display: inline-block;
-        font-size: 18px;
-        a{
-          color: #ffffff;
-          cursor: pointer;
-        }
-        .help-link {
-          margin-left: 20px;
-        }
-      }
-    }
-  }
+.header-container .logo,
+.header-container .links {
+  display: inline-block;
+  line-height: 65px;
+  margin: 0px 20px;
+}
+.header-container .links {
+  float: right;
+}
+.header-container .links ul {
+  line-height: 65px;
+  margin: 0px;
+}
+.header-container .links ul li {
+  display: inline-block;
+  font-size: 18px;
+}
+.header-container .links ul li a {
+  color: #ffffff;
+  cursor: pointer;
+}
+.header-container .links ul li .help-link {
+  margin-left: 20px;
 }
 a {
   color: #007bff;
 }
 #tasksGrid {
   white-space: normal;
-  td {
-    padding: 15px 18px;
-    text-align: left;
-  }
 }
-.date-picker {
-  label {
-    width: 100% !important;
-    left: 0px !important;
-  }
-  .md-input-message-animation {
-    margin-left: 0px !important;
-  }
-  .md-datepicker-button {
-    display : none;
-  }
-  .md-icon-button+.md-datepicker-input-container {
-    margin-left: 0px;
-  }
+#tasksGrid td {
+  padding: 15px 18px;
+  text-align: left;
+}
+.date-picker label {
+  width: 100% !important;
+  left: 0px !important;
+}
+.date-picker .md-input-message-animation {
+  margin-left: 0px !important;
+}
+.date-picker .md-datepicker-button {
+  display: none;
+}
+.date-picker .md-icon-button + .md-datepicker-input-container {
+  margin-left: 0px;
 }
 .text-center {
   text-align: center !important;
 }
-table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child,
-table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child {
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child,
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child {
   padding-left: 30px !important;
 }
 
@@ -207,4 +224,18 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child {
 }
 .btn-secondary:hover {
       background-color: #e6e6e6;
+}
+table th {
+  font-weight: bold;
+}
+.add-task-form {
+  padding:10px;
+}
+
+.form-heading.task-list-header {
+  padding: 5px;
+}
+
+.main-container div.dataTables_wrapper div.mdl-grid.dt-table > div.mdl-cell {
+  margin: 0px;
 }
