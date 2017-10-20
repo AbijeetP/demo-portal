@@ -2,112 +2,115 @@
  body {
     font-family: sans-serif !important;
   }
-  .btn {
-    cursor: pointer;
-  }
-  a:focus, a:hover {
-      text-decoration: none;
-  }
-  .main-container button.btn.md-btn-success , {
-    background-color: #4caf50;
-    color: #fff;
-  }
-  .main-container button.btn.md-button.md-raised.md-btn-success:hover {
-    background-color: #4caf50;
-    box-shadow: 0 2px 5px 0 #4caf50;
-    color: #fff;
-  }
-   /**
-   * Fix for form reset not clearing ng-message, bug here -
-   * https://github.com/angular/material/issues/9543
-   */
-  .frm-is-submitted .ng-untouched ~ .md-input-messages-animation {
-        height: 0;
-    opacity: 0;
-  }
- .row-action {
-    cursor: pointer;
-  }
-  md-dialog-actions {
-    padding-right: 16px;
-  }
+.btn {
+  cursor: pointer;
+}
+a:focus, a:hover {
+  text-decoration: none;
+}
+.main-container button.btn.md-btn-success , {
+  background-color: #4caf50;
+  color: #fff;
+}
+.main-container button.btn.md-button.md-raised.md-btn-success:hover {
+  background-color: #4caf50;
+  box-shadow: 0 2px 5px 0 #4caf50;
+  color: #fff;
+}
+/**
+* Fix for form reset not clearing ng-message, bug here -
+* https://github.com/angular/material/issues/9543
+*/
+.frm-is-submitted .ng-untouched ~ .md-input-messages-animation {
+  height: 0;
+  opacity: 0;
+}
+.row-action {
+  cursor: pointer;
+}
+md-dialog-actions {
+  padding-right: 16px;
+}
 
-  // http://dn.datatables.net/forums/discussion/41421/bootstrap-4-dom-alignment
- // To fix alignment issue.
+// http://dn.datatables.net/forums/discussion/41421/bootstrap-4-dom-alignment
+// To fix alignment issue.
+#tasksGrid_wrapper .search {
+  width: 100%;
+}
 
-  #tasksGrid_wrapper .search {
-    width: 100%;
-  }
+#tasksGrid_wrapper {
+  width: 100%;
+}
 
-  #tasksGrid_wrapper {
-    width: 100%;
-  }
-
-  #tasksGrid_filter label {
-    display: inline-block;
- }
+#tasksGrid_filter label {
+  display: inline-block;
+}
 #tasksGrid_paginate {
-    flex-grow: 2;
-    order: 2;
+  flex-grow: 2;
+  order: 2;
   .pagination{
-  float: right;
+    float: right;
   }
 }
 .toggle-column-heading {
-    font-weight: bold;
-    display: inline;
+  font-weight: bold;
+  display: inline;
  }
-  .toggle-column-column {
-   color: #0275d8;
-    padding: 10px;
-  }
+.toggle-column-column {
+  color: #0275d8;
+  padding: 10px;
+}
 
-  .delete-setting {
- color: rgb(244,81,30);
-  }
-   .mark-as-done {
-    color: #4caf50;
- }
- .toggle-dropdown-content md-checkbox.md-checked .md-icon {
-   background-color: #4caf50;
- }
-  .mark-as-done.disabled {
-    cursor: not-allowed;
-  }
+.delete-setting {
+  color: rgb(244,81,30);
+}
+.mark-as-done {
+  color: #4caf50;
+}
+.toggle-dropdown-content md-checkbox.md-checked .md-icon {
+  background-color: #4caf50;
+}
+.mark-as-done.disabled {
+  cursor: not-allowed;
+  color: #B4B4B4;
+}
 .task-table{
  md-card-title-text {
     display: inline;
   }
 }
 
-  .pie-chart-card, .line-chart-card {
-     padding-bottom: 25px;
-  }
-   .padding-botton-0 {
-    padding-bottom: 0;
-  }
+.pie-chart-card,  {
+  padding-bottom: 25px;
+}
+.line-chart-card {
+  padding-bottom: 22px;
+}
+.padding-botton-0 {
+  padding-bottom: 0;
+}
 
 .padding-left-0 {
   padding-left: 0;
 }
 
 .statistics-container {
- margin-bottom: 35px;
+  margin-bottom: 35px;
 }
 .edit-setting {
   color: #0275d8;
 }
 
 .main-container button.btn.md-btn-danger , {
-    background-color: #ef0000;
-    color: #fff;
-  }
-  .main-container button.btn.md-button.md-raised.md-btn-danger:hover {
-     background-color: #ef0000;
-box-shadow: 0 2px 5px 0 rgba(239, 0, 0, 0.7);
-color: #fff;
-  }
-   .toggle-col-drop-down {
+  background-color: #ef0000;
+  color: #fff;
+}
+.main-container button.btn.md-button.md-raised.md-btn-danger:hover {
+  background-color: #ef0000;
+  box-shadow: 0 2px 5px 0 rgba(239, 0, 0, 0.7);
+  color: #fff;
+}
+.toggle-col-drop-down {
   .cls-row-padding {
     outline: none !important;
    }
@@ -132,17 +135,17 @@ color: #fff;
  		font-size: 25px;
  	}
 }
- .hide {
+.hide {
  	display: none;
 }
- .row-action:not(:last-child) {
-    margin-right: 20px;
-  }
-  .header-container {
-    background-color: #292b2c!important;
-  }
+.row-action:not(:last-child) {
+  margin-right: 20px;
+}
+.header-container {
+  background-color: #292b2c!important;
+}
 
-  .header-container {
+.header-container {
    .logo, .links {
      display: inline-block;
      line-height: 65px;
@@ -150,56 +153,56 @@ color: #fff;
    }
    .links {
      float: right;
-     ul {
-       line-height: 65px;
-       margin: 0px;
-       li {
-         display: inline-block;
-         font-size: 18px;
-         a{
-           color: #ffffff;
-           cursor: pointer;
-         }
-         .help-link {
-           margin-left: 20px;
-         }
-       }
-     }
-   }
+    ul {
+      line-height: 65px;
+      margin: 0px;
+      li {
+        display: inline-block;
+        font-size: 18px;
+        a{
+          color: #ffffff;
+          cursor: pointer;
+        }
+        .help-link {
+          margin-left: 20px;
+        }
+      }
+    }
   }
+}
 
-   a {
-    color: #007bff;
-  }
-   #tasksGrid {
-    white-space: normal;
-      td {
+a {
+  color: #007bff;
+}
+#tasksGrid {
+  white-space: normal;
+  td {
      padding: 15px 18px;
      text-align: left;
    }
  }
- .date-picker {
-   label {
-     width: 100% !important;
-     left: 0px !important;
-   }
-   .md-input-message-animation {
-     margin-left: 0px !important;
-   }
-   .md-datepicker-button {
-     display : none;
-   }
-   .md-icon-button+.md-datepicker-input-container {
-     margin-left: 0px;
-   }
- }
- .text-center {
-    text-align: center !important;
+.date-picker {
+  label {
+    width: 100% !important;
+    left: 0px !important;
   }
-  table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child,
- table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child {
-      padding-left: 30px !important;
- }
+  .md-input-message-animation {
+    margin-left: 0px !important;
+  }
+  .md-datepicker-button {
+    display : none;
+  }
+  .md-icon-button+.md-datepicker-input-container {
+    margin-left: 0px;
+  }
+}
+.text-center {
+  text-align: center !important;
+}
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child,
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child {
+    padding-left: 30px !important;
+}
 
 .btn-secondary {
   color: #292b2c;
@@ -209,13 +212,13 @@ color: #fff;
   margin-right: 7px;
 }
 .btn-secondary:hover {
-      background-color: #e6e6e6;
+background-color: #e6e6e6;
 }
 table th {
   font-weight: bold;
 }
 .add-task-form {
-  padding:10px;
+  padding: 20px;
 }
 .form-heading {
   margin-bottom: 0px;
@@ -240,4 +243,7 @@ table th {
 
 .margin-top-zero {
   margin-top: 0px;
+}
+.margin-right-zero {
+  margin-right: 0px;
 }

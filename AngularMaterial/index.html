@@ -76,7 +76,7 @@
                 <div ng-message="required">This field is required.</div>
               </div>
             </md-input-container>
-            <div flex="5" hide-xs hide-sm>
+            <div flex="10" hide-xs hide-sm>
               <!-- Spacer //-->
             </div>
             <md-input-container class="md-block" flex>
@@ -93,7 +93,7 @@
             </md-input-container>
           </div>
           <div layout="row">
-            <md-input-container class="md-block date-picker">
+            <md-input-container class="md-block date-picker" flex-gt-sm>
               <label>Due Date</label>
               <md-datepicker name="dueDate" ng-model="tsk.taskDetails.dueDate" required></md-datepicker>
               <div ng-messages="tsk.taskForm.dueDate.$error">
@@ -102,7 +102,7 @@
             </md-input-container>
             <md-input-container class="md-block text-right" flex-gt-sm>
               <md-button type="submit" class="md-raised md-btn-success btn" aria-label="Save"><i class="fa fa-save mg-rt-5"></i><span> {{tsk.buttonName}}</span></md-button>
-              <md-button class="md-raised md-btn-danger btn" aria-label="Save" ng-click="tsk.reset()"><span> Reset</span></md-button>
+              <md-button class="md-raised md-btn-danger btn margin-right-zero" aria-label="Save" ng-click="tsk.reset()"><span> Reset</span></md-button>
             </md-input-container>
           </div>
         </form>
