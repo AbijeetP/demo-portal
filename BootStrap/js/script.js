@@ -18,6 +18,11 @@ $(document).ready(function () {
     TASKS_COMPLETED: '#00caca'
   }
 
+
+  $('.add-task-form').on('blur', '.reqCntrl', function () {
+    Validator.removeErrForFld($(this));
+  });
+
   $('#createdOn').val(formatDate(new Date()));
 
   $('#dueDate').datepicker({
