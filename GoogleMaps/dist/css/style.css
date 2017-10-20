@@ -30,9 +30,6 @@ nav {
 .google-maps {
   width: 100%;
 }
-.user-image img {
-  border-radius: 50%;
-}
 .contributor-email {
   display: block;
 }
@@ -64,6 +61,16 @@ nav {
   max-height: 46px;
   overflow-y: hidden;
 }
+.star-ratings-sprite {
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png") repeat-x;
+  font-size: 0;
+  height: 21px;
+  line-height: 0;
+  overflow: hidden;
+  text-indent: -999em;
+  display: inline-block;
+  width: 110px;
+}
 .star-ratings-sprite-rating {
   background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png") repeat-x;
   background-position: 0 100%;
@@ -71,6 +78,11 @@ nav {
   height: 20px;
   display: block;
   margin-right: 15px;
+}
+.star-ratings-heading {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: top;
 }
 .star {
   align-items: center;

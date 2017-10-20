@@ -88,7 +88,7 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
 
   vm.showDetails = function (event, place) {
     vm.place = place;
-    vm.place.actualRating = (place.rating * 10) + '%';
+    vm.place.actualRating = (place.rating * 20) + '%';
     vm.map.showInfoWindow("infoWindow", this);
   };
 });
