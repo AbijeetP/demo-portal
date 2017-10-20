@@ -128,7 +128,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   tsk.dtColumns = [{
     data: 'taskName',
     title: 'Task Name',
-    width: '55%',
+    width: '43%',
     isRequired: true,
     className: 'mdl-data-table__cell--non-numeric'
   }, {

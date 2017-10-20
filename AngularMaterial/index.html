@@ -26,8 +26,8 @@
   <div class="header-container">
     <div class="logo">
       <a href="http://osmosys.asia/">
-          <img src="img/osmosys-logo.png" alt="logo">
-        </a>
+        <img src="img/osmosys-logo.png" alt="logo">
+      </a>
     </div>
     <div class="links">
       <ul>
@@ -63,7 +63,7 @@
   <section class="container main-container" id="tasksContainer">
     <section>
       <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}" ng-submit="tsk.createNewTask(tsk.taskForm.$valid)">
-        <h2 class="form-heading">Add Task</h2>
+        <h3 class="form-heading">Add Task</h3>
         <div layout="row" layout-xs="column">
           <md-input-container class="md-block" flex>
             <label>Task Name</label>
@@ -109,11 +109,10 @@
       </form>
     </section>
     <section>
-      <h2 class="form-heading">Task List</h2>
+      <h3 class="form-heading task-list-header">Task List</h3>
       <div class="toggle-col-drop-down">
-        <div class="cls-row-padding" ng-click="tsk.toggleColumnsDropDown()">
-          <i class="fa fa-list-alt droplnk" title="Click here to select the columns which you want to view in the below table."></i>
-        </div>
+        <button class="btn btn-secondary dropdown-toggle dt-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" ng-click="tsk.toggleColumnsDropDown()" title="Click here to select the columns which you want to view in the below table."> <i class="fa fa-list-alt"></i></button>
         <div class="toggle-dropdown-content hide">
           <md-checkbox class="green" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-model="tsk.isCheckedColumn[column.data]"
             ng-change="tsk.columnVisibilityChanged(column.data, this)">
@@ -126,7 +125,7 @@
       </table>
     </section>
     <section layout="row" layout-padding class="statistics-heading padding-botton-0">
-      <h2>Statistics</h2>
+      <h3>Statistics</h3>
     </section>
     <section class="statistics-container" flex>
       <div layout="row" flex>
