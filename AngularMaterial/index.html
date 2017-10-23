@@ -62,12 +62,11 @@
   </div>
   <section class="container main-container" id="tasksContainer">
     <section layout="row" layout-padding class="statistics-heading padding-botton-0 padding-left-0">
-      <h3 class="form-heading">Add Task</h3>
+      <h1 class="form-heading">Add Task</h1>
     </section>
     <section>
       <md-card md-theme="default" md-theme-watch>
         <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}" ng-submit="tsk.createNewTask(tsk.taskForm.$valid)">
-          <h3 class="form-heading"></h3>
           <div layout="row" layout-xs="column">
             <md-input-container class="md-block" flex>
               <label>Task Name</label>
@@ -109,7 +108,7 @@
       </md-card>
     </section>
     <section>
-      <h3 class="form-heading task-list-header">Task List</h3>
+      <h2 class="form-heading task-list-header">Task List</h2>
       <div class="toggle-col-drop-down">
         <button class="btn btn-secondary dropdown-toggle dt-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false" ng-click="tsk.toggleColumnsDropDown()" title="Click here to select the columns which you want to view in the below table."> <i class="fa fa-list-alt"></i></button>
@@ -125,7 +124,7 @@
       </table>
     </section>
     <section layout="row" layout-padding class="statistics-heading padding-botton-0 padding-left-0">
-      <h3 class="form-heading margin-top-zero">Statistics</h3>
+      <h2 class="form-heading margin-top-zero">Statistics</h2>
     </section>
     <section class="statistics-container" flex>
       <div layout="row" flex>
