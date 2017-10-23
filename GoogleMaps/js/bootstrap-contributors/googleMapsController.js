@@ -1,6 +1,6 @@
 angular.module('googleMaps').controller('MapsController', function (NgMap, $timeout, MapsService) {
-  configureToastr ();
-  function configureToastr() {
+  configureToastr();
+  function configureToastr () {
     toastr.options.timeOut = 4000;
     toastr.options.positionClass = 'toast-bottom-right';
   }
@@ -26,6 +26,9 @@ angular.module('googleMaps').controller('MapsController', function (NgMap, $time
           profile: response[i].profile_url
         });
       }
+    });
+    google.maps.event.addListener(map, 'zoom_changed', function () {
+      if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
     });
   });
 

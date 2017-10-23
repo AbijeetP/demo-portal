@@ -1,0 +1,25 @@
+{
+  "name": "demo-portal",
+  "version": "1.0.0",
+  "description": "A demo portal created using various technologies",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OsmosysSoftware/demo-portal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/OsmosysSoftware/demo-portal/issues"
+  },
+  "homepage": "https://github.com/OsmosysSoftware/demo-portal#readme",
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0"
+  }
+}

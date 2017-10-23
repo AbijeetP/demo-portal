@@ -1,9 +1,8 @@
-﻿{
+{
   "name": "google-maps-demo",
   "version": "1.0.0",
   "description": "A demo project for google maps",
   "license": "-",
-  "repository": "",
   "private": true,
   "devDependencies": {
     "bower": "^1.7.7",
@@ -23,5 +22,8 @@
     "prestart": "npm install && bower install",
     "start": "grunt dev && http-server -a localhost -p 8000 -c-1 ./ -o -g"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "main": "Gruntfile.js",
+  "keywords": [],
+  "author": ""
 }
