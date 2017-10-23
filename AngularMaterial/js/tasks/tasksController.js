@@ -88,7 +88,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
 
   tsk.changeSearch = function () {
     var searchTxt = angular.element('[name="search"]').val();
-    angular.element('#tasksGrid_filter .form-control').val(searchTxt);
+    angular.element('#tasksGrid_filter .form-control').val(searchTxt).trigger('keyup');
   }
 
   /**
