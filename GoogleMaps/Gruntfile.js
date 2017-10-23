@@ -55,10 +55,14 @@ module.exports = function (grunt) {
             libPath + 'bootstrap/dist/css/bootstrap.min.css',
             libPath + 'components-font-awesome/css/font-awesome.min.css'
           ],
-          'dist/js/script.js' : [
-            jsPath + 'bootstrap-users/googleMapsModule.js',
-            jsPath + 'bootstrap-users/googleMapsController.js',
-            jsPath + 'bootstrap-users/googleMapsService.js'
+          'dist/js/bootstrap-contributors.js' : [
+            jsPath + 'bootstrap-contributors/googleMapsModule.js',
+            jsPath + 'bootstrap-contributors/googleMapsController.js',
+            jsPath + 'bootstrap-contributors/googleMapsService.js'
+          ],
+          'dist/js/search-location.js' : [
+            jsPath + 'search-location/searchLocationModule.js',
+            jsPath + 'search-location/searchLocationController.js',
           ]
         },
       },
