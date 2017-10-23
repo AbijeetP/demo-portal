@@ -70,7 +70,7 @@
           <div layout="row" layout-xs="column">
             <md-input-container class="md-block" flex>
               <label>Task Name</label>
-              <input required name="taskName" ng-model="tsk.taskDetails.taskName" maxlength="50">
+              <input required name="taskName" ng-model="tsk.taskDetails.taskName" maxlength="200">
               <div ng-messages="tsk.taskForm.taskName.$error">
                 <div ng-message="required">This field is required.</div>
               </div>
@@ -107,7 +107,7 @@
         </form>
       </md-card>
     </section>
-    <section>
+    <section class="task-grid-section">
       <h2 class="form-heading task-list-header">Task List</h2>
       <div class="toggle-col-drop-down">
         <button class="btn btn-secondary dropdown-toggle dt-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -119,6 +119,10 @@
           </md-checkbox>
         </div>
       </div>
+      <md-input-container class="md-block custom-search" flex>
+        <label>Search</label>
+        <input name="search" ng-keyup="tsk.changeSearch()">
+      </md-input-container>
       <table class="table mdl-data-table" width="100%" id="tasksGrid">
 
       </table>

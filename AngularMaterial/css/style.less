@@ -26,7 +26,24 @@ a:focus, a:hover {
   opacity: 0;
 }
 .row-action {
+  .fa {
+    font-size: 18px;
+  }
   cursor: pointer;
+}
+.task-grid-section {
+  position: relative;
+  .custom-search {
+    width: 225px;
+    display: inline-block;
+    position: absolute;
+    right: 65px;
+    margin: 0px;
+    top: 68px;
+  }
+}
+#tasksGrid_filter {
+  display: none;
 }
 md-dialog-actions {
   padding-right: 16px;
@@ -128,7 +145,10 @@ md-dialog-actions {
  		padding: 10px;
  		md-checkbox {
  			display: block;
- 		}
+     }
+     md-checkbox:last-child {
+       margin-bottom: 0px;
+     }
  	}
  	.droplnk {
  		margin-right: 20px;
@@ -179,6 +199,9 @@ a {
   td {
      padding: 15px 18px;
      text-align: left;
+   }
+   th {
+     color: #333;
    }
  }
 .date-picker {
@@ -259,8 +282,8 @@ table th {
   h2 {
     margin-bottom: 0px;
   }
-  .md-dialog-actions {
-    padding-bottom: 5px;
+  md-dialog md-dialog-actions {
+    padding: 0px 24px 5px 24px;
   }
 }
 .dataTables_empty {
