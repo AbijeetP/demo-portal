@@ -27,9 +27,6 @@ angular.module('googleMaps').controller('MapsController', function (NgMap, $time
         });
       }
     });
-    google.maps.event.addListener(map, 'zoom_changed', function () {
-      if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
-    });
   });
 
   vm.showDetails = function (e, user) {
