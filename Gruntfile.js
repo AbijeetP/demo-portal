@@ -1,6 +1,6 @@
 module.exports = function (grunt) {
 
-  grunt.registerTask('buildapp', function (dir) {
+  grunt.registerTask('buildProd', function (dir) {
     var done = this.async();
 
     grunt.log.writeln('processing ' + dir);
@@ -23,8 +23,9 @@ module.exports = function (grunt) {
     })
   });
 
+  // Add grunt.task.run(['buildProd:{folderName}']) 
   grunt.registerTask('build', function () {
-    grunt.task.run(['buildapp:GoogleMaps']);
+    grunt.task.run(['buildProd:GoogleMaps']);
   });
 
   grunt.registerTask('default', ['build']);
