@@ -20,7 +20,8 @@
     "grunt-npm-install": "^0.3.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "grunt dev && http-server -a localhost -p 8001 -c-1 -o -g"
   },
   "repository": {
     "type": "git",
