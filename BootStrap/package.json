@@ -1,7 +1,7 @@
 {
-  "name": "Accident-Informer-Website",
+  "name": "bootstrap-demo",
   "version": "1.0.0",
-  "description": "A mobile application that is being designed for providing information about accidents.",
+  "description": "A responsive page that uses the bootstrap classes. Add/update/delete tasks and view the status of the tasks in the charts shown in the page.",
   "main": "index.js",
   "dependencies": {
     "chart.js": "^2.7.0",
@@ -21,11 +21,12 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "grunt dev && http-server -a localhost -p 8001 -c-1 -o -g"
+    "start": "grunt dev && http-server -a localhost -p 8001 -c-1 -o -g",
+    "postinstall": "bower install"
   },
   "repository": {
     "type": "git",
-    "url": "http://10.0.0.150/accident-reporter/website.git"
+    "url": "https://github.com/OsmosysSoftware/demo-portal.git"
   },
   "keywords": [
     "accident",

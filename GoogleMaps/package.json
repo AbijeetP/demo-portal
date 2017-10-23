@@ -20,7 +20,8 @@
   },
   "scripts": {
     "prestart": "npm install && bower install",
-    "start": "grunt dev && http-server -a localhost -p 8000 -c-1 ./ -o -g"
+    "start": "grunt dev && http-server -a localhost -p 8000 -c-1 ./ -o -g",
+    "postinstall": "bower install"
   },
   "dependencies": {},
   "main": "Gruntfile.js",

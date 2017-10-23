@@ -116,3 +116,68 @@ body h1 {
 .table-actions span {
   margin-left: 1em;
 }
+.empty-chart {
+  text-align: center;
+  padding: 121px;
+}
+@media only screen and (max-width: 1000px) {
+  .custom-pie-chart {
+    padding-right: 0px !important;
+  }
+  .custom-line-chart {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+}
+.hide-div {
+  display: none !important;
+}
+#dropdown-list span,
+#dropdown-list label {
+  cursor: pointer;
+}
+.dt-dropdown-toggle {
+  border: none;
+}
+.dt-dropdown-toggle::after {
+  content: none;
+}
+.dropdown-item.active,
+.dropdown-item:active {
+  text-decoration: none;
+  color: #000;
+  background-color: #fff;
+}
+input[type="checkbox"] {
+  display: none;
+}
+input[type="checkbox"] + .check-box {
+  padding-left: 7px;
+  padding-right: 7px;
+  width: 30px;
+  height: 30px;
+  margin: 0 4px 0 0;
+  vertical-align: middle;
+  background: none;
+  cursor: pointer;
+  line-height: 14px;
+  text-align: center;
+  border: solid 1px #000000;
+}
+input[type="checkbox"] + .check-box::after {
+  color: white;
+  content: '✔';
+  font-size: 10px;
+}
+input[type="checkbox"]:checked + .check-box {
+  background-color: green;
+  border: none;
+  color: white;
+}
+input[type="checkbox"]:checked + .check-box::after {
+  content: '✔';
+  font-size: 14px;
+}
+.task-submit {
+  margin-right: 15px;
+}

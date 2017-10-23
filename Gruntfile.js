@@ -26,6 +26,8 @@ module.exports = function (grunt) {
   // Add grunt.task.run(['buildProd:{folderName}']) 
   grunt.registerTask('build', function () {
     grunt.task.run(['buildProd:GoogleMaps']);
+    grunt.task.run(['buildProd:BootStrap']);
+    grunt.task.run(['buildProd:AngularMaterial']);
   });
 
   grunt.registerTask('default', ['build']);
