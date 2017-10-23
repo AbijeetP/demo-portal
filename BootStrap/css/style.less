@@ -1,15 +1,23 @@
 @import "/../../Common/css/main.less";
 body {
-    font-size: 16px;
-    h1 {
-        font-size: 1.5em;
-        margin: 1em 0em;
+    font-size: 13px;
+    h1, h2 {
+        font-size: 30px;
     }
 }
 .add-task-form {
     width: 97%;
     margin: auto;
     margin-top: 2em;
+    label {
+      font-size: 16px;
+    }
+}
+.add-task-form h1, .task-grid-section h2 {
+  margin: 0.5em 0em;
+}
+div.dataTables_wrapper div.dataTables_length select {
+  font-size: 13px;
 }
 .btn {
     cursor: pointer;
@@ -39,7 +47,16 @@ body {
 }
 
 .charts-container {
-  margin-bottom : 15px;
+  margin-bottom : 35px;
+  h2 {
+    position: relative;
+    right: 16px;
+  }
+  h3 {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1em;
+  }
 }
 
 .custom-pie-chart {
@@ -48,12 +65,6 @@ body {
 
 .custom-line-chart {
   padding-right: 0px;
-}
-
-.custom-card  h2 {
-  font-size: 1.2em;
-  font-weight: 400;
-  line-height: 1em;
 }
 
 .custom-card canvas {
@@ -88,6 +99,7 @@ body {
 }
 .mark-as-done.disabled{
   cursor: not-allowed;
+  color: #B4B4B4;
 }
 .table-actions {
     span {

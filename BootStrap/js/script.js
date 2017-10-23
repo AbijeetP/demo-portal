@@ -528,7 +528,8 @@ $(document).ready(function () {
                 },
                 ticks: {
                   stepSize: 1,
-                  beginAtZero: true
+                  beginAtZero: true,
+                  max: 10
                 }
               }]
             }
