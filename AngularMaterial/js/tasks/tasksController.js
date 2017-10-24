@@ -172,7 +172,8 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     },
     className: 'text-center mdl-data-table__cell--non-numeric',
     width: '20%',
-    isRequired: true,
+    bSortable: false,
+    isRequired: true
   }];
 
   var dtConfig = {
