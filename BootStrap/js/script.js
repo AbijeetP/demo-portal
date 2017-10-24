@@ -17,7 +17,7 @@ $(document).ready(function () {
     PLANNED: '#9b59b6',
     TASKS_COMPLETED: '#00caca'
   }
-
+  var Validator = $('#addTaskForm').osmValidator();
 
   $('.add-task-form').on('blur', '.reqCntrl', function () {
     Validator.removeErrForFld($(this));
@@ -201,7 +201,7 @@ $(document).ready(function () {
   // Submitting the add/edit task form
   $('.task-submit').click(function () {
     var $taskForm = $('.add-task-form');
-    var response = Validator.validateFormCntrls($taskForm, this);
+    var response = Validator.validateFormControls($taskForm, this);
     if (!response.hasError) {
       var rowData = getFormData();
       addCompletedOn(rowData);
