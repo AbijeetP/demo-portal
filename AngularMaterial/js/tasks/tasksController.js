@@ -3,8 +3,9 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
 
   const FETCH_ERROR_MESSAGE = 'Some problem has occurred while fetching ';
   const FETCH_ERROR_MESSAGE_2 = '. Please try again later.';
-  const CREATE_MESSAGE = 'Successfully created the task.';
-  const UPDATE_MESSAGE = 'Successfully updated the task.';
+  const CREATE_MESSAGE = 'Task has been created successfully.';
+  const UPDATE_MESSAGE = 'Task has been updated successfully.';
+  const DELETE_MESSAGE = 'Task has been deleted successfully.';
   tsk.buttonName = 'Submit';
   tsk.isUpdate = false;
   var highestIndex = 0;
@@ -84,6 +85,12 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     }
   }
 
+
+  tsk.changeSearch = function () {
+    var searchTxt = angular.element('[name="search"]').val();
+    angular.element('#tasksGrid_filter .form-control').val(searchTxt).trigger('keyup');
+  }
+
   /**
    * Call to getStatus API.
    */
@@ -128,20 +135,20 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   tsk.dtColumns = [{
     data: 'taskName',
     title: 'Task Name',
-    width: '43%',
+    width: '40%',
     isRequired: true,
     className: 'mdl-data-table__cell--non-numeric'
   }, {
     data: 'dueDate',
     title: 'Due Date',
     render: formatDate,
-    width: '10%',
+    width: '15%',
     className: 'mdl-data-table__cell--non-numeric'
   }, {
     data: 'createdOn',
     title: 'Created On',
     render: formatDate,
-    width: '10%',
+    width: '15%',
     className: 'mdl-data-table__cell--non-numeric'
   }, {
     data: 'statusName',
@@ -164,17 +171,21 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
       return elem;
     },
     className: 'text-center mdl-data-table__cell--non-numeric',
-    width: '25%',
+    width: '20%',
     isRequired: true,
   }];
 
   var dtConfig = {
     responsive: true,
+    language: {
+      emptyTable: 'No matching records foundd.',
+      zeroRecords: 'No matching records found.',
+    },
     colReorder: true,
     columns: tsk.dtColumns,
     data: [],
     autoWidth: false,
-    isFullWidth: true
+    isFullWidth: true,
   };
   var $tasksGrid = angular.element('#tasksGrid');
   var dtObj = $tasksGrid.DataTable(dtConfig);
@@ -283,6 +294,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
         var deleteTaskIndex = getTaskIndex(rowData);
         $localStorage.tasks.splice(deleteTaskIndex, 1);
         bindDataToTable();
+        showSuccessMessage(DELETE_MESSAGE)
         $mdDialog.hide();
       };
     }
@@ -326,6 +338,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.taskForm.$setUntouched();
     tsk.taskDetails = {};
     tsk.submitted = true;
+    tsk.buttonName = 'Submit';
   };
 
   /**
