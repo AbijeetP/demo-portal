@@ -193,6 +193,11 @@ $(document).ready(function () {
     }
   }
 
+  // Reset the add task form fields on click of the reset button.
+  $('.task-reset').click(function () {
+    Validator.resetResponse($('#addTaskForm'));
+  });
+
   // Submitting the add/edit task form
   $('.task-submit').click(function () {
     var $taskForm = $('.add-task-form');

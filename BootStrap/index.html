@@ -49,7 +49,7 @@
   </div>
   <div class="main-container body-container container">
     <div class="row add-edit-task-container">
-      <form class="add-task-form col-lg-12 custom-card">
+      <form class="add-task-form col-lg-12 custom-card" id="addTaskForm">
         <h1>Add Task</h1>
         <div class="form-group row">
           <label for="txtTaskName" class="col-2 col-form-label">Task Name</label>
@@ -74,7 +74,7 @@
           </div>
         </div>
         <input type="hidden" id="createdOn" name="createdOn" value="">
-        <button class="btn btn-danger pull-right" type="reset">Reset</button>
+        <button class="btn btn-danger pull-right task-reset" type="reset">Reset</button>
         <button type="button" class="btn btn-primary task-submit pull-right">Submit</button>
       </form>
     </div>
