@@ -135,7 +135,7 @@ md-dialog-actions {
  	position: relative;
  	.toggle-dropdown-content {
  		position: absolute;
- 		top: 30px;
+ 		top: 40px;
  		right: 6px;
  		min-width: 160px;
  		background-color: #fff;
@@ -261,8 +261,12 @@ table th {
 
 .main-container div.dataTables_wrapper div.mdl-grid.dt-table {
   padding-right: 0px;
+  padding-left: 0px;
 }
-
+#lineChart {
+  width: ~"calc(100% - 16px)" !important;
+  margin: auto;
+}
 .main-container .pagination {
   margin: 0px;
 }
@@ -291,4 +295,35 @@ table th {
 }
 .main-container h1, h2 {
   font-size: 30px;
+}
+// Media queries
+@media (max-width: 768px){
+  #tasksContainer {
+    width: 92%;
+  }
+}
+@media (max-width: 599px){
+  .add-task-form .md-btn-success {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .toggle-col-drop-down {
+    margin-top: 20px;
+  }
+  .task-grid-section .custom-search {
+    position: relative;
+    right: 0px;
+    top: 0px;
+    margin-top: 20px;
+    .md-errors-spacer {
+      display : none;
+    }
+  }
+  #tasksGrid_length {
+    text-align: center;
+    .form-control  {
+      display: inline;
+      width: auto;
+    }
+  }
 }

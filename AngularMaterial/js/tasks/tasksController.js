@@ -184,12 +184,19 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     colReorder: true,
     columns: tsk.dtColumns,
     data: [],
-    autoWidth: false,
-    isFullWidth: true,
+    isFullWidth: true
   };
+
   var $tasksGrid = angular.element('#tasksGrid');
   var dtObj = $tasksGrid.DataTable(dtConfig);
   tsk.isForFistTime = true;
+
+  // On click on pagination scroll to table.
+  dtObj.on('page.dt', function () {
+    angular.element('html,body').animate({
+      scrollTop: angular.element('.task-list-header').offset().top
+    }, 'slow');
+  });
 
   // Toggle columns visibility.
   tsk.columnVisibilityChanged = function (columnData) {

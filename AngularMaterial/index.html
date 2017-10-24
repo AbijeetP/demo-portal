@@ -91,15 +91,15 @@
               </div>
             </md-input-container>
           </div>
-          <div layout="row">
-            <md-input-container class="md-block date-picker" flex-gt-sm>
+          <div layout="row" layout-xs="column">
+            <md-input-container class="md-block date-picker" flex>
               <label>Due Date</label>
               <md-datepicker name="dueDate" ng-model="tsk.taskDetails.dueDate" required></md-datepicker>
               <div ng-messages="tsk.taskForm.dueDate.$error">
                 <div ng-message="required">This field is required.</div>
               </div>
             </md-input-container>
-            <md-input-container class="md-block text-right" flex-gt-sm>
+            <md-input-container class="md-block text-right" flex>
               <md-button type="submit" class="md-raised md-btn-success btn" aria-label="Save"><i class="fa fa-save mg-rt-5"></i><span> {{tsk.buttonName}}</span></md-button>
               <md-button class="md-raised md-btn-danger btn margin-right-zero" aria-label="Save" ng-click="tsk.reset()"><span> Reset</span></md-button>
             </md-input-container>
@@ -109,23 +109,26 @@
     </section>
     <section class="task-grid-section">
       <h2 class="form-heading task-list-header">Task List</h2>
-      <div class="toggle-col-drop-down">
-        <button class="btn btn-secondary dropdown-toggle dt-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false" ng-click="tsk.toggleColumnsDropDown()" title="Click here to select the columns which you want to view in the below table."> <i class="fa fa-list-alt"></i></button>
-        <div class="toggle-dropdown-content hide">
-          <md-checkbox class="green" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-model="tsk.isCheckedColumn[column.data]"
-            ng-change="tsk.columnVisibilityChanged(column.data, this)">
-            {{column.title}}
-          </md-checkbox>
+      <div>
+        <div class="toggle-col-drop-down">
+          <button class="btn btn-secondary dropdown-toggle dt-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" ng-click="tsk.toggleColumnsDropDown()" title="Click here to select the columns which you want to view in the below table."> <i class="fa fa-list-alt"></i></button>
+          <div class="toggle-dropdown-content hide">
+            <md-checkbox class="green" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-model="tsk.isCheckedColumn[column.data]"
+              ng-change="tsk.columnVisibilityChanged(column.data, this)">
+              {{column.title}}
+            </md-checkbox>
+          </div>
         </div>
+        <md-input-container class="md-block custom-search" flex>
+          <label>Search</label>
+          <input name="search" ng-keyup="tsk.changeSearch()">
+        </md-input-container>
       </div>
-      <md-input-container class="md-block custom-search" flex>
-        <label>Search</label>
-        <input name="search" ng-keyup="tsk.changeSearch()">
-      </md-input-container>
-      <table class="table mdl-data-table" width="100%" id="tasksGrid">
+      <table id="tasksGrid" class="mdl-data-table" cellspacing="0" width="100%">
 
       </table>
+
     </section>
     <section layout="row" layout-padding class="statistics-heading padding-botton-0 padding-left-0">
       <h2 class="form-heading margin-top-zero">Statistics</h2>
