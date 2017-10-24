@@ -54,23 +54,26 @@
         <div class="form-group row">
           <label for="txtTaskName" class="col-2 col-form-label">Task Name</label>
           <div class="col-10">
-            <input class="form-control reqCntrl" name="taskName" type="text" id="txtTaskName">
+            <input class="form-control req-cntrl" name="taskName" type="text" id="txtTaskName" error-element=".error">
+            <div class="error"></div>
           </div>
         </div>
         <div class="form-group row">
           <label for="dueDate" class="col-2 col-form-label">Due Date</label>
           <div class="col-10">
             <div class="input-group date">
-              <input type="text" class="form-control reqCntrl datepicker" id="dueDate" name="dueDate">
+              <input type="text" class="form-control req-cntrl datepicker" id="dueDate" name="dueDate" error-element=".error">
               <span class="input-group-addon open-datepicker"><i class="fa fa-calendar" aria-hidden="true"></i></span>
             </div>
+            <div class="error"></div>
           </div>
         </div>
         <div class="form-group row">
           <label for="tastStatus" class="col-2">Status</label>
           <div class="col-10">
-            <select class="form-control reqCntrl" name="statusID" id="tastStatus">
+            <select class="form-control req-cntrl" name="statusID" id="tastStatus" error-element=".error">
             </select>
+            <div class="error"></div>
           </div>
         </div>
         <input type="hidden" id="createdOn" name="createdOn" value="">
