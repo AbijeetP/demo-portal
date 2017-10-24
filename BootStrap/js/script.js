@@ -71,6 +71,7 @@ $(document).ready(function () {
       return actions;
     },
     className: 'table-actions text-center',
+    bSortable: false,
     isRequired: true
   }];
 
