@@ -18,6 +18,8 @@
   <link rel="stylesheet" href="lib/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="dist/css/style.css">
+  <link href="lib/jquery.notify/css/jquery.notify.css" type="text/css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -84,10 +86,10 @@
 
     <div class="row">
       <div class="col-lg-12 custom-card task-grid-section">
-        <h2>Task list</h2>
+        <h2 class="task-list-header">Task List</h2>
         <div class="dropdown float-right">
           <button class="btn btn-secondary dropdown-toggle dt-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
+            aria-haspopup="true" aria-expanded="false" title="Click here to select the columns which you want to view in the below table.">
             <i class="fa fa-list-alt"></i>
   </button>
           <div class="dropdown-menu dropdown-menu-right" id="dropdown-list" aria-labelledby="dropdownMenuButton">
@@ -102,7 +104,7 @@
                 <h5 class="modal-title" id="delete-confirmation">Delete</h5>
               </div>
               <div class="modal-body">
-                <p>Are you sure you want to delete?.</p>
+                <p>Are you sure you want to delete this task?</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
@@ -118,7 +120,7 @@
       <div class="row">
         <div class="col-lg-6 custom-pie-chart">
           <div class="col-lg-12 custom-card">
-            <h3>Task Status</h3>
+            <h3>Task status</h3>
             <canvas id="canvas-pie-chart"></canvas>
             <div class="empty-chart empty-pie-chart hide-div">
               <span>No data to display.</span>
@@ -127,7 +129,7 @@
         </div>
         <div class="col-lg-6 custom-line-chart">
           <div class="col-lg-12 custom-card">
-            <h3>Task Compeleted per day</h3>
+            <h3>Tasks completed per day</h3>
             <canvas id="canvas-line-chart"></canvas>
             <div class="empty-chart empty-line-chart hide-div">
               <span>No data to display.</span>
@@ -147,6 +149,7 @@
     </div>
   </footer>
   <script src="lib/jquery/dist/jquery.min.js"></script>
+  <script src="lib/jquery.notify/js/jquery.notify.min.js"></script>
   <script src="lib/moment/min/moment.min.js"></script>
   <script src="lib/tether/dist/js/tether.min.js"></script>
   <script src="lib/popper.js/dist/umd/popper.min.js"></script>
