@@ -124,7 +124,7 @@ $(document).ready(function () {
       setTasksInLocalStorage(taskData);
 
     } else {
-      // TODO : Show errors
+      createNotification('error', 'Something went wrong while populating the tasks in the grid. Please try again later.');
     }
   }
 
@@ -150,7 +150,7 @@ $(document).ready(function () {
       $('#tastStatus').html(statusHtml);
       localStorage.setItem('tasksStatuses', JSON.stringify(result));
     } else {
-      // TODO : Show errors
+      createNotification('error', 'Something went wrong while populating the task statuses. Please try again later.');
     }
 
   }
