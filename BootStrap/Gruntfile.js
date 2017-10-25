@@ -19,7 +19,8 @@ module.exports = function (grunt) {
         'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
         'datatables.net-responsive/js/dataTables.responsive.min.js',
         'datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js',
-        'datatables.net-colreorder/js/dataTables.colReorder.min.js'
+        'datatables.net-colreorder/js/dataTables.colReorder.min.js',
+        'jquery.notify/js/jquery.notify.min.js'
     ];
 
     var minifyFiles = {};
@@ -59,7 +60,8 @@ module.exports = function (grunt) {
                         libPath + 'components-font-awesome/css/font-awesome.min.css',
                         libPath + 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css',
                         libPath + 'datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css',
-                        libPath + 'datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css'
+                        libPath + 'datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css',
+                        libPath + 'jquery.notify/css/jquery.notify.css'
                     ]
                 },
             },
@@ -77,10 +79,10 @@ module.exports = function (grunt) {
         imagemin: {
             dynamic: {
                 files: [{
-                        expand: true, // Enable dynamic expansion 
-                        cwd: 'img/', // Src matches are relative to this path 
-                        src: ['*.{png,jpg,gif}'], // Actual patterns to match 
-                        dest: 'dist/img/'                  // Destination path prefix 
+                        expand: true, // Enable dynamic expansion
+                        cwd: 'img/', // Src matches are relative to this path
+                        src: ['*.{png,jpg,gif}'], // Actual patterns to match
+                        dest: 'dist/img/'                  // Destination path prefix
                     }]
             }
         },
