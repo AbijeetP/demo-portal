@@ -1,12 +1,5 @@
-angular.module('googleSearchLocation').controller('SearchLocationController', function ($scope, searchLocationConstants) {
-  configureToastr();
+angular.module('googleSearchLocation').controller('SearchLocationController', function ($scope, searchLocationConstants, $mdSidenav) {
   checkForLocationAccess();
-
-  function configureToastr() {
-    toastr.options.timeOut = 4000;
-    toastr.options.positionClass = 'toast-bottom-right';
-  }
-
   var vm = this;
   var pos;
   vm.locationEnabled = false;
@@ -25,7 +18,7 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
   /**
    * Function to check whether user gave access to current location.
    */
-  function checkForLocationAccess() {
+  function checkForLocationAccess () {
     navigator.permissions.query({ name: 'geolocation' }).then(function (permissionStatus) {
       if (permissionStatus.state === 'granted') {
         vm.locationEnabled = true;
@@ -53,7 +46,9 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
       }
     });
   };
-
+  vm.toggleLeft = function () {
+    $mdSidenav('left').toggle();
+  };
 
   vm.searchLocation = function () {
     vm.places = [];
@@ -65,6 +60,10 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
     };
 
     var service = new google.maps.places.PlacesService(vm.map);
+    if (status !==  google.maps.places.PlacesServiceStatus.OK) {
+      showErrorMessage('Sorry something went wrong. Please try after sometime.');
+      return;
+    }
     service.textSearch(request, function (results, status, pagination) {
       vm.places = vm.places.concat(results);
       vm.places.map(function (location) {
@@ -81,7 +80,7 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
   /**
    * To show error messgaes.
    */
-  function showErrorMessage(message) {
+  function showErrorMessage (message) {
     toastr.remove();
     toastr.error(message);
   }
