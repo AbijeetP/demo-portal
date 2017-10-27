@@ -6,6 +6,7 @@ module.exports = function (grunt) {
   var pkg = grunt.file.readJSON('package.json');
 
   var jsFiles = [
+    'validator.js',
     'script.js'
   ];
 
@@ -25,6 +26,7 @@ module.exports = function (grunt) {
     'datatables.net-responsive/js/dataTables.responsive.min.js',
     'datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js',
     'datatables.net-colreorder/js/dataTables.colReorder.min.js',
+    'chart.js/dist/Chart.bundle.js'
   ];
 
   var minifyFiles = {};
@@ -35,7 +37,6 @@ module.exports = function (grunt) {
   }
 
   //For adding blockUI plugin into jsFiles
-  jsFiles.splice(0, 0, jsPath + 'validator.js');
   jsFiles.push(libPath + 'blockUI/jquery.blockUI.js');
 
 
