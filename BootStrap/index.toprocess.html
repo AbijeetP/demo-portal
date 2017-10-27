@@ -12,6 +12,7 @@
   <link rel="apple-touch-icon" href="dist/img/favicon.jpg">
   <link rel="shortcut icon" type="image/x-icon" href="dist/img/favicon.jpg">
 
+  <!-- @if NODE_ENV='development'-->
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="lib/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" type="text/css" href="lib/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css">
@@ -20,7 +21,12 @@
   <link rel="stylesheet" href="dist/css/style.css">
   <link href="lib/jquery.notify/css/jquery.notify.css" type="text/css" rel="stylesheet" />
   <link rel="stylesheet" href="lib/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+  <!-- @endif -->
 
+  <!-- @if NODE_ENV='production'-->
+  <link rel="stylesheet" href="dist/css/lib.min.css">
+  <link rel="stylesheet" href="dist/css/style.min.css">
+  <!-- @endif -->
 </head>
 
 <body>
@@ -151,6 +157,7 @@
   </footer>
 
 
+  <!-- @if NODE_ENV='development'-->
   <script src="lib/jquery/dist/jquery.min.js"></script>
   <script src="lib/jquery.notify/js/jquery.notify.min.js"></script>
   <script src="lib/moment/min/moment.min.js"></script>
@@ -167,7 +174,12 @@
   <script src="lib/blockUI/jquery.blockUI.js"></script>
   <script src="js/validator.js"></script>
   <script src="js/script.js"></script>
+  <!-- @endif -->
 
+  <!-- @if NODE_ENV='production'-->
+  <script src="dist/js/initialScripts.min.js"></script>
+  <script src="dist/js/main.min.js"></script>
+  <!-- @endif -->
 
 </body>
 
