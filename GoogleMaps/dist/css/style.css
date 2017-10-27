@@ -27,6 +27,9 @@ nav {
 .nav-link {
   margin-left: 1em;
 }
+body {
+  font-family: Roboto, 'Noto Sans Devanagari UI';
+}
 .google-maps {
   width: 100%;
 }
@@ -60,6 +63,12 @@ nav {
   width: 185px;
   max-height: 46px;
   overflow-y: hidden;
+}
+.search-container {
+  width: 1000px;
+}
+.search-container .search-results-container {
+  overflow-y: auto;
 }
 .star-ratings-sprite {
   background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png") repeat-x;
@@ -110,4 +119,28 @@ nav {
 .message {
   margin-bottom: 0em;
   color: red;
+}
+.search-list-container {
+  display: block;
+  padding: 10px;
+}
+.search-list-container .details {
+  display: inline-block;
+  width: 65%;
+  word-wrap: break-word;
+}
+.search-list-container .details h4 {
+  font-size: 18px;
+}
+.search-list-container .details .formatted-address {
+  font-size: 12px;
+}
+.search-list-container .image-container {
+  display: inline-block;
+  width: 30%;
+  vertical-align: top;
+}
+.search-list-container .image-container img {
+  height: 90px;
+  width: 100%;
 }

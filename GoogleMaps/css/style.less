@@ -1,5 +1,7 @@
 @import "/../../Common/css/main.less";
-
+body{
+  font-family: Roboto, 'Noto Sans Devanagari UI';
+}
 .google-maps {
   width: 100%;
 }
@@ -31,6 +33,13 @@
   width: 185px;
   max-height: 46px;
   overflow-y: hidden;
+}
+.search-container{
+  .search-results-container{
+    height: 100vh;
+    overflow: scroll;
+  }
+  width: 1000px;
 }
 .star-ratings {
   &-sprite {
@@ -87,4 +96,28 @@
 .message {
   margin-bottom: 0em;
   color: red;
+}
+.search-list-container{
+  display: block;
+  padding: 10px;
+  .details{
+    display: inline-block;
+    width: 65%;
+    word-wrap: break-word;
+    h4{
+      font-size: 18px;
+    }
+    .formatted-address{
+      font-size: 12px;
+    }
+  }
+  .image-container{
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+    img{
+      height:  90px;
+      width: 100%;
+    }
+  }
 }

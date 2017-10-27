@@ -27,7 +27,9 @@
         <a class="nav-link" href="../">Introduction</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link">Help<span class="sr-only">(current)</span></a>
+        <a class="nav-link">Help
+          <span class="sr-only">(current)</span>
+        </a>
       </li>
     </ul>
   </nav>
@@ -48,9 +50,9 @@
     </div>
   </div>
   <section class="main-container map-container" layout="row" flex ng-controller="SearchLocationController as vm">
-    <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop>
+    <md-sidenav class="md-sidenav-left search-container" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop>
       <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Search Location</h1>
+        <h1 class="md-toolbar-tools">Search Locationn</h1>
       </md-toolbar>
       <md-content layout-margin>
         <div>
@@ -82,6 +84,18 @@
             </div>
           </form>
         </div>
+      </md-content>
+      <md-content class="search-results-container">
+        <md-card md-theme="default" md-theme-watch class="search-list-container" ng-repeat="place in vm.places">
+          <div class="details">
+            <h4>{{::place.name}}</h4>
+            <p>{{::place.rating.toFixed(1)}}</p>
+            <p class="formatted-address">{{::place.formatted_address}}</p>
+          </div>
+          <div class="image-container">
+            <img src="{{place.photos[0].getUrl({maxWidth:900, maxHeight:900})}}">
+          </div>
+        </md-card>
       </md-content>
     </md-sidenav>
     <!-- <md-content ng-if="vm.locationEnabled" layout-padding class="locations-filter">
@@ -162,7 +176,8 @@
   <footer class="footer">
     <div class="container">
       <div class="text-center">
-        Developed with ♥ at <a href="http://osmosys.asia/" target="_blank">Osmosys Software Solutions</a>
+        Developed with ♥ at
+        <a href="http://osmosys.asia/" target="_blank">Osmosys Software Solutions</a>
       </div>
     </div>
   </footer>
