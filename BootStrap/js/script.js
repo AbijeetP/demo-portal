@@ -235,6 +235,8 @@ $(document).ready(function () {
       } else {
         createNotification('success', 'Task has been created successfully.');
       }
+    } else {
+      var errorElements = $('.has-error').find('.form-control').first().focus();
     }
   });
 
