@@ -18,7 +18,7 @@
 </head>
 
 <body ng-app="googleSearchLocation">
-  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse header">
     <a class="navbar-brand" href="http://osmosys.asia/">
       <img src="img/osmosys-logo.png" alt="logo">
     </a>
@@ -54,7 +54,7 @@
       <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools">Search Locationn</h1>
       </md-toolbar>
-      <md-content layout-margin>
+      <md-content layout-margin class="search-form">
         <div>
           <form name="userForm" ng-submit="vm.searchLocation()" novalidate>
             <div layout-gt-xs="column">

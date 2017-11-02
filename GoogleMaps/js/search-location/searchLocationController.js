@@ -1,4 +1,4 @@
-angular.module('googleSearchLocation').controller('SearchLocationController', function ($scope, searchLocationConstants, $mdSidenav) {
+angular.module('googleSearchLocation').controller('SearchLocationController', function ($scope, searchLocationConstants, $mdSidenav, $timeout) {
   checkForLocationAccess();
   var vm = this;
   var pos;
@@ -31,6 +31,13 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
       };
     });
   };
+
+  function setSearchResultsContainerHeight() {
+    $timeout(function(){
+      var headerHeight = angular.element('.search-form').height() + angular.element('.header').height()+angular.element('.footer').height()+35+angular.element('.search-container h1').height();
+      angular.element('.search-results-container').css('height', 'calc(100vh - ' + headerHeight + 'px)');
+    });
+  }
 
   vm.myCallBack = function (map) {
     vm.map = map;
@@ -90,4 +97,8 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
     vm.place.actualRating = (place.rating * 20) + '%';
     vm.map.showInfoWindow("infoWindow", this);
   };
+  setSearchResultsContainerHeight();
+  $(window).resize(function () {
+    setSearchResultsContainerHeight();
+  });
 });
