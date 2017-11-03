@@ -32,6 +32,7 @@
     "chart.js": "^2.7.0",
     "bootstrap-datepicker": "^1.7.1",
     "datatables.net-colreorder-bs4": "^1.4.1",
-    "datatables.net-responsive-bs4": "^2.2.0"
+    "datatables.net-responsive-bs4": "^2.2.0",
+    "jquery.notify":"v1.0"
   }
 }

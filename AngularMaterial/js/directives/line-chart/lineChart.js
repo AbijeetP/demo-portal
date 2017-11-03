@@ -86,6 +86,11 @@ angular
                     max: 10
                   }
                 }]
+              },
+              legend: {
+                onClick: function (e) {
+                  e.stopPropagation();  // Disable the hide/show for the legend related line.
+                }
               }
             }
           };

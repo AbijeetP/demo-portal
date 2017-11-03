@@ -32,6 +32,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   tsk.createNewTask = function (isValid) {
     tsk.submitted = false;
     if (!isValid) {
+      angular.element('.add-task-form .ng-invalid').first().focus();
       return;
     }
     // Save the details.

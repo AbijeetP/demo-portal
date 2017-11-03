@@ -92,6 +92,13 @@ $(document).ready(function () {
     }
   }
 
+  // On click on pagination scroll to table.
+  dtObj.on('page.dt', function () {
+    $('html,body').animate({
+      scrollTop: $('.task-grid-section').offset().top
+    }, 'slow');
+  });
+
   $('#dropdown-list').html(elements);
 
   $('#dropdown-list').on('click', '.dt-column-list', function (e) {
@@ -117,7 +124,7 @@ $(document).ready(function () {
       setTasksInLocalStorage(taskData);
 
     } else {
-      // TODO : Show errors
+      createNotification('error', 'Something went wrong while populating the tasks in the grid. Please try again later.');
     }
   }
 
@@ -143,7 +150,7 @@ $(document).ready(function () {
       $('#tastStatus').html(statusHtml);
       localStorage.setItem('tasksStatuses', JSON.stringify(result));
     } else {
-      // TODO : Show errors
+      createNotification('error', 'Something went wrong while populating the task statuses. Please try again later.');
     }
 
   }
@@ -165,6 +172,9 @@ $(document).ready(function () {
     updateLineChart();
     $dltConfirmationModal.modal('hide');
     $currentRowToDlt = '';
+    setTimeout(function () {
+      createNotification('success', 'Task has been deleted successfully.');
+    }, 500);
   });
 
   // Click event for edit icon in the grid
@@ -198,6 +208,7 @@ $(document).ready(function () {
     Validator.resetResponse($('#addTaskForm'));
   });
 
+
   // Submitting the add/edit task form
   $('.task-submit').click(function () {
     var $taskForm = $('.add-task-form');
@@ -206,7 +217,6 @@ $(document).ready(function () {
       var rowData = getFormData();
       addCompletedOn(rowData);
       if (isEdit) {
-        isEdit = false;
         dtObj
           .row($currentRow)
           .data(rowData)
@@ -219,8 +229,36 @@ $(document).ready(function () {
       updateLineChart();
       $('#createdOn').val(formatDate(new Date()));
       $('.add-task-form')[0].reset();
+      if (isEdit) {
+        isEdit = false;
+        createNotification('success', "Task has been updated successfully.");
+      } else {
+        createNotification('success', 'Task has been created successfully.');
+      }
+    } else {
+      var errorElements = $('.has-error').find('.form-control').first().focus();
     }
   });
+
+  function createNotification(type, message) {
+    notify({
+      type: type, //alert | success | error | warning | info
+      message: message,
+      position: {
+        x: "right", //right | left | center
+        y: "bottom" //top | bottom | center
+      },
+      size: "normal", //normal | full | small
+      overlay: false, //true | false
+      closeBtn: false, //true | false
+      overflowHide: false, //true | false
+      spacing: 20, //number px
+      theme: "dark-theme", //default | dark-theme
+      autoHide: true, //true | false
+      delay: 2500, //number ms
+      template: '<div class="notify"><div class="notify-text"></div></div>'
+    });
+  }
 
   /**
   * Chang completed on date.
@@ -538,6 +576,11 @@ $(document).ready(function () {
                   max: 10
                 }
               }]
+            },
+            legend: {
+              onClick: function (e) {
+                e.stopPropagation();  // Disable the hide/show for the legend related line.
+              }
             }
           }
         };
