@@ -46,7 +46,7 @@
     </div>
   </div>
   <section class="main-container map-container" ng-controller="SearchLocationController as vm">
-    <md-content ng-if="vm.locationEnabled" layout-padding class="locations-filter">
+    <md-content ng-cloak ng-if="vm.locationEnabled" layout-padding class="locations-filter">
       <div>
         <form class="location-form" name="userForm" ng-submit="vm.searchLocation()" novalidate>
           <div layout-gt-xs="row">
@@ -80,7 +80,7 @@
       </div>
     </md-content>
     <!-- FIXME - Please remove the hard-coded lat, lon with user location. -->
-    <ng-map center="[17.385044, 78.486671]" geo-fallback-center="[40.74, -74.18]" map-initialized="vm.myCallBack(map)" default-style="false"
+    <ng-map ng-cloak center="[17.385044, 78.486671]" geo-fallback-center="[40.74, -74.18]" map-initialized="vm.myCallBack(map)" default-style="false"
       class="google-maps">
       <marker ng-repeat="place in vm.places" position="{{place.currPos}}" title="{{place.name}}" icon={{place.customIcon}} on-mouseover="vm.showDetails(event,place)"></marker>
       <info-window id="infoWindow">

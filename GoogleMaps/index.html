@@ -45,7 +45,7 @@
   </div>
 
   <section class="main-container map-container" ng-controller="MapsController as vm">
-    <ng-map zoom="4" center="[40.74, -74.18]" min-zoom="4" default-style="false" class="google-maps">
+    <ng-map ng-cloak zoom="4" center="[40.74, -74.18]" min-zoom="4" default-style="false" class="google-maps">
       <marker ng-repeat="user in vm.users" position="{{user.pos}}" id="{{user.username}}" icon="{{user.image}}"
         on-mouseover="vm.showDetails(event,user)">
       </marker>
