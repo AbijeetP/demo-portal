@@ -69,6 +69,7 @@ body {
 }
 .search-container .search-results-container {
   overflow: auto;
+  margin-top: 30px;
 }
 .star-ratings-sprite {
   background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png") repeat-x;
