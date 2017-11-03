@@ -34,7 +34,7 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
 
   function setSearchResultsContainerHeight() {
     $timeout(function(){
-      var headerHeight = angular.element('.search-form').height() + angular.element('.header').height()+angular.element('.footer').height()+70+angular.element('.search-container h1').height();
+      var headerHeight = angular.element('.search-form').height() + angular.element('.header').height()+angular.element('.footer').height()+320+angular.element('.search-container h1').height();
       angular.element('.search-results-container').css('height', 'calc(100vh - ' + headerHeight + 'px)');
     });
   }
