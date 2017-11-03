@@ -1,12 +1,5 @@
-angular.module('googleSearchLocation').controller('SearchLocationController', function ($scope, searchLocationConstants) {
-  configureToastr();
+angular.module('googleSearchLocation').controller('SearchLocationController', function ($scope, searchLocationConstants, $mdSidenav, $timeout) {
   checkForLocationAccess();
-
-  function configureToastr() {
-    toastr.options.timeOut = 4000;
-    toastr.options.positionClass = 'toast-bottom-right';
-  }
-
   var vm = this;
   var pos;
   vm.locationEnabled = false;
@@ -39,6 +32,13 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
     });
   };
 
+  function setSearchResultsContainerHeight() {
+    $timeout(function(){
+      var headerHeight = angular.element('.search-form').height() + angular.element('.header').height()+angular.element('.footer').height()+320+angular.element('.search-container h1').height();
+      angular.element('.search-results-container').css('height', 'calc(100vh - ' + headerHeight + 'px)');
+    });
+  }
+
   vm.myCallBack = function (map) {
     vm.map = map;
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -53,7 +53,9 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
       }
     });
   };
-
+  vm.toggleLeft = function () {
+    $mdSidenav('left').toggle();
+  };
 
   vm.searchLocation = function () {
     vm.places = [];
@@ -66,6 +68,10 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
 
     var service = new google.maps.places.PlacesService(vm.map);
     service.textSearch(request, function (results, status, pagination) {
+      if (status !== google.maps.places.PlacesServiceStatus.OK) {
+        showErrorMessage('Sorry something went wrong. Please try after sometime.');
+        return;
+      }
       vm.places = vm.places.concat(results);
       vm.places.map(function (location) {
         location.currPos = [location.geometry.location.lat(), location.geometry.location.lng()],
@@ -91,4 +97,8 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
     vm.place.actualRating = (place.rating * 20) + '%';
     vm.map.showInfoWindow("infoWindow", this);
   };
+  setSearchResultsContainerHeight();
+  $(window).resize(function () {
+    setSearchResultsContainerHeight();
+  });
 });

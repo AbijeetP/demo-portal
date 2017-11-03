@@ -12,13 +12,13 @@
   <link rel="apple-touch-icon" href="dist/img/favicon.jpg">
   <link rel="shortcut icon" type="image/x-icon" href="dist/img/favicon.jpg">
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="lib/toastr/toastr.css">
+  <link rel="stylesheet" href="lib/toastr/toastr.css">
   <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
   <link rel="stylesheet" href="dist/css/style.css">
 </head>
 
 <body ng-app="googleSearchLocation">
-  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse header">
     <a class="navbar-brand" href="http://osmosys.asia/">
       <img src="img/osmosys-logo.png" alt="logo">
     </a>
@@ -27,7 +27,9 @@
         <a class="nav-link" href="../">Introduction</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link">Help<span class="sr-only">(current)</span></a>
+        <a class="nav-link">Help
+          <span class="sr-only">(current)</span>
+        </a>
       </li>
     </ul>
   </nav>
@@ -39,46 +41,63 @@
         </div>
         <div class="modal-body">
           <h5>Search nearest movies/restaurants</h5>
-          <p>For this we will need to ask the user for their location with the HTML 5 Location API. If the user rejects, we need to show a clear message to the user.</p>
-          <p>Once the user gives us access, we will allow them to select moves or restaurants from a drop down and click on search button. We will also allow them to enter the distance in kilometers.</p>
+          <p>For this we will need to ask the user for their location with the HTML 5 Location API. If the user rejects, we
+            need to show a clear message to the user.</p>
+          <p>Once the user gives us access, we will allow them to select moves or restaurants from a drop down and click on
+            search button. We will also allow them to enter the distance in kilometers.</p>
         </div>
       </div>
     </div>
   </div>
-  <section class="main-container map-container" ng-controller="SearchLocationController as vm">
-    <md-content ng-cloak ng-if="vm.locationEnabled" layout-padding class="locations-filter">
-      <div>
-        <form class="location-form" name="userForm" ng-submit="vm.searchLocation()" novalidate>
-          <div layout-gt-xs="row">
-            <md-input-container class="md-block ddl-location" flex-gt-xs="35">
-              <label>Place</label>
-              <md-select ng-model="vm.selectedPlace">
-                <md-option ng-repeat="place in vm.locations" value="{{place.key}}">
-                  {{place.name}}
-                </md-option>
-              </md-select>
-            </md-input-container>
-            <div flex="5" hide-xs hide-sm>
-              <!-- Spacer //-->
-            </div>
-            <md-input-container class="md-block" flex-gt-xs>
-              <label>Distance(km)</label>
-              <input type="number" ng-model="vm.distance" name="distance" max="50" min="0">
-              <div ng-messages="userForm.distance.$error">
-                  <div ng-message="max">Please enter more than 0 kms</div>
-                  <div ng-message="max">Please enter less than 50 kms</div>
+  <section class="main-container map-container" layout="row" flex ng-controller="SearchLocationController as vm">
+    <md-sidenav  ng-cloak class="md-sidenav-left search-container" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop>
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Search Locationn</h1>
+      </md-toolbar>
+      <md-content layout-margin class="search-form">
+        <div>
+          <form name="userForm" ng-submit="vm.searchLocation()" novalidate>
+            <div layout-gt-xs="column">
+              <md-input-container class="md-block ddl-location" flex-gt-xs="35">
+                <label>Place</label>
+                <md-select ng-model="vm.selectedPlace">
+                  <md-option ng-repeat="place in vm.locations" value="{{place.key}}">
+                    {{place.name}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <div flex="5" hide-xs hide-sm>
+                <!-- Spacer //-->
               </div>
-            </md-input-container>
-            <div flex="5" hide-xs hide-sm>
-              <!-- Spacer //-->
-            </div>
-            <md-input-container class="md-block btn-search" flex-gt-xs>
+              <md-input-container class="md-block" flex-gt-xs>
+                <label>Distance(km)</label>
+                <input type="number" ng-model="vm.distance" name="distance" max="50" min="0">
+                <div ng-messages="userForm.distance.$error">
+                  <div ng-message="min">Please enter more than 0 kms</div>
+                  <div ng-message="max">Please enter less than 50 kms</div>
+                </div>
+              </md-input-container>
+              <div flex="5" hide-xs hide-sm>
+                <!-- Spacer //-->
+              </div>
               <md-button type="submit" class="md-raised md-primary">Search</md-button>
-            </md-input-container>
+            </div>
+          </form>
+        </div>
+      </md-content>
+      <md-content class="search-results-container">
+        <md-card md-theme="default" md-theme-watch class="search-list-container" ng-repeat="place in vm.places">
+          <div class="details">
+            <h4>{{::place.name}}</h4>
+            <p>{{::place.rating.toFixed(1)}}</p>
+            <p class="formatted-address">{{::place.formatted_address}}</p>
           </div>
-        </form>
-      </div>
-    </md-content>
+          <div class="image-container">
+            <img src="{{place.photos[0].getUrl({maxWidth:900, maxHeight:900})}}">
+          </div>
+        </md-card>
+      </md-content>
+    </md-sidenav>
     <!-- FIXME - Please remove the hard-coded lat, lon with user location. -->
     <ng-map ng-cloak center="[17.385044, 78.486671]" geo-fallback-center="[40.74, -74.18]" map-initialized="vm.myCallBack(map)" default-style="false"
       class="google-maps">
