@@ -102,6 +102,7 @@ $(document).ready(function () {
   $('#dropdown-list').html(elements);
 
   $('#dropdown-list').on('click', '.dt-column-list', function (e) {
+    e.stopPropagation();
     $(this).find('input').prop('checked', !$(this).find('input').is(':checked'));
     for (var i = 0; i < dtColumns.length; i++) {
       if (dtColumns[i].data === $(this).find('input').attr('id')) {
@@ -111,7 +112,6 @@ $(document).ready(function () {
         break;
       }
     }
-    e.stopPropagation();
   });
 
   // Making ajax call to get all task status and bind to dropdown
