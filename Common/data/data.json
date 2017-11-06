@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "desc": "<ul><li>A responsive page that uses the bootstrap classes.</li><li>Add/update/delete tasks and view the status of the tasks in the charts shown in the page.</li><li>It uses CakePHP API and returns JSON which contains list of tasks.</li></ul>",
+      "link": "<a href='BootStrap/index.html'>Bootstrap</a>",
+      "tech": "HTML, CSS, jQuery, Bootstrap 4"
+    },
+    {
+      "desc": "<ul><li>A responsive page that uses angularjs platform.</li><li> Add/update/delete tasks and view the status of the tasks in the charts shown in the page.</li><li>It uses CakePHP API and returns JSON which contains list of tasks.</li></ul>",
+      "link": "<a href='AngularMaterial/index.html'>AngularJS</a>",
+      "tech": "HTML, CSS, AngularJS 1, Material UI"
+    },
+    {
+      "desc": "<ul><li>A map that locates the bootstrap contributors.</li><li>It uses CakePHP API which fetches the location of contributers.</li></ul>",
+      "link": "<a href='GoogleMaps/index.html'>Google Maps (Bootstrap contributors)</a>",
+      "tech": "Google Maps, AngularJS 1, Bootstrap"
+    },
+    {
+      "desc": "<ul><li>Search for nearest movies/restaurants around your location.</li><li>This page uses HTML 5 Location API.</li></ul>",
+      "link": "<a href='GoogleMaps/search-location.html'>Google Maps (Movies and Restaurants locators)</a>",
+      "tech": "Google Maps, AngularJS 1, Bootstrap, CakePHP 3"
+    }
+  ]
+}
