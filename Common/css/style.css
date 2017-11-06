@@ -25,7 +25,7 @@ body {
 .description-table ul {
   list-style: none;
 }
-.dataTable thead .sorting_asc {
+#demoList .sorting_asc {
   background-image: none !important;
 }
 .search input {
