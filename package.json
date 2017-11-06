@@ -4,6 +4,7 @@
   "description": "A demo portal created using various technologies",
   "main": "Gruntfile.js",
   "scripts": {
+    "startServer": "http-server -a localhost -p 8787 -c-1 ./ -o -g",
     "postinstall": "cd AngularMaterial && npm install && cd ../GoogleMaps && npm install && cd ../BootStrap && cd ../ && grunt",
     "start": "npm install",
     "test": "echo \"Error: no test specified\" && exit 1"

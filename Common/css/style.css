@@ -25,3 +25,13 @@ body {
 .description-table ul {
   list-style: none;
 }
+#demoList .sorting_asc {
+  background-image: none !important;
+}
+.search input {
+  display: inline-block;
+  width: inherit;
+}
+.jumbotron img  {
+  width: 25%;
+}

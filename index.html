@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Osmosys Demo :: Introduction</title>
   <link rel="stylesheet" href="Common/css/bootstrap.min.css">
+  <link rel="stylesheet" href="Common/css/dataTable.min.css">
   <link rel="stylesheet" href="Common/css/style.css">
 </head>
 
@@ -13,55 +14,16 @@
   <div class="body-container container">
     <div class="jumbotron">
       <img src="Common/img/osmosys-logo.png" alt="Osmosys logo">
-      <p>A tutorial of the work done at Osmosys.</p>
+      <p>A demonstration of various technologies used at Osmosys.</p>
     </div>
-    <table class="table table-striped table-bordered description-table">
+    <table id="demoList" class="display" cellspacing="0" width="100%">
       <thead class="thead-inverse">
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-        </tr>
+          <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Technology</th>
+          </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td><a href="BootStrap/index.html">Bootstrap</a></td>
-          <td>
-            <ul>
-              <li>A responsive page that uses the bootstrap classes.</li>
-              <li>Add/update/delete tasks and view the status of the tasks in the charts shown in the page.</li>
-              <li>It uses CakePHP API and returns JSON which contains list of tasks.</li>
-            </ul>
-          </td>
-        </tr>
-        <tr>
-          <td><a href="AngularMaterial/index.html">AngularJS</a></td>
-          <td>
-            <ul>
-              <li>A responsive page that uses angularjs platform.</li>
-              <li> Add/update/delete tasks and view the status of the tasks in the charts shown in the page.</li>
-              <li>It uses CakePHP API and returns JSON which contains list of tasks.</li>
-            </ul>
-          </td>
-        </tr>
-        <tr>
-          <td><a href="GoogleMaps/index.html">Google Maps (Bootstrap contributors)</a></td>
-          <td>
-            <ul>
-              <li>A map that locates the bootstrap contributors.</li>
-              <li>It uses CakePHP API which fetches the location of contributers.</li>
-            </ul>
-          </td>
-        </tr>
-        <tr>
-          <td><a href="GoogleMaps/search-location.html">Google Maps (Movies and Restaurants locators)</a></td>
-          <td>
-            <ul>
-              <li>Search for nearest movies/restaurants around your location.</li>
-              <li>This page uses HTML 5 Location API.</li>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
     </table>
   </div>
 
@@ -75,7 +37,9 @@
   </footer>
   <script src="Common/js/jquery.min.js"></script>
   <script src="Common/js/popper.min.js"></script>
+  <script src="Common/js/dataTable.min.js"></script>
   <script src="Common/js/bootstrap.min.js"></script>
+  <script src="Common/js/script.js"></script>
 </body>
 
 </html>
