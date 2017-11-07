@@ -4,25 +4,25 @@
       "desc": "<ul><li>A responsive page that uses the bootstrap classes.</li><li>Add/update/delete tasks and view the status of the tasks in the charts shown in the page.</li><li>It uses CakePHP API and returns JSON which contains list of tasks.</li></ul>",
       "link": "BootStrap/index.html",
       "moduleName": "Bootstrap",
-      "tech": "HTML, CSS, jQuery, Bootstrap 4"
+      "tech": "HTML, CSS, jQuery, Bootstrap 4, CakePHP 3"
     },
     {
       "desc": "<ul><li>A responsive page that uses angularjs platform.</li><li> Add/update/delete tasks and view the status of the tasks in the charts shown in the page.</li><li>It uses CakePHP API and returns JSON which contains list of tasks.</li></ul>",
       "link": "AngularMaterial/index.html",
       "moduleName": "AngularJS",
-      "tech": "HTML, CSS, AngularJS 1, Material UI"
+      "tech": "HTML, CSS, AngularJS, Material-UI, CakePHP 3"
     },
     {
       "desc": "<ul><li>A map that locates the bootstrap contributors.</li><li>It uses CakePHP API which fetches the location of contributers.</li></ul>",
       "link": "GoogleMaps/index.html",
       "moduleName": "Google Maps (Bootstrap contributors)",
-      "tech": "Google Maps, AngularJS 1, Bootstrap"
+      "tech": "Google Maps, AngularJS, Bootstrap 4, CakePHP 3"
     },
     {
-      "desc": "<ul><li>Search for nearest movies/restaurants around your location.</li><li>This page uses HTML 5 Location API.</li></ul>",
+      "desc": "<ul><li>Search for nearest movies/restaurants around your location.</li><li>This page uses HTML5 Location API.</li></ul>",
       "link": "GoogleMaps/search-location.html",
       "moduleName": "Google Maps (Movies and Restaurants locators)",
-      "tech": "Google Maps, AngularJS 1, Bootstrap, CakePHP 3"
+      "tech": "Google Maps, AngularJS, Angular Material, Bootstrap 4, CakePHP 3"
     }
   ]
 }

@@ -25,8 +25,14 @@ body {
 .description-table ul {
   list-style: none;
 }
+#demoList {
+    margin-bottom: 2rem;
+}
 #demoList .sorting_asc {
   background-image: none !important;
+}
+#demoList.dataTable.no-footer {
+    border-bottom: none;
 }
 .search input {
   display: inline-block;
