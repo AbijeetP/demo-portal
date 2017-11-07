@@ -115,7 +115,7 @@ $(document).ready(function () {
   });
 
   // Making ajax call to get all task status and bind to dropdown
-  makeAjaxCall('tasks', cbBindTaskDataToGrid);
+  makeAjaxCall('tasks', cbBindTaskDataToGrid, 'loading', true);
 
   function cbBindTaskDataToGrid(response) {
     if (response.hasOwnProperty('success') && response.success) {
@@ -600,9 +600,9 @@ $(document).ready(function () {
   var localStorageTasks = getTasksFromLocalStorage()
   if (!localStorageTasks || localStorageTasks.length <= 0) {
     // Making ajax call to get the task count based on statuses show the response data in a Pie chart
-    makeAjaxCall('tasks/fetchTasksByStatus', createUpdatePieChart);
+    makeAjaxCall('tasks/fetchTasksByStatus', createUpdatePieChart, '', true);
     // Making ajax call to get the completed task count per day and show the response data in a Line chart
-    makeAjaxCall('tasks/getCompletedTasksByDay', createUpdateLineChart);
+    makeAjaxCall('tasks/getCompletedTasksByDay', createUpdateLineChart, '', true);
   } else {
     var initialLoad = true;
     udpatePieChartData(initialLoad)
@@ -620,7 +620,7 @@ $(document).ready(function () {
             message = 'Processing....';
           }
           jQuery.blockUI({
-            message: '<div class="loading-div">' + message + '</div>',
+            message: $('.loading-div'),
             baseZ: 2000
           });
         }
@@ -630,7 +630,7 @@ $(document).ready(function () {
         jQuery.unblockUI();
       }
     }).done(function (response) {
-      jQuery.unblockUI();
+     jQuery.unblockUI();
       callback(response);
     }).fail(function () {
       jQuery.unblockUI();
