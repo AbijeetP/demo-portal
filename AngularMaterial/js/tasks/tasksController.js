@@ -1,4 +1,4 @@
-angular.module('angularDemo').controller('angularDemoController', function ($scope, $document, $http, $compile, $localStorage, $mdDialog, $timeout, DemoConstants, tasksService) {
+angular.module('angularDemo').controller('angularDemoController', function ($scope, $document, $http, $compile, $localStorage, $mdDialog, $timeout, DemoConstants, tasksService, blockUI) {
   var tsk = this;
 
   const FETCH_ERROR_MESSAGE = 'Some problem has occurred while fetching ';
@@ -97,7 +97,11 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
    */
   function getStatus() {
     tsk.status = [];
+    blockUI.start();
     return tasksService.fetchStatus().then(function (response) {
+      $timeout(function() {
+        blockUI.stop();
+      }, 300);
       if (response && response.data && response.data.code === DemoConstants.SUCCESSS_CODE) {
         tsk.status = response.data.data;
       } else {
