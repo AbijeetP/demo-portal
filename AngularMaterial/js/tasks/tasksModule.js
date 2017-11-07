@@ -1,4 +1,4 @@
-angular.module('angularDemo', ['ngMaterial', 'ngMessages', 'ngStorage']).constant('DemoConstants', {
+angular.module('angularDemo', ['ngMaterial', 'ngMessages', 'ngStorage', 'blockUI']).constant('DemoConstants', {
   API_URL: 'http://10.0.0.160/demo-api/',
   TASKS_STATUSES: 'tasks/fetchTasksByStatus',
   TASKS_COMPLETED: 'tasks/getCompletedTasksByDay',
