@@ -10,6 +10,6 @@ angular.module('angularDemo', ['ngMaterial', 'ngMessages', 'ngStorage', 'blockUI
   TOASTR_TIMEOUT: 4000
 });
 angular.module('angularDemo').config(function (blockUIConfig) {
-  // Change the default overlay message
+  // Template to load while blocking the UI.
   blockUIConfig.templateUrl = 'js/directives/block-ui/blockUI.html';
 });
