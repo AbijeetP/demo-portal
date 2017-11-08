@@ -16,14 +16,14 @@ $(document).ready(function () {
         "render": function (data, type, row) {
           return row.desc;
         },
-        "width": "60%",
+        "width": "59%",
         "orderable": false,
         "targets": 1
       }, {
         "render": function (data, type, row) {
           return row.tech;
         },
-        "width": "20%",
+        "width": "21%",
         "orderable": false,
         "targets": 2
       }
