@@ -9,3 +9,7 @@ angular.module('angularDemo', ['ngMaterial', 'ngMessages', 'ngStorage', 'blockUI
   DEFAULT_DATE_FORMAT: 'DD-MM-YYYY',
   TOASTR_TIMEOUT: 4000
 });
+angular.module('angularDemo').config(function (blockUIConfig) {
+  // Template to load while blocking the UI.
+  blockUIConfig.templateUrl = 'js/directives/block-ui/blockUI.html';
+});
