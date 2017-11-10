@@ -176,7 +176,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     isRequired: true
   }];
 
-  var dtConfig = {
+  var tasksDataTableConfig = {
     responsive: true,
     language: {
       emptyTable: 'No matching records found.',
@@ -246,12 +246,12 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
 
   function bindDataToTable() {
     var tasks = $localStorage.tasks ? $localStorage.tasks : [];
-    dtConfig.data = tasks;
+    tasksDataTableConfig.data = tasks;
     if (tasksDataTableObj) {
       tasksDataTableObj.clear()
       tasksDataTableObj.rows.add(tasks).draw(false);
     } else {
-      tasksDataTableObj = $tasksGrid.DataTable(dtConfig);
+      tasksDataTableObj = $tasksGrid.DataTable(tasksDataTableConfig);
       handlePageChangeEvnt();
     }
     tasksDataTableObj.one('draw.dt', function (e, settings) {
