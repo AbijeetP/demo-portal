@@ -1,7 +1,7 @@
 angular.module('googleMaps').factory('MapsService', function ($http, bootstrapContributors) {
   return {
     fetchUsers: fetchUsers
-  }
+  };
   // Function to fetch bootstrap contributors from API.
   function fetchUsers() {
     return $http.get(bootstrapContributors.API_URL).then(function (response) {

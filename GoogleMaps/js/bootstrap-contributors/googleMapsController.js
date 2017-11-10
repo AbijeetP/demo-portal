@@ -1,6 +1,6 @@
 angular.module('googleMaps').controller('MapsController', function (NgMap, $timeout, MapsService) {
   configureToastr();
-  function configureToastr () {
+  function configureToastr() {
     toastr.options.timeOut = 4000;
     toastr.options.positionClass = 'toast-bottom-right';
   }
@@ -32,6 +32,6 @@ angular.module('googleMaps').controller('MapsController', function (NgMap, $time
   vm.showDetails = function (e, user) {
     vm.user = user;
     vm.position = user.pos;
-    vm.map.showInfoWindow("infoWindow", this);
-  }
+    vm.map.showInfoWindow('infoWindow', this);
+  };
 });
