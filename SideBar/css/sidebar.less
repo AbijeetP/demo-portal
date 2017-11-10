@@ -1,0 +1,210 @@
+// Code related to the sidebar
+#sidebar {
+  transition: width @sidebar-anim-duration ease-in-out;
+  background: @sidebar-bg;
+  color: @sidebar-font;
+  width: @sidebar-width;
+  height: 100vh;
+  position: fixed;
+  z-index: 999;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      a, .ui-menu-item-header span {
+        padding: 10px;
+        display: block;
+        cursor: pointer;
+      }
+    }
+  }
+
+  ul.components {
+    padding: 10px 0;
+  }
+
+  .treeview-menu {
+    display: none;
+    background-color: @sidebar-sub-menu-bg;
+  }
+
+  .ui-menu-item i:first-of-type {
+    font-size: 1.3em;
+    text-align: center;
+    width: 20px;
+  }
+
+  // Adds background color and font color on hover of a menu item.
+  .treeview > a:hover {
+    background-color: @sidebar-menu-item-hover-bg;
+    color: @sidebar-menu-item-hover-font;
+  }
+
+  .sidebar-header {
+    padding: 15px 10px 5px 10px;
+    background: @sidebar-header-bg;
+    h3 {
+      margin: 0px;
+      width: 80%;
+    }
+  }
+
+  .ui-menu-item-header {
+    background: @sidebar-bg;
+    // fa icons are by default this height.
+    min-height: 44px;
+  }
+
+  .ui-menu-item-border {
+    border-top: 1px solid #4f93d7;
+  }
+
+  // the current page item.
+  a.current-page {
+    font-weight: bold;
+  }
+}
+
+// code that applies to the expanded sidebar.
+#sidebar.expanded {
+  .sidebar-header {
+    h3 {
+      font-size: 1.35em;
+      line-height: 1.15em;
+      float: right;
+    }
+    button {
+      float:left;
+    }
+  }
+
+  // handles the rotation of the arrow icon
+  .treeview.expand {
+    > a > i.pull-right {
+      transform: rotate(-90deg);
+      // after we rotate, the height becomes the width
+      max-height: 20px;
+    }
+    > a {
+      background-color: @sidebar-active-item-bg !important;
+      color: @sidebar-active-item-color !important;
+    }
+  }
+
+  // Padding for the sub menu items
+  .treeview-menu > div {
+      padding-left: 19px;
+  }
+
+  .ui-menu-item-header {
+    display: none;
+  }
+
+  .ui-menu-item {
+    a {
+      display: flex;
+      > span {
+        flex: 1;
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+  }
+
+  @media  (max-width: @viewport-max) {
+    display: block;
+    top: 0;
+    left: 0;
+  }
+}
+
+// code that applies to the collapsed sidebar.
+#sidebar.collapsed {
+  width: @sidebar-collapsed-width;
+  text-align: center;
+
+  .treeview > a:hover span {
+    color: @sidebar-active-item-color;
+  }
+
+  .sidebar-header {
+    padding: 0px;
+    padding-top: 15px;
+    // hide the heading.
+    h3 {
+      display: none;
+    }
+  }
+
+  .ui-menu-item {
+    i:first-of-type {
+      font-size: 1.6em;
+    }
+  }
+
+  // hide the text, the submenu, the arrow icon
+  // don't hide the actual icon though.
+  .ui-menu-item a > span,
+  .ui-menu-item .treeview-menu,
+  .ui-menu-item a > .pull-right {
+    display: none !important;
+  }
+
+  // on hover, display the submenu menu
+  .treeview-menu.active {
+    position: fixed;
+    display: block !important;
+    width: @sidebar-width;
+    z-index: 100;
+    text-align: left;
+    border-top-right-radius: @sidebar-submenu-border-radius;
+    border-bottom-right-radius: @sidebar-submenu-border-radius;
+    .ui-menu-item-header {
+      border-top-right-radius: @sidebar-submenu-border-radius;
+    }
+    .sub-menu-container {
+      max-height: @sidebar-submenu-height;
+    }
+  }
+
+  > ul > .ui-menu-item:hover {
+    > a > span {
+      top: 0;
+      padding: 12px 5px 12px 20px;
+      background-color: @sidebar-bg;
+    }
+
+    // show the treeview-menu
+    > .treeview-menu {
+      margin-left: 0;
+      // display the submenu items.
+      a > span {
+        display: block !important;
+      }
+    }
+  }
+
+  @media (max-width: @viewport-max) {
+    // when sidebar is collapsed below @viewport-max, make it have no width
+    // and hide all overflowing elements.
+    width: 0px;
+    overflow: hidden;
+  }
+}
+
+#sidebarCollapse {
+  background-color: @sidebar-menu-button;
+}
+#btnSidebarHeader {
+  display: none;
+}
+@media  (max-width: @viewport-max) {
+  #btnSidebarHeader {
+    display: block;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+}

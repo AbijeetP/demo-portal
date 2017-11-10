@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="A demo application on Custom sidebar">
+        <meta name="keywords" content="sidebar demo, demo on sidebar">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Osmosys Demo :: Sidebar</title>
+
+        <link rel="apple-touch-icon" href="dist/img/favicon.jpg">
+        <link rel="shortcut icon" type="image/x-icon" href="dist/img/favicon.jpg">
+        <!-- Font awesome - CSS -->
+        <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css">
+        <!-- BootStrap - CSS -->
+        <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="dist/css/style.css?ver=1.0.0">
+
+    </head>
+
+    <body>
+        <!--[if lte IE 8]>
+          <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <!-- Add body of the page here -->
+        <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+            <a class="navbar-brand" href="http://osmosys.asia/">
+                <img src="img/osmosys-logo.png" alt="logo">
+            </a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="../">Introduction</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link help-link">Help<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </nav>
+        <div class="modal help-modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Sidebar</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>This is a re-usable sidebar designed using Bootstrap 4.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <header id="header" class="clearfix">
+            <button type="button" id="btnSidebarHeader" class="btn btn-info fred-nav-btn">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+        </header>
+        <nav id="sidebar" class="expanded">
+            <!-- Sidebar Header -->
+            <div class="sidebar-header clearfix">
+                <h3>PineStem</h3>
+                <button type="button" id="btnSidebar" class="btn btn-info base-nav-btn">
+                    <i class="fa fa-angle-left"></i>
+                </button>
+            </div>
+
+            <!-- Sidebar Links -->
+            <ul class="list-unstyled components">
+                <li class="treeview ui-menu-item ui-menu-item-border ui-item-static">
+                    <a href="#" data-module="Dashboard">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="treeview ui-menu-item ui-menu-item-border ui-item-static">
+                    <a href="#" data-module="QuickUserGuide">
+                        <i class="fa fa-book"></i>
+                        <span>Quick user guide</span>
+                    </a>
+                </li>
+                <li class="treeview ui-menu-item ui-menu-item-border ui-item-static">
+                    <a href="#">
+                        <i class="fa fa-braille"></i>
+                        <span>Kanban board</span>
+                    </a>
+                </li>
+                <li class="treeview ui-menu-item">
+                    <a>
+                        <i class="fa fa-users"></i>
+                        <span>Customers</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <div class="treeview-menu">
+                        <div class="ui-menu-item-header">
+                            <span>Customers</span>
+                        </div>
+                        <div class="sub-menu-container">
+                            <div class="ui-menu-item indicator-item">
+                                <a href="#">
+                                    <span>Customer List</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="sub-menu-container">
+                            <div class="ui-menu-item indicator-item">
+                                <a href="#">
+                                    <span>New Customer</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="treeview ui-menu-item">
+                    <a>
+                        <i class="fa fa-tasks"></i>
+                        <span>Projects</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <div class="treeview-menu">
+                        <div class="ui-menu-item-header">
+                            <span>Projects</span>
+                        </div>
+                        <div class="sub-menu-container">
+                            <div class="ui-menu-item indicator-item">
+                                <a href="#">
+                                    <span>Project List</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="sub-menu-container">
+                            <div class="ui-menu-item indicator-item">
+                                <a href="#">
+                                    <span>New Project</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="treeview ui-menu-item">
+                    <a>
+                        <i class="fa fa-user-circle-o"></i>
+                        <span>User stories</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <div class="treeview-menu">
+                        <div class="ui-menu-item-header">
+                            <span>User stories</span>
+                        </div>
+                        <div class="sub-menu-container">
+                            <div class="ui-menu-item indicator-item">
+                                <a href="#">
+                                    <span>User story list</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="sub-menu-container">
+                            <div class="ui-menu-item indicator-item">
+                                <a href="#">
+                                    <span>New user story</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="treeview ui-menu-item">
+                    <a>
+                        <i class="fa fa fa-clock-o"></i>
+                        <span>Tasks</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <div class="treeview-menu">
+                        <div class="ui-menu-item-header">
+                            <span>Tasks</span>
+                        </div>
+                        <div class="sub-menu-container">
+                            <div class="ui-menu-item indicator-item">
+                                <a href="#">
+                                    <span>Task list</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="sub-menu-container">
+                            <div class="ui-menu-item indicator-item">
+                                <a href="#">
+                                    <span>New task</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="treeview ui-menu-item">
+                    <a>
+                        <i class="fa fa-bug"></i>
+                        <span>Bugs</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <div class="treeview-menu">
+                        <div class="ui-menu-item-header">
+                            <span>Bugs</span>
+                        </div>
+                        <div class="sub-menu-container">
+                            <div class="ui-menu-item indicator-item">
+                                <a href="#">
+                                    <span>Bug list</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="sub-menu-container">
+                            <div class="ui-menu-item indicator-item">
+                                <a href="#">
+                                    <span>New bug</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="treeview ui-menu-item ui-menu-item-border ui-item-static">
+                    <a href="#" data-module="Reports">
+                        <i class="fa fa-line-chart"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li class="treeview ui-menu-item ui-menu-item-border ui-item-static">
+                    <a href="#" data-module="MasterSettings">
+                        <i class="fa fa-cog"></i>
+                        <span>Master settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div id="overlay"></div>
+        <!--  Footer section starts here -->
+        <footer class="footer">
+            <div class="container">
+                <div class="text-center">
+                    Developed with &hearts; at <a href="http://osmosys.asia/" target="_blank">Osmosys Software Solutions Pvt. Ltd</a>
+                </div>
+            </div>
+        </footer>
+        <!-- Load scripts from here -->
+        <!-- jQuery -->
+        <script src="lib/jquery/dist/jquery.min.js"></script>
+
+        <!-- NiceScroll -->
+        <script src="lib/jquery.nicescroll/dist/jquery.nicescroll.min.js"></script>
+        <!-- Event Emitter -->
+        <script src="lib/eventEmitter/EventEmitter.min.js"></script>
+
+        <script src="js/app.js?ver=1.0.0" defer></script>
+        <script src="js/sidebar.js?ver=1.0.0"></script>
+        <script src="js/dashboard.js?ver=1.0.0"></script>
+
+    </body>
+</html>

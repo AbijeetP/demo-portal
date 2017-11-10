@@ -2,13 +2,20 @@
 
 The idea of this page is to demonstrate to our end clients our technical prowess.
 
-## Angular Material
+## Sidebar
 
-To get you started you can simply clone the repository, move up to the AngularMaterial folder and install the dependencies:
+### Page Description
+The Sidebar page using bootstrap to make the UI for the sidebar
+
+In this page you can we will see the design of the sidebar using Bootstrap. We use nicescroll plugin to show scroll bar for the sidebar.
+This is a re-usable component.
+
+To get you started you can simply clone the repository, move up to the Sidebar folder and install the dependencies:
 
 ```
-cd demo-portal/AngularMaterial
+cd demo-portal/Sidebar
 npm install
+
 ```
 
 ### Prerequisites
@@ -51,10 +58,14 @@ git config --global merge.tool meld
 git config --global diff.tool meld
 ```
 
-#### 2. Node.JS and npm
+#### 2. Node.JS and npm and grunt
 
 We also use a number of Node.js tools. You must have node.js and its package manager (npm) installed.
 You can get them from [http://nodejs.org/](http://nodejs.org/).
+
+You'll need to run `grunt-prod` to load of the minified files
+
+You'll need to run `grunt-less` to load the css file
 
 #### 3. bower
 
@@ -98,3 +109,6 @@ npm start
 ## Please go through Documentation
 
 Please go through the page [here](http://10.0.0.155/books/faq-php/page/requirements)
+
+
+
