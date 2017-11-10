@@ -1,14 +1,9 @@
 angular.module('angularDemo').controller('angularDemoController', function ($scope, $document, $http, $compile, $localStorage, $mdDialog, $timeout, DemoConstants, tasksService, blockUI) {
   var tsk = this;
-
-  const FETCH_ERROR_MESSAGE = 'Some problem has occurred while fetching ';
-  const FETCH_ERROR_MESSAGE_2 = '. Please try again later.';
-  const CREATE_MESSAGE = 'Task has been created successfully.';
-  const UPDATE_MESSAGE = 'Task has been updated successfully.';
-  const DELETE_MESSAGE = 'Task has been deleted successfully.';
   tsk.buttonName = 'Submit';
   tsk.isUpdate = false;
   var highestIndex = 0;
+  var tasksDataTableObj = '';
 
   getStatus();
   configureToastr();
@@ -41,9 +36,9 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
       $localStorage.tasks.splice(tsk.editTaskIndex, 1);
       tsk.isUpdate = false;
       tsk.buttonName = 'Submit';
-      showSuccessMessage(UPDATE_MESSAGE);
+      showSuccessMessage(DemoConstants.UPDATE_MESSAGE);
     } else {
-      showSuccessMessage(CREATE_MESSAGE);
+      showSuccessMessage(DemoConstants.CREATE_MESSAGE);
       tsk.taskDetails.id = ++highestIndex;
     }
     var tasks = $localStorage.tasks ? $localStorage.tasks : [];
@@ -99,16 +94,16 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.status = [];
     blockUI.start();
     return tasksService.fetchStatus().then(function (response) {
-      $timeout(function() {
+      $timeout(function () {
         blockUI.stop();
       }, 300);
       if (response && response.data && response.data.code === DemoConstants.SUCCESSS_CODE) {
         tsk.status = response.data.data;
       } else {
-        showErrorMessage(FETCH_ERROR_MESSAGE + 'status' + FETCH_ERROR_MESSAGE_2);
+        showErrorMessage(DemoConstants.DemoConstants.FETCH_ERROR_MESSAGE + 'status' + DemoConstants.DemoConstants.FETCH_ERROR_MESSAGE_2);
       }
     }, function () {
-      showErrorMessage(FETCH_ERROR_MESSAGE + 'status' + FETCH_ERROR_MESSAGE_2);
+      showErrorMessage(DemoConstants.DemoConstants.FETCH_ERROR_MESSAGE + 'status' + DemoConstants.DemoConstants.FETCH_ERROR_MESSAGE_2);
     });
   }
 
@@ -181,40 +176,53 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     isRequired: true
   }];
 
-  var dtConfig = {
+  var tasksDataTableConfig = {
     responsive: true,
     language: {
-      emptyTable: 'No matching records foundd.',
+      emptyTable: 'No matching records found.',
       zeroRecords: 'No matching records found.',
     },
     colReorder: true,
     columns: tsk.dtColumns,
     data: [],
-    isFullWidth: true
+    isFullWidth: true,
+    stateSave: true
   };
 
   var $tasksGrid = angular.element('#tasksGrid');
-  var dtObj = $tasksGrid.DataTable(dtConfig);
   tsk.isForFistTime = true;
 
-  // On click on pagination scroll to table.
-  dtObj.on('page.dt', function () {
-    angular.element('html,body').animate({
-      scrollTop: angular.element('.task-list-header').offset().top
-    }, 'slow');
-  });
+  /**
+   * On click on pagination scroll to table.
+   */
+  function handlePageChangeEvnt() {
+    tasksDataTableObj.on('page.dt', function () {
+      angular.element('html,body').animate({
+        scrollTop: angular.element('.task-list-header').offset().top
+      }, 'slow');
+    });
+  }
 
   // Toggle columns visibility.
   tsk.columnVisibilityChanged = function (columnData) {
     for (var i = 0; i < tsk.dtColumns.length; i++) {
       if (tsk.dtColumns[i].data === columnData) {
         // Get the column API object
-        var column = dtObj.column(i);
+        var column = tasksDataTableObj.column(i);
         column.visible(!column.visible());
         break;
       }
     }
   };
+
+  /**
+   * On page load show all the columns.
+   */
+  function showAllColumns() {
+    for (var i = 0; i < tsk.dtColumns.length; i++) {
+      tasksDataTableObj.column(i).visible(true);
+    }
+  }
 
   // Get tasks and bind data to the grid.
   tasksService.fetchTasks().then(function (response) {
@@ -224,25 +232,31 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
         $localStorage.tasks = tasks;
         highestIndex = tasks.length;
         bindDataToTable();
+        showAllColumns();
         return;
       }
     } else {
-      showErrorMessage(FETCH_ERROR_MESSAGE + 'tasks' + FETCH_ERROR_MESSAGE_2);
+      showErrorMessage(DemoConstants.FETCH_ERROR_MESSAGE + 'tasks' + DemoConstants.FETCH_ERROR_MESSAGE_2);
     }
     $scope.dtApi.bindData([]);
   }, function (error) {
     $scope.dtApi.bindData([]);
-    showErrorMessage(FETCH_ERROR_MESSAGE + 'tasks' + FETCH_ERROR_MESSAGE_2);
+    showErrorMessage(DemoConstants.FETCH_ERROR_MESSAGE + 'tasks' + DemoConstants.FETCH_ERROR_MESSAGE_2);
   });
 
   function bindDataToTable() {
     var tasks = $localStorage.tasks ? $localStorage.tasks : [];
-    dtObj.clear();
-    dtObj.rows.add(tasks);
-    dtObj.one('draw.dt', function (e, settings) {
+    tasksDataTableConfig.data = tasks;
+    if (tasksDataTableObj) {
+      tasksDataTableObj.clear()
+      tasksDataTableObj.rows.add(tasks).draw(false);
+    } else {
+      tasksDataTableObj = $tasksGrid.DataTable(tasksDataTableConfig);
+      handlePageChangeEvnt();
+    }
+    tasksDataTableObj.one('draw.dt', function (e, settings) {
       settings.oLanguage.sEmptyTable = 'No tasks found';
     });
-    dtObj.draw();
     $timeout(function () {
       $scope.$parent.$broadcast('dt-update');
     }, 200);
@@ -270,13 +284,13 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.taskDetails = {};
     tsk.buttonName = 'Update';
     tsk.isUpdate = true;
-    var rowData = dtObj.row(this.parentElement).data();
+    var rowData = tasksDataTableObj.row(this.parentElement).data();
     tsk.taskDetails.taskName = rowData.taskName;
     tsk.taskDetails.dueDate = convertStringToDate(rowData.dueDate);
     tsk.taskDetails.createdOn = convertStringToDate(rowData.createdOn);
     tsk.taskDetails.status = rowData.statusID;
     $scope.$apply();
-    tsk.editTaskData = dtObj.row(this.parentElement).data();
+    tsk.editTaskData = tasksDataTableObj.row(this.parentElement).data();
 
     angular.element('html,body').animate({
       scrollTop: angular.element('.add-task-form ').offset().top
@@ -286,7 +300,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
 
   // On click on delete, delete row.
   angular.element('#tasksGrid').on('click', '.delete-setting', function () {
-    var rowData = dtObj.row(this.parentElement).data();
+    var rowData = tasksDataTableObj.row(this.parentElement).data();
     // Show delete dialog
     $mdDialog.show({
       scope: $scope,
@@ -307,7 +321,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
         var deleteTaskIndex = getTaskIndex(rowData);
         $localStorage.tasks.splice(deleteTaskIndex, 1);
         bindDataToTable();
-        showSuccessMessage(DELETE_MESSAGE)
+        showSuccessMessage(DemoConstants.DELETE_MESSAGE)
         $mdDialog.hide();
       };
     }
@@ -332,7 +346,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   // Handle mark as done functionality.
   angular.element('#tasksGrid').on('click', '.mark-as-done', function () {
     if (!angular.element(this).hasClass('disabled')) {
-      var doneTaskData = dtObj.row(this.parentElement).data();
+      var doneTaskData = tasksDataTableObj.row(this.parentElement).data();
       var doneTaskIndex = getTaskIndex(doneTaskData);
       var doneTask = $localStorage.tasks[doneTaskIndex];
       doneTask.statusID = DemoConstants.DONE_STATUS;
