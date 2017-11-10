@@ -1,9 +1,9 @@
 
 angular
-  .module('angularDemo').directive('lineChart', function (ChartsService, $localStorage) {
+  .module('angularDemo').directive('taskCompleteChart', function (ChartsService, $localStorage) {
     return {
       restrict: 'E',
-      templateUrl: 'js/directives/line-chart/lineChart.html',
+      templateUrl: 'js/directives/task-complete-chart/taskCompleteChart.html',
       link: function ($scope, $ele, $atr) {
         var lineChart = null;
 
@@ -41,7 +41,7 @@ angular
 
         // To initialize the line chart
         function initLineChart(chartData) {
-          var lineChartElement = $ele.find('#lineChart');
+          var lineChartElement = $ele.find('#taskCompleteChart');
           var lineChartConfig = {
             type: 'line',
             data: {
