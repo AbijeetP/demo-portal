@@ -179,7 +179,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   var dtConfig = {
     responsive: true,
     language: {
-      emptyTable: 'No matching records foundd.',
+      emptyTable: 'No matching records found.',
       zeroRecords: 'No matching records found.',
     },
     colReorder: true,
