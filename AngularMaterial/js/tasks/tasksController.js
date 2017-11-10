@@ -3,7 +3,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   tsk.buttonName = 'Submit';
   tsk.isUpdate = false;
   var highestIndex = 0;
-  var dtObj = '';
+  var tasksDataTableObj = '';
 
   getStatus();
   configureToastr();
@@ -196,7 +196,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
    * On click on pagination scroll to table.
    */
   function handlePageChangeEvnt() {
-    dtObj.on('page.dt', function () {
+    tasksDataTableObj.on('page.dt', function () {
       angular.element('html,body').animate({
         scrollTop: angular.element('.task-list-header').offset().top
       }, 'slow');
@@ -208,7 +208,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     for (var i = 0; i < tsk.dtColumns.length; i++) {
       if (tsk.dtColumns[i].data === columnData) {
         // Get the column API object
-        var column = dtObj.column(i);
+        var column = tasksDataTableObj.column(i);
         column.visible(!column.visible());
         break;
       }
@@ -220,7 +220,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
    */
   function showAllColumns() {
     for (var i = 0; i < tsk.dtColumns.length; i++) {
-      dtObj.column(i).visible(true);
+      tasksDataTableObj.column(i).visible(true);
     }
   }
 
@@ -247,14 +247,14 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   function bindDataToTable() {
     var tasks = $localStorage.tasks ? $localStorage.tasks : [];
     dtConfig.data = tasks;
-    if (dtObj) {
-      dtObj.clear()
-      dtObj.rows.add(tasks).draw(false);
+    if (tasksDataTableObj) {
+      tasksDataTableObj.clear()
+      tasksDataTableObj.rows.add(tasks).draw(false);
     } else {
-      dtObj = $tasksGrid.DataTable(dtConfig);
+      tasksDataTableObj = $tasksGrid.DataTable(dtConfig);
       handlePageChangeEvnt();
     }
-    dtObj.one('draw.dt', function (e, settings) {
+    tasksDataTableObj.one('draw.dt', function (e, settings) {
       settings.oLanguage.sEmptyTable = 'No tasks found';
     });
     $timeout(function () {
@@ -284,13 +284,13 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.taskDetails = {};
     tsk.buttonName = 'Update';
     tsk.isUpdate = true;
-    var rowData = dtObj.row(this.parentElement).data();
+    var rowData = tasksDataTableObj.row(this.parentElement).data();
     tsk.taskDetails.taskName = rowData.taskName;
     tsk.taskDetails.dueDate = convertStringToDate(rowData.dueDate);
     tsk.taskDetails.createdOn = convertStringToDate(rowData.createdOn);
     tsk.taskDetails.status = rowData.statusID;
     $scope.$apply();
-    tsk.editTaskData = dtObj.row(this.parentElement).data();
+    tsk.editTaskData = tasksDataTableObj.row(this.parentElement).data();
 
     angular.element('html,body').animate({
       scrollTop: angular.element('.add-task-form ').offset().top
@@ -300,7 +300,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
 
   // On click on delete, delete row.
   angular.element('#tasksGrid').on('click', '.delete-setting', function () {
-    var rowData = dtObj.row(this.parentElement).data();
+    var rowData = tasksDataTableObj.row(this.parentElement).data();
     // Show delete dialog
     $mdDialog.show({
       scope: $scope,
@@ -346,7 +346,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   // Handle mark as done functionality.
   angular.element('#tasksGrid').on('click', '.mark-as-done', function () {
     if (!angular.element(this).hasClass('disabled')) {
-      var doneTaskData = dtObj.row(this.parentElement).data();
+      var doneTaskData = tasksDataTableObj.row(this.parentElement).data();
       var doneTaskIndex = getTaskIndex(doneTaskData);
       var doneTask = $localStorage.tasks[doneTaskIndex];
       doneTask.statusID = DemoConstants.DONE_STATUS;
