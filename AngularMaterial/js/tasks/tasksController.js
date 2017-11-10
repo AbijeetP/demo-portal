@@ -192,8 +192,10 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   var $tasksGrid = angular.element('#tasksGrid');
   tsk.isForFistTime = true;
 
+  /**
+   * On click on pagination scroll to table.
+   */
   function handlePageChangeEvnt() {
-    // On click on pagination scroll to table.
     dtObj.on('page.dt', function () {
       angular.element('html,body').animate({
         scrollTop: angular.element('.task-list-header').offset().top
@@ -213,6 +215,9 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     }
   };
 
+  /**
+   * On page load show all the columns.
+   */
   function showAllColumns() {
     for (var i = 0; i < tsk.dtColumns.length; i++) {
       dtObj.column(i).visible(true);
