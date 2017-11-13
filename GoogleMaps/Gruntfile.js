@@ -113,6 +113,12 @@ module.exports = function (grunt) {
       html: {
         src: 'index.toprocess.html',
         dest: 'index.html'
+      },
+      multifile: {
+        files: {
+          'index.toprocess.html' : 'index.html',
+          'search-location.toprocess.html': 'search-location.html'
+        }
       }
     },
     watch: {
