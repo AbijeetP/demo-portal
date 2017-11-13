@@ -1,6 +1,6 @@
 # Demo Portal
 
-The idea of this page is to demonstrate to our end clients our technical prowers.
+The idea of this page is to demonstrate to our end clients our technical prowess.
 
 ## BootStrap
 
