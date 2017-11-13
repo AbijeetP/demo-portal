@@ -26,7 +26,7 @@ module.exports = function (grunt) {
     jsFiles[i] = jsPath + jsFiles[i];
   }
 
-  //For adding blockUI plugin into jsFiles
+  // For adding blockUI plugin into jsFiles
   jsFiles.push(libPath + 'blockUI/jquery.blockUI.js');
 
   // For minifying initial load plugin js files.
@@ -110,14 +110,10 @@ module.exports = function (grunt) {
     },
     preprocess: {
       options: preprocessOpts,
-      html: {
-        src: 'index.toprocess.html',
-        dest: 'index.html'
-      },
       multifile: {
         files: {
-          'index.toprocess.html' : 'index.html',
-          'search-location.toprocess.html': 'search-location.html'
+          'index.html': 'index.toprocess.html',
+          'search-location.html': 'search-location.toprocess.html'
         }
       }
     },
