@@ -15,7 +15,7 @@ $(document).ready(function () {
     INPROGRESS: '#95a5a6',
     PLANNED: '#9b59b6',
     TASKS_COMPLETED: '#00caca'
-  }
+  };
   var Validator = $('#addTaskForm').osmValidator();
 
   $('.add-task-form').on('blur', '.reqCntrl', function () {
@@ -130,7 +130,7 @@ $(document).ready(function () {
   // Fixing issues with Datatable bootstrap 4 UI
   var $tableContainer = $(taskListObj.table().container());
   $tableContainer.removeClass('form-inline');
-  var $cols = $tableContainer.find('.col-xs-12')
+  var $cols = $tableContainer.find('.col-xs-12');
   for (var i = 0; i <= $cols.length; i++) {
     $($cols[i]).removeClass('col-xs-12').addClass('col-sm-12');
   }
@@ -138,7 +138,7 @@ $(document).ready(function () {
   // Making ajax call to get all task status and bind to dropdown
   makeAjaxCall('task-statuses', cbBindStatus);
 
-  //This function will show error messages and success messages according to the response.
+  // This function will show error messages and success messages according to the response.
   function cbBindStatus(response) {
     if (response.hasOwnProperty('success') && response.success) {
       var statusHtml = '<option value="">Select a status</option>';
@@ -194,9 +194,11 @@ $(document).ready(function () {
         var $currentFormInput = $addTaskForm.find('input[name="' + prop + '"]');
         $currentFormInput.val(rowData[prop]);
         if ($currentFormInput.hasClass('datepicker')) {
-          $currentFormInput.datepicker("setDate", formatDate(rowData[prop]));
+          $currentFormInput.datepicker('setDate', formatDate(rowData[prop]));
         }
+
       }
+
     }
   }
 
@@ -239,20 +241,20 @@ $(document).ready(function () {
 
   function createNotification(type, message) {
     notify({
-      type: type, //alert | success | error | warning | info
+      type: type, // alert | success | error | warning | info
       message: message,
       position: {
-        x: "right", //right | left | center
-        y: "bottom" //top | bottom | center
+        x: 'right', // right | left | center
+        y: 'bottom' // top | bottom | center
       },
-      size: "normal", //normal | full | small
-      overlay: false, //true | false
-      closeBtn: false, //true | false
-      overflowHide: false, //true | false
-      spacing: 20, //number px
-      theme: "dark-theme", //default | dark-theme
-      autoHide: true, //true | false
-      delay: 2500, //number ms
+      size: 'normal', // normal | full | small
+      overlay: false, // true | false
+      closeBtn: false, // true | false
+      overflowHide: false, // true | false
+      spacing: 20, // number px
+      theme: 'dark-theme', // default | dark-theme
+      autoHide: true, // true | false
+      delay: 2500, // number ms
       template: '<div class="notify"><div class="notify-text"></div></div>'
     });
   }
@@ -320,7 +322,7 @@ $(document).ready(function () {
     var rowData = {};
     rowData.taskName = $taskForm.find('input[name="taskName"]').val();
     rowData.dueDate = $taskForm.find('input[name="dueDate"]').val();
-    rowData.statusName = $('#tastStatus option:selected').html()
+    rowData.statusName = $('#tastStatus option:selected').html();
     rowData.statusID = $taskForm.find('select[name="statusID"]').val();
     rowData.createdOn = $taskForm.find('input[name="createdOn"]').val();
     return rowData;
@@ -391,14 +393,16 @@ $(document).ready(function () {
           statusId: taskStatus.statusID,
           statusName: taskStatus.statusName,
           totalTasksCount: 0
-        }
+        };
         taskData.push(statusObj);
       }
     }
-    taskData.sort(function (a, b) { return parseInt(a.statusId, 10) - parseInt(b.statusId) });
+    taskData.sort(function (a, b) {
+ return parseInt(a.statusId, 10) - parseInt(b.statusId); 
+});
     var requestData = {
       data: taskData,
-    }
+    };
     if (!initialLoad) {
       requestData.isUpdate = true;
     }
@@ -427,7 +431,7 @@ $(document).ready(function () {
     for (var dtIndex = 0; dtIndex < chartInfo.lblDates.length; dtIndex++) {
       chartInfo.data.push(doneStatusCount[chartInfo.lblDates[dtIndex]]);
     }
-    createUpdateLineChart(chartInfo, initialLoad)
+    createUpdateLineChart(chartInfo, initialLoad);
   }
 
   /**
@@ -435,8 +439,8 @@ $(document).ready(function () {
    * @param {*} response
    */
   function createUpdatePieChart(response) {
-    var pieChart = $(document.getElementById("canvas-pie-chart"));
-    var emptyPie = $(document.getElementsByClassName("empty-pie-chart"));
+    var pieChart = $(document.getElementById('canvas-pie-chart'));
+    var emptyPie = $(document.getElementsByClassName('empty-pie-chart'));
     var respData = response.data;
     var chartLabels = [];
     var chartData = [];
@@ -484,7 +488,7 @@ $(document).ready(function () {
           }
         };
 
-        var ctxPie = document.getElementById("canvas-pie-chart").getContext("2d");
+        var ctxPie = document.getElementById('canvas-pie-chart').getContext("2d");
         taskStatusChart = new Chart(ctxPie, taskStatusChartConfig);
       }
     }
@@ -495,8 +499,8 @@ $(document).ready(function () {
    * @param {*} response
    */
   function createUpdateLineChart(response, initialLoad) {
-    var lineChart = $(document.getElementById("canvas-line-chart"));
-    var emptyLine = $(document.getElementsByClassName("empty-line-chart"));
+    var lineChart = $(document.getElementById('canvas-line-chart'));
+    var emptyLine = $(document.getElementsByClassName('empty-line-chart'));
     var respData = response.data;
     var chartLabels = [];
     var chartData = [];
@@ -531,7 +535,7 @@ $(document).ready(function () {
           data: {
             labels: chartLabels,
             datasets: [{
-              label: "Tasks completed",
+              label: 'Tasks completed',
               backgroundColor: COLOR_CONSTANTS.TASKS_COMPLETED,
               borderColor: COLOR_CONSTANTS.TASKS_COMPLETED,
               borderCapStyle: 'butt',
@@ -581,7 +585,7 @@ $(document).ready(function () {
             }
           }
         };
-        var ctxPie = document.getElementById("canvas-line-chart").getContext("2d");
+        var ctxPie = document.getElementById('canvas-line-chart').getContext("2d");
         taskCompletedStatusChart = new Chart(ctxPie, taskCompletedStatusChartConfig);
       }
     } else {
@@ -594,7 +598,7 @@ $(document).ready(function () {
   // Check if the task list is present in the local storage.
   // If No call the APi methods to get the pie chart and line chart data.
   // If Yes call the update methods to update the charts data and pass the initialLoad variable to indentify its the initial load
-  var localStorageTasks = getTasksFromLocalStorage()
+  var localStorageTasks = getTasksFromLocalStorage();
   if (!localStorageTasks || localStorageTasks.length <= 0) {
     // Making ajax call to get the task count based on statuses show the response data in a Pie chart
     makeAjaxCall(API_URLS.taskStatus, createUpdatePieChart, '', true);
@@ -602,8 +606,8 @@ $(document).ready(function () {
     makeAjaxCall(API_URLS.completedTaskStatus, createUpdateLineChart, '', true);
   } else {
     var initialLoad = true;
-    udpatePieChartData(initialLoad)
-    updateLineChart(initialLoad)
+    udpatePieChartData(initialLoad);
+    updateLineChart(initialLoad);
   }
 
   function makeAjaxCall(MethodName, callback, message, showProcessing) {

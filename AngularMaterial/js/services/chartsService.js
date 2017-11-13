@@ -3,7 +3,7 @@ angular
     return {
       getTaskStatusCount: getTaskStatusCount,
       getTasksCompleted: getTasksCompleted
-    }
+    };
 
     function httpGetOpts(url, data) {
       var geDataObj = {
@@ -26,7 +26,7 @@ angular
         try {
           return response;
         } catch (ex) {
-          return ex
+          return ex;
         }
       }, function (xhr, error) {
         return xhr;
@@ -41,7 +41,7 @@ angular
         try {
           return response;
         } catch (ex) {
-          return ex
+          return ex;
         }
       }, function (xhr, error) {
         return xhr;
