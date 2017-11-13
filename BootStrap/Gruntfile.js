@@ -53,6 +53,7 @@ module.exports = function (grunt) {
     context: {
       DEBUG: true,
       NODE_ENV: 'development',
+      VERSION: pkg.version
     }
   };
 

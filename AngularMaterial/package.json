@@ -19,7 +19,8 @@
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-contrib-htmlmin": "^2.4.0",
-    "angular-material-source": "1.0.10"
+    "angular-material-source": "1.0.10",
+    "grunt-preprocess": "^5.1.0"
   },
   "scripts": {
     "start": "grunt dev && http-server -a localhost -p 8000 -c-1 -o -g",
