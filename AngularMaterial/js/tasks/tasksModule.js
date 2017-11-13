@@ -18,6 +18,6 @@ angular.module('angularDemo').config(function (blockUIConfig, $mdDateLocaleProvi
   // Template to load while blocking the UI.
   blockUIConfig.templateUrl = 'js/directives/block-ui/blockUI.html';
   $mdDateLocaleProvider.formatDate = function(date){
-    return moment(date).format('DD-MM-YYYY')
-  }
+    return moment(date).format('DD-MM-YYYY');
+  };
 });

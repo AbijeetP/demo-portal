@@ -30,7 +30,7 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
         }
       };
     });
-  };
+  }
 
   function setSearchResultsContainerHeight() {
     $timeout(function () {
@@ -96,7 +96,7 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
   vm.showDetails = function (event, place) {
     vm.place = place;
     vm.place.actualRating = (place.rating * 20) + '%';
-    vm.map.showInfoWindow("infoWindow", this);
+    vm.map.showInfoWindow('infoWindow', this);
   };
   setSearchResultsContainerHeight();
   $(window).resize(function () {
