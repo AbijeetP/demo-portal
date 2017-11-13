@@ -1,0 +1,30 @@
+{
+  "extends": ["eslint:recommended", "angular"],
+  "env": {
+      "browser": true,
+      "commonjs": true,
+      "es6": true,
+      "node": true,
+      "jquery": true
+  },
+  "rules": {
+      "semi": ["error", "always"],
+      "quotes": ["error", "single"],
+      "brace-style": ["error", "1tbs"],
+      "spaced-comment": ["error", "always"],
+      "camelcase": "error",
+      "no-array-constructor": "error",
+      "eol-last": 0,
+      "angular/json-functions": 0,
+      "angular/definedundefined": 0,
+      "angular/typecheck-array": 0,
+      "angular/no-service-method": 0,
+      "angular/window-service": 0
+  },
+  "globals": {
+    "moment": true,
+    "Chart": true,
+    "$": true,
+    "toastr": true
+  }
+}
