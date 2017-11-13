@@ -146,7 +146,7 @@ $(document).ready(function () {
       for (var prop in result) {
         statusHtml += '<option value="' + result[prop].statusID + '">' + result[prop].statusName + '</option>';
       }
-      $('#tastStatus').html(statusHtml);
+      $('#taskStatus').html(statusHtml);
       localStorage.setItem('tasksStatuses', JSON.stringify(result));
     } else {
       createNotification('error', appMessages.somethingWrongTaskStatus);
@@ -322,7 +322,7 @@ $(document).ready(function () {
     var rowData = {};
     rowData.taskName = $taskForm.find('input[name="taskName"]').val();
     rowData.dueDate = $taskForm.find('input[name="dueDate"]').val();
-    rowData.statusName = $('#tastStatus option:selected').html();
+    rowData.statusName = $('#taskStatus option:selected').html();
     rowData.statusID = $taskForm.find('select[name="statusID"]').val();
     rowData.createdOn = $taskForm.find('input[name="createdOn"]').val();
     return rowData;
