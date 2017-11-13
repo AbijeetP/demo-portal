@@ -32,6 +32,14 @@ module.exports = function (grunt) {
   minifyFiles[distPath + 'js/main.min.js'] = jsFiles;
   minifyFiles[distPath + 'js/initialScripts.min.js'] = initialLoadScripts;
 
+  var preprocessOpts = {
+    context: {
+      DEBUG: true,
+      NODE_ENV: 'development',
+      VERSION: pkg.version
+    }
+  };
+
   // Grunt configuration
   var config = {
     pkg: grunt.file.readJSON('package.json'),
@@ -76,6 +84,13 @@ module.exports = function (grunt) {
         files: cssFiles
       }
     },
+    preprocess: {
+      options: preprocessOpts,
+      html: {
+        src: 'index.toprocess.html',
+        dest: 'index.html'
+      }
+    },
     watch: {
       css: {
         files: cssPath + '*.less',
@@ -102,9 +117,11 @@ module.exports = function (grunt) {
     grunt.task.run('uglify');
     grunt.task.run('cssmin');
     grunt.task.run('imagemin');
+    grunt.task.run('preprocess');
   });
   grunt.registerTask('dev', function () {
     grunt.task.run('less');
+    grunt.task.run('preprocess');
   });
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -113,6 +130,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-preprocess');
   // Default task(s).
   grunt.registerTask('default', ['uglify', 'cssmin', 'less']);
 };

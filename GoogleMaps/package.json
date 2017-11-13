@@ -15,7 +15,8 @@
     "grunt-contrib-jshint": "^1.0.0 ",
     "grunt-contrib-less": "^1.4.0",
     "grunt-contrib-uglify": "^2.0.0",
-    "grunt-contrib-watch": "^1.0.0"
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-preprocess": "^5.1.0"
   },
   "scripts": {
     "prestart": "npm install && bower install",
