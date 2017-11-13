@@ -10,7 +10,7 @@ module.exports = function( grunt ) {
     'js/app.js',
     'js/script.js',
     'js/sidebar.js',
-    'js/dashboard.js'
+    'js/commonMenu.js'
   ];
 
   var minifyJSFiles = {};

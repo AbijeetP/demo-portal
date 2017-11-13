@@ -3,7 +3,7 @@ var App = (function () {
   var ee = new EventEmitter();
   var appModules = {
     Sidebar: Sidebar,
-    Dashboard : Dashboard
+    CommonMenu : CommonMenu
   };
 
   function init(appData) {
@@ -16,16 +16,17 @@ var App = (function () {
   function addEvents() {
     // Triggered when one of the static menu items are clicked.
     ee.addListener('sidebar.menu-item-click', evtMenuItem);
+    ee.addListener('sidebar.dynamic-menu-item-click', evtMenuItem);
   }
 
   /**
    * Triggered when a menu item other than the graph modules are clicked.
    * @param {*} moduleName
    */
-  function evtMenuItem(moduleName) {
+  function evtMenuItem(moduleName, moduleHeading) {
     hideCurrentlyShownModule();
     if (moduleName && appModules[ moduleName ]) {
-      appModules[moduleName].display();
+      appModules[moduleName].display(moduleHeading);
     }
     
   }
@@ -52,4 +53,8 @@ $(document).ready(function () {
 
     $firstAnchor.trigger('click');
   }
+  
+  $('.nav-link.help-link').click(function () {
+    $('.help-modal').modal('show');
+  });
 });

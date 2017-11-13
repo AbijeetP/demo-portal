@@ -1,12 +1,12 @@
-var Dashboard = (function() {
+var CommonMenu = (function() {
   
   function init() {
 
   }
   
   // This will trigger when we click on dashboard menu item
-  function display(appData) {
-      console.log('Dashboard menu is clicked');
+  function display(moduleHeading) {
+      jQuery('.section-heading').html(moduleHeading);
   }
   
   return {

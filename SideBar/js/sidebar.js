@@ -215,17 +215,18 @@ var Sidebar = (function () {
         return;
       }
       highlightPage(this);
-      ee.emitEvent('sidebar.graph-menu-item-click', [indicatorId]);
+      ee.emitEvent('sidebar.dynamic-menu-item-click', [indicatorId]);
     });
 
     // click handler for static items.
-    $sidebar.find('.ui-item-static > a').click(function () {
+    $sidebar.find('.ui-menu-item > a').click(function () {
       var moduleName = $(this).data('module');
+      var moduleHeading = $(this).data('heading');
       if (!moduleName) {
         return;
       }
       highlightPage(this);
-      ee.emitEvent('sidebar.menu-item-click', [moduleName]);
+      ee.emitEvent('sidebar.menu-item-click', [moduleName, moduleHeading]);
     });
   }
 
