@@ -1,13 +1,12 @@
 $(document).ready(function () {
-  var BASE_API_URL = 'http://10.0.0.160/demo-api/';
-  var myPieChart = null;
-  var myLineChart = null;
+  var taskStatusChart = null;
+  var taskCompletedStatusChart = null;
   var $currentRow = '';
   var isEdit = false;
   var DEFAULT_DATE_FORMAT = 'DD-MM-YYYY';
   var DONE_STATUS = 2;
-  var pieChartConfig = {};
-  var lineChartConfig = {};
+  var taskStatusChartConfig = {};
+  var taskCompletedStatusChartConfig = {};
   var $tasksGrid = $('#task-grid');
   var $currentRowToDlt = '';
   var COLOR_CONSTANTS = {
@@ -36,7 +35,7 @@ $(document).ready(function () {
   });
 
   // Table columns
-  var dtColumns = [{
+  var taskListColumns = [{
     data: 'taskName',
     title: 'Task Name',
     width: '40%',
@@ -75,25 +74,25 @@ $(document).ready(function () {
     isRequired: true
   }];
 
-  var dtConfig = {
+  var taskListConfig = {
     responsive: true,
     colReorder: true,
-    columns: dtColumns,
+    columns: taskListColumns,
     data: [],
     autoWidth: true,
     isFullWidth: true
   };
 
-  var dtObj = $tasksGrid.DataTable(dtConfig);
+  var taskListObj = $tasksGrid.DataTable(taskListConfig);
   var elements = '';
-  for (var index = 0; index < dtColumns.length; index++) {
-    if (!dtColumns[index].isRequired) {
-      elements = elements + '<span  class="dropdown-item dt-column-list" data- value="' + dtColumns[index].title + '" > <input style="display:none;" id="' + dtColumns[index].data + '" type="checkbox"  checked="true"/> <span class="check-box"></span> <label >&nbsp; ' + dtColumns[index].title + ' </label></span>';
+  for (var index = 0; index < taskListColumns.length; index++) {
+    if (!taskListColumns[index].isRequired) {
+      elements = elements + '<span  class="dropdown-item dt-column-list" data- value="' + taskListColumns[index].title + '" > <input style="display:none;" id="' + taskListColumns[index].data + '" type="checkbox"  checked="true"/> <span class="check-box"></span> <label >&nbsp; ' + taskListColumns[index].title + ' </label></span>';
     }
   }
 
   // On click on pagination scroll to table.
-  dtObj.on('page.dt', function () {
+  taskListObj.on('page.dt', function () {
     $('html,body').animate({
       scrollTop: $('.task-grid-section').offset().top
     }, 'slow');
@@ -104,10 +103,10 @@ $(document).ready(function () {
   $('#dropdown-list').on('click', '.dt-column-list', function (e) {
     e.stopPropagation();
     $(this).find('input').prop('checked', !$(this).find('input').is(':checked'));
-    for (var i = 0; i < dtColumns.length; i++) {
-      if (dtColumns[i].data === $(this).find('input').attr('id')) {
+    for (var i = 0; i < taskListColumns.length; i++) {
+      if (taskListColumns[i].data === $(this).find('input').attr('id')) {
         // Get the column API object
-        var column = dtObj.column(i);
+        var column = taskListObj.column(i);
         column.visible(!column.visible());
         break;
       }
@@ -120,16 +119,16 @@ $(document).ready(function () {
   function cbBindTaskDataToGrid(response) {
     if (response.hasOwnProperty('success') && response.success) {
       var taskData = response.data;
-      dtObj.rows.add(taskData).draw();
+      taskListObj.rows.add(taskData).draw();
       setTasksInLocalStorage(taskData);
 
     } else {
-      createNotification('error', 'Something went wrong while populating the tasks in the grid. Please try again later.');
+      createNotification('error', appMessages.somethingWrongTaskGrid);
     }
   }
 
   // Fixing issues with Datatable bootstrap 4 UI
-  var $tableContainer = $(dtObj.table().container());
+  var $tableContainer = $(taskListObj.table().container());
   $tableContainer.removeClass('form-inline');
   var $cols = $tableContainer.find('.col-xs-12');
   for (var i = 0; i <= $cols.length; i++) {
@@ -150,7 +149,7 @@ $(document).ready(function () {
       $('#tastStatus').html(statusHtml);
       localStorage.setItem('tasksStatuses', JSON.stringify(result));
     } else {
-      createNotification('error', 'Something went wrong while populating the task statuses. Please try again later.');
+      createNotification('error', appMessages.somethingWrongTaskStatus);
     }
 
   }
@@ -163,7 +162,7 @@ $(document).ready(function () {
   });
 
   $dltConfirmationModal.find('.confirm-dlt-btn').click(function () {
-    dtObj
+    taskListObj
       .row($currentRowToDlt)
       .remove()
       .draw();
@@ -173,14 +172,14 @@ $(document).ready(function () {
     $dltConfirmationModal.modal('hide');
     $currentRowToDlt = '';
     setTimeout(function () {
-      createNotification('success', 'Task has been deleted successfully.');
+      createNotification('success', appMessages.taskDelete);
     }, 500);
   });
 
   // Click event for edit icon in the grid
   $tasksGrid.on('click', '.edit-setting', function () {
     $currentRow = $(this).parents('tr');
-    var rowData = dtObj.row($(this).parents('tr')).data();
+    var rowData = taskListObj.row($(this).parents('tr')).data();
     isEdit = true;
     fillDetailsInForm(rowData);
     $('.add-task-form').find('input')[0].focus();
@@ -217,12 +216,12 @@ $(document).ready(function () {
       var rowData = getFormData();
       addCompletedOn(rowData);
       if (isEdit) {
-        dtObj
+        taskListObj
           .row($currentRow)
           .data(rowData)
           .draw();
       } else {
-        dtObj.row.add(rowData).draw(false);
+        taskListObj.row.add(rowData).draw(false);
       }
       setTasksInLocalStorage();
       udpatePieChartData();
@@ -231,9 +230,9 @@ $(document).ready(function () {
       $('.add-task-form')[0].reset();
       if (isEdit) {
         isEdit = false;
-        createNotification('success', 'Task has been updated successfully.');
+        createNotification('success', appMessages.taskUpdate);
       } else {
-        createNotification('success', 'Task has been created successfully.');
+        createNotification('success', appMessages.taskCreate);
       }
     } else {
       var errorElements = $('.has-error').find('.form-control').first().focus();
@@ -277,11 +276,11 @@ $(document).ready(function () {
   $tasksGrid.on('click', '.mark-as-done', function () {
     if (!$(this).hasClass('disabled')) {
       var $rowToUpdate = $(this).parents('tr');
-      var rowData = dtObj.row($rowToUpdate).data();
+      var rowData = taskListObj.row($rowToUpdate).data();
       rowData.statusID = DONE_STATUS;
       rowData.statusName = 'Done';
       rowData.completedOn = formatDate(new Date());
-      dtObj
+      taskListObj
         .row($rowToUpdate)
         .data(rowData)
         .draw();
@@ -307,7 +306,7 @@ $(document).ready(function () {
   // Else setting it from datatable
   function setTasksInLocalStorage(tasksData) {
     if (!tasksData) {
-      tasksData = dtObj.rows().data();
+      tasksData = taskListObj.rows().data();
       var updatedTaskData = [];
       for (var i = 0; i < tasksData.length; i++) {
         updatedTaskData[i] = tasksData[i];
@@ -466,11 +465,11 @@ $(document).ready(function () {
     }
 
     if (response.isUpdate) {
-      pieChartConfig.data.datasets[0].data = chartData;
-      myPieChart.update();
+      taskStatusChartConfig.data.datasets[0].data = chartData;
+      taskStatusChart.update();
     } else {
       if (chartLabels.length && chartData.length) {
-        pieChartConfig = {
+        taskStatusChartConfig = {
           type: 'pie',
           data: {
             datasets: [{
@@ -489,8 +488,8 @@ $(document).ready(function () {
           }
         };
 
-        var ctxPie = document.getElementById('canvas-pie-chart').getContext('2d');
-        myPieChart = new Chart(ctxPie, pieChartConfig);
+        var ctxPie = document.getElementById('canvas-pie-chart').getContext("2d");
+        taskStatusChart = new Chart(ctxPie, taskStatusChartConfig);
       }
     }
   }
@@ -529,9 +528,9 @@ $(document).ready(function () {
       emptyLine.addClass('hide-div');
     }
 
-    if (Object.keys(lineChartConfig).length === 0) {
+    if (Object.keys(taskCompletedStatusChartConfig).length === 0) {
       if (chartLabels.length && chartData.length) {
-        lineChartConfig = {
+        taskCompletedStatusChartConfig = {
           type: 'line',
           data: {
             labels: chartLabels,
@@ -586,15 +585,15 @@ $(document).ready(function () {
             }
           }
         };
-        var ctxPie = document.getElementById('canvas-line-chart').getContext('2d');
-        myLineChart = new Chart(ctxPie, lineChartConfig);
+        var ctxPie = document.getElementById('canvas-line-chart').getContext("2d");
+        taskCompletedStatusChart = new Chart(ctxPie, taskCompletedStatusChartConfig);
       }
     } else {
-      lineChartConfig.data.labels = chartLabels;
-      lineChartConfig.data.datasets[0].data = chartData;
-      myLineChart.update();
+      taskCompletedStatusChartConfig.data.labels = chartLabels;
+      taskCompletedStatusChartConfig.data.datasets[0].data = chartData;
+      taskCompletedStatusChart.update();
     }
-  }
+  };
 
   // Check if the task list is present in the local storage.
   // If No call the APi methods to get the pie chart and line chart data.
@@ -602,9 +601,9 @@ $(document).ready(function () {
   var localStorageTasks = getTasksFromLocalStorage();
   if (!localStorageTasks || localStorageTasks.length <= 0) {
     // Making ajax call to get the task count based on statuses show the response data in a Pie chart
-    makeAjaxCall('tasks/fetchTasksByStatus', createUpdatePieChart, '', true);
+    makeAjaxCall(API_URLS.taskStatus, createUpdatePieChart, '', true);
     // Making ajax call to get the completed task count per day and show the response data in a Line chart
-    makeAjaxCall('tasks/getCompletedTasksByDay', createUpdateLineChart, '', true);
+    makeAjaxCall(API_URLS.completedTaskStatus, createUpdateLineChart, '', true);
   } else {
     var initialLoad = true;
     udpatePieChartData(initialLoad);
