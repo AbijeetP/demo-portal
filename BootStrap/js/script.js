@@ -1,6 +1,7 @@
 $(document).ready(function () {
   var taskStatusChart = null;
   var taskCompletedStatusChart = null;
+  var $dueDate = $('#dueDate');
   var $currentRow = '';
   var isEdit = false;
   var DEFAULT_DATE_FORMAT = 'DD-MM-YYYY';
@@ -24,9 +25,22 @@ $(document).ready(function () {
 
   $('#createdOn').val(formatDate(new Date()));
 
-  $('#dueDate').datepicker({
+  $dueDate.datepicker({
     format: 'dd-mm-yyyy',
-    todayHighlight: true
+    todayHighlight: true,
+    autoclose: true
+  });
+  
+  $dueDate.blur(function () {
+    var $currentInput = $(this);
+      setTimeout(function () {
+        var selectedDate = $dueDate.val();
+        if (!selectedDate) {
+            Validator.setError($currentInput, Validator.errorMessages.required);
+        } else {
+            Validator.removeError($currentInput);
+        }
+      }, 200);
   });
 
   $('.open-datepicker').click(function (event) {
