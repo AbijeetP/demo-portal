@@ -10,20 +10,22 @@
   <title>Osmosys Demo :: Angular Material</title>
 
   <link rel="shortcut icon" type="image/x-icon" href="img/osmIcon.png">
-  <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
-  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="lib/material-design-lite/material.min.css">
-  <link rel="stylesheet" href="lib/datatables/media/css/dataTables.material.css">
-  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="lib/toastr/toastr.css">
-  <link rel="stylesheet" href="lib/tether/dist/css/tether.min.css">
-  <link rel="stylesheet" type="text/css" href="lib/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="lib/datatables.net-colreorder-bs/css/colReorder.bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="lib/angular-block-ui/dist/angular-block-ui.min.css"/>
-  <link rel="stylesheet" href="dist/css/style.css">
+  <link rel="stylesheet" href="lib/angular-material/angular-material.min.css?ver=1.0.0">
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?ver=1.0.0">
+  <link rel="stylesheet" href="lib/material-design-lite/material.min.css?ver=1.0.0">
+  <link rel="stylesheet" href="lib/datatables/media/css/dataTables.material.css?ver=1.0.0">
+  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css?ver=1.0.0">
+  <link rel="stylesheet" href="lib/toastr/toastr.css?ver=1.0.0">
+  <link rel="stylesheet" href="lib/tether/dist/css/tether.min.css?ver=1.0.0">
+  <link rel="stylesheet" type="text/css" href="lib/datatables.net-responsive-bs/css/responsive.bootstrap.min.css?ver=1.0.0" />
+  <link rel="stylesheet" type="text/css" href="lib/datatables.net-colreorder-bs/css/colReorder.bootstrap.min.css?ver=1.0.0" />
+  <link rel="stylesheet" type="text/css" href="lib/angular-block-ui/dist/angular-block-ui.min.css" />
+  <link rel="stylesheet" href="dist/css/style.css?ver=1.0.0">
+
+
 </head>
 
-<body ng-app="angularDemo" ng-controller="angularDemoController as tsk">
+<body ng-app="angularDemo" ng-controller="angularDemoController as tsk" ng-cloak>
   <div class="header-container">
     <div class="logo">
       <a href="http://osmosys.asia/">
@@ -67,7 +69,7 @@
     </section>
     <section>
       <md-card md-theme="default" md-theme-watch>
-        <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}" ng-submit="tsk.createNewTask(tsk.taskForm.$valid)" ng-cloak>
+        <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}" ng-submit="tsk.createNewTask(tsk.taskForm.$valid)">
           <div layout="row" layout-xs="column">
             <md-input-container class="md-block" flex>
               <label>Task Name</label>
@@ -101,8 +103,13 @@
               </div>
             </md-input-container>
             <md-input-container class="md-block text-right" flex>
-              <md-button type="submit" class="md-raised md-btn-success" aria-label="Save"><i class="fa fa-save mg-rt-5"></i><span> {{tsk.buttonName}}</span></md-button>
-              <md-button class="md-raised md-btn-danger margin-right-zero" aria-label="Save" ng-click="tsk.reset()"><span> Reset</span></md-button>
+              <md-button type="submit" class="md-raised md-btn-success" aria-label="Save">
+                <i class="fa fa-save mg-rt-5"></i>
+                <span> {{tsk.buttonName}}</span>
+              </md-button>
+              <md-button class="md-raised md-btn-danger margin-right-zero" aria-label="Save" ng-click="tsk.reset()">
+                <span> Reset</span>
+              </md-button>
             </md-input-container>
           </div>
         </form>
@@ -113,10 +120,12 @@
       <div>
         <div class="toggle-col-drop-down">
           <button class="btn btn-secondary dropdown-toggle dt-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false" ng-click="tsk.toggleColumnsDropDown()" title="Click here to select the columns which you want to view in the below table."> <i class="fa fa-list-alt"></i></button>
+            aria-haspopup="true" aria-expanded="false" ng-click="tsk.toggleColumnsDropDown()" title="Click here to select the columns which you want to view in the below table.">
+            <i class="fa fa-list-alt"></i>
+          </button>
           <div class="toggle-dropdown-content hide">
             <md-checkbox class="green" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-model="tsk.isCheckedColumn[column.data]"
-              ng-change="tsk.columnVisibilityChanged(column.data, this)" ng-cloak>
+              ng-change="tsk.columnVisibilityChanged(column.data, this)">
               {{column.title}}
             </md-checkbox>
           </div>
@@ -152,44 +161,46 @@
   <footer class="footer">
     <div class="container">
       <div class="text-center">
-        Developed with &hearts; at <a href="http://osmosys.asia/" target="_blank">Osmosys Software Solutions</a>
+        Developed with &hearts; at
+        <a href="http://osmosys.asia/" target="_blank">Osmosys Software Solutions</a>
       </div>
     </div>
   </footer>
-  <script src="lib/jquery/dist/jquery.min.js"></script>
+  <script src="lib/jquery/dist/jquery.min.js?ver=1.0.0"></script>
 
   <!-- Angular Material requires Angular.js Libraries -->
-  <script src="lib/angular/angular.min.js"></script>
-  <script src="lib/angular-animate/angular-animate.min.js"></script>
-  <script src="lib/angular-aria/angular-aria.min.js"></script>
-  <script src="lib/angular-messages/angular-messages.min.js"></script>
+  <script src="lib/angular/angular.min.js?ver=1.0.0"></script>
+  <script src="lib/angular-animate/angular-animate.min.js?ver=1.0.0"></script>
+  <script src="lib/angular-aria/angular-aria.min.js?ver=1.0.0"></script>
+  <script src="lib/angular-messages/angular-messages.min.js?ver=1.0.0"></script>
 
   <!-- Angular Material Library -->
-  <script src="lib/angular-material/angular-material.min.js"></script>
+  <script src="lib/angular-material/angular-material.min.js?ver=1.0.0"></script>
 
   <!-- Datatable library -->
-  <script src="lib/tether/dist/js/tether.min.js"></script>
-  <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="lib/datatables.net/js/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" src="lib/datatables/media/js/dataTables.material.min.js"></script>
-  <script type="text/javascript" src="lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-  <script type="text/javascript" src="lib/datatables.net-responsive-bs/js/responsive.bootstrap.min.js"></script>
-  <script type="text/javascript" src="lib/datatables.net-colreorder/js/dataTables.colReorder.min.js"></script>
-  <script type="text/javascript" src="lib/angular-block-ui/dist/angular-block-ui.min.js"></script>
+  <script src="lib/tether/dist/js/tether.min.js?ver=1.0.0"></script>
+  <script src="lib/bootstrap/dist/js/bootstrap.min.js?ver=1.0.0"></script>
+  <script src="lib/datatables.net/js/jquery.dataTables.min.js?ver=1.0.0"></script>
+  <script type="text/javascript" src="lib/datatables/media/js/dataTables.material.min.js?ver=1.0.0"></script>
+  <script type="text/javascript" src="lib/datatables.net-responsive/js/dataTables.responsive.min.js?ver=1.0.0"></script>
+  <script type="text/javascript" src="lib/datatables.net-responsive-bs/js/responsive.bootstrap.min.js?ver=1.0.0"></script>
+  <script type="text/javascript" src="lib/datatables.net-colreorder/js/dataTables.colReorder.min.js?ver=1.0.0"></script>
+  <script type="text/javascript" src="lib/angular-block-ui/dist/angular-block-ui.min.js?ver=1.0.0"></script>
 
-  <script src="lib/toastr/toastr.min.js"></script>
-  <script src="lib/moment/min/moment.min.js"></script>
-  <script src="lib/ngstorage/ngStorage.min.js"></script>
+  <script src="lib/toastr/toastr.min.js?ver=1.0.0"></script>
+  <script src="lib/moment/min/moment.min.js?ver=1.0.0"></script>
+  <script src="lib/ngstorage/ngStorage.min.js?ver=1.0.0"></script>
 
   <!-- Tasks scripts -->
-  <script src="js/tasks/tasksModule.js"></script>
-  <script src="js/tasks/tasksService.js"></script>
-  <script src="js/tasks/tasksController.js"></script>
+  <script src="js/tasks/tasksModule.js?ver=1.0.0"></script>
+  <script src="js/tasks/tasksService.js?ver=1.0.0"></script>
+  <script src="js/tasks/tasksController.js?ver=1.0.0"></script>
 
-  <script src="lib/chart.js/dist/Chart.min.js"></script>
-  <script src="js/directives/task-status-chart/taskStatusChart.js"></script>
-  <script src="js/directives/task-complete-chart/taskCompleteChart.js"></script>
-  <script src="js/services/chartsService.js"></script>
+  <script src="lib/chart.js/dist/Chart.min.js?ver=1.0.0"></script>
+  <script src="js/directives/task-complete-chart/taskCompleteChart.js?ver=1.0.0"></script>
+  <script src="js/directives/task-status-chart/taskStatusChart.js?ver=1.0.0"></script>
+  <script src="js/services/chartsService.js?ver=1.0.0"></script>
+
 </body>
 
 </html>
