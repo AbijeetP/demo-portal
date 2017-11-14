@@ -43,7 +43,7 @@ module.exports = function (grunt) {
 
   var preprocessOpts = {
     context: {
-      DEBUG: false,
+      DEBUG: true,
       NODE_ENV: 'production',
       VERSION: pkg.version
     }
