@@ -6,6 +6,7 @@ module.exports = function (grunt) {
   var pkg = grunt.file.readJSON('package.json');
 
   var jsFiles = [
+    'appData.js',
     'validator.js',
     'script.js'
   ];

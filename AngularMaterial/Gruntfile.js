@@ -8,11 +8,10 @@ module.exports = function (grunt) {
     'dist/js/tasks/tasksModule.js',
     'dist/js/tasks/tasksService.js',
     'dist/js/tasks/tasksController.js',
-    'dist/js/directives/task-status-chart/taskStatusChart.js',
+    'dist/services/chartsService.js',
     'dist/js/directives/task-complete-chart/taskCompleteChart.js',
-    'dist/js/services/chartsService.js'
+    'dist/js/directives/task-status-chart/taskStatusChart.js',
   ];
-
 
   var cssFiles = {};
   cssFiles[distPath + 'css/style.css'] = cssPath + 'style.less';
@@ -81,8 +80,8 @@ module.exports = function (grunt) {
           'dist/js/tasks/tasksModule.js': ['js/tasks/tasksModule.js'],
           'dist/js/tasks/tasksService.js': ['js/tasks/tasksService.js'],
           'dist/js/tasks/tasksController.js': ['js/tasks/tasksController.js'],
-          'dist/js/directives/task-complete-chart/taskCompleteChart.jss': ['js/directives/task-complete-chart/taskCompleteChart.js'],
           'dist/js/directives/task-complete-chart/taskCompleteChart.js': ['js/directives/task-complete-chart/taskCompleteChart.js'],
+          'dist/js/directives/task-status-chart/taskStatusChart.js': ['js/directives/task-status-chart/taskStatusChart.js'],
           'dist/services/chartsService.js': ['js/services/chartsService.js'],
         }
       }
