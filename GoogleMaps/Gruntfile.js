@@ -6,9 +6,11 @@ module.exports = function (grunt) {
   var pkg = grunt.file.readJSON('package.json');
 
   var jsFiles = [
-    jsPath + 'bootstrap-users/googleMapsModule.js',
-    jsPath + 'bootstrap-users/googleMapsController.js',
-    jsPath + 'bootstrap-users/googleMapsService.js'
+    'dist/js/bootstrap-contributors/googleMapsModule.js',
+    'dist/js/bootstrap-contributors/googleMapsService.js',
+    'dist/js/bootstrap-contributors/googleMapsController.js',
+    'dist/js/search-location/searchLocationModule.js',
+    'dist/js/search-location/searchLocationController.js'
   ];
 
   var cssFiles = {};
@@ -36,14 +38,22 @@ module.exports = function (grunt) {
 
   minifyFiles[distPath + 'js/main.min.js'] = jsFiles;
   minifyFiles[distPath + 'js/initialScripts.min.js'] = initialLoadScripts;
+  minifyFiles[distPath + 'js/bootstrap-contributors.min.js'] = 'dist/js/bootstrap-contributors.js';
+  minifyFiles[distPath + 'js/search-location.min.js'] = 'dist/js/search-location.js';
 
   var preprocessOpts = {
     context: {
       DEBUG: true,
-      NODE_ENV: 'development',
+      NODE_ENV: 'production',
       VERSION: pkg.version
     }
   };
+
+  if (grunt.option('production')) {
+    preprocessOpts.context.NODE_ENV = 'production';
+  } else if (grunt.option('development')) {
+    preprocessOpts.context.NODE_ENV = 'development';
+  }
 
   // Grunt configuration
   var config = {
@@ -117,6 +127,18 @@ module.exports = function (grunt) {
         }
       }
     },
+    ngAnnotate: {
+      options: {
+        expand: true,
+        singleQuotes: true,
+      },
+      app: {
+        files: {
+          'dist/js/bootstrap-contributors.js': 'dist/js/bootstrap-contributors.js',
+          'dist/js/search-location.js': 'dist/js/search-location.js'
+        }
+      }
+    },
     watch: {
       css: {
         files: cssPath + '*.less',
@@ -142,6 +164,7 @@ module.exports = function (grunt) {
   grunt.registerTask('prod', function () {
     grunt.task.run('less');
     grunt.task.run('concat');
+    grunt.task.run('ngAnnotate');
     grunt.task.run('uglify');
     grunt.task.run('cssmin');
     grunt.task.run('imagemin');
@@ -159,6 +182,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-preprocess');

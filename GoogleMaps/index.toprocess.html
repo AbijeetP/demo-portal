@@ -13,7 +13,14 @@
   <link rel="shortcut icon" type="image/x-icon" href="dist/img/favicon.jpg">
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?ver=<!-- @echo VERSION -->">
   <link rel="stylesheet" href="lib/toastr/toastr.css?ver=<!-- @echo VERSION -->">
+  <!-- @if NODE_ENV='production'-->
+  <link rel="stylesheet" href="dist/css/style.min.css?ver=<!-- @echo VERSION -->">
+  <!-- @endif -->
+
+  <!-- @if NODE_ENV='development'-->
   <link rel="stylesheet" href="dist/css/style.css?ver=<!-- @echo VERSION -->">
+  <!-- @endif -->
+
 </head>
 
 <body ng-app="googleMaps">
@@ -46,8 +53,7 @@
 
   <section class="main-container map-container" ng-controller="MapsController as vm">
     <ng-map ng-cloak zoom="4" center="[40.74, -74.18]" min-zoom="4" default-style="false" class="google-maps">
-      <marker ng-repeat="user in vm.users" position="{{user.pos}}" id="{{user.username}}" icon="{{user.image}}"
-        on-mouseover="vm.showDetails(event,user)">
+      <marker ng-repeat="user in vm.users" position="{{user.pos}}" id="{{user.username}}" icon="{{user.image}}" on-mouseover="vm.showDetails(event,user)">
       </marker>
       <info-window id="infoWindow">
         <div ng-non-bindable>
@@ -69,10 +75,10 @@
     </ng-map>
   </section>
   <section>
-      <div class="data-message">
-          <p class="message">*Data is updated once every two days at 12 AM IST.</p>
-      </div>
-    </section>
+    <div class="data-message">
+      <p class="message">*Data is updated once every two days at 12 AM IST.</p>
+    </div>
+  </section>
 
   <script src="lib/jquery/dist/jquery.min.js?ver=<!-- @echo VERSION -->"></script>
   <script src="lib/tether/dist/js/tether.min.js?ver=<!-- @echo VERSION -->"></script>
@@ -82,8 +88,17 @@
   <script src="lib/angular/angular.min.js?ver=<!-- @echo VERSION -->"></script>
   <script src="lib/ngmap/build/scripts/ng-map.min.js?ver=<!-- @echo VERSION -->"></script>
   <script src="lib/toastr/toastr.min.js?ver=<!-- @echo VERSION -->"></script>
+
+  <!-- @if NODE_ENV='production'-->
+  <script src="dist/js/bootstrap-contributors.min.js?ver=<!-- @echo VERSION -->"></script>
+  <!-- @endif -->
+
+  <!-- @if NODE_ENV='development' -->
   <script src="dist/js/bootstrap-contributors.js?ver=<!-- @echo VERSION -->"></script>
+  <!-- @endif -->
+
   <script src="js/helper.js?ver=<!-- @echo VERSION -->"></script>
+
   <footer class="footer">
     <div class="container">
       <div class="text-center">
@@ -92,4 +107,5 @@
     </div>
   </footer>
 </body>
+
 </html>
