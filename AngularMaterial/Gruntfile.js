@@ -5,8 +5,15 @@ module.exports = function (grunt) {
   var cssPath = 'css/';
   var pkg = grunt.file.readJSON('package.json');
   var jsFiles = [
-    'script.js'
+    'dist/js/tasks/tasksModule.js',
+    'dist/js/tasks/tasksService.js',
+    'dist/js/tasks/tasksController.js',
+    'dist/js/directives/pie-chart/pieChart.js',
+    'dist/js/directives/line-chart/lineChart.js',
+    'dist/js/services/chartsService.js'
   ];
+
+
   var cssFiles = {};
   cssFiles[distPath + 'css/style.css'] = cssPath + 'style.less';
   var initialLoadScripts = [
@@ -16,15 +23,20 @@ module.exports = function (grunt) {
     'angular-aria/angular-aria.min.js',
     'angular-messages/angular-messages.min.js',
     'angular-material/angular-material.min.js',
+    'tether/dist/js/tether.min.js',
     'bootstrap/dist/js/bootstrap.min.js',
     'datatables.net/js/jquery.dataTables.min.js',
-    'datatables.net-bs/js/dataTables.bootstrap.min.js',
+    'datatables/media/js/dataTables.material.min.js',
+    'datatables.net-responsive/js/dataTables.responsive.min.js',
+    'datatables.net-responsive-bs/js/responsive.bootstrap.min.js',
+    'datatables.net-colreorder/js/dataTables.colReorder.min.js',
+    'angular-block-ui/dist/angular-block-ui.min.js',
+    'toastr/toastr.min.js',
+    'moment/min/moment.min.js',
+    'ngstorage/ngStorage.min.js',
+    'chart.js/dist/Chart.min.js'
   ];
-  var minifyFiles = {};
-  // For minifying custom js files.
-  for (var i = 0; i < jsFiles.length; i++) {
-    jsFiles[i] = jsPath + jsFiles[i];
-  }
+
   // For minifying initial load plugin js files.
   for (var i = 0; i < initialLoadScripts.length; i++) {
     initialLoadScripts[i] = libPath + initialLoadScripts[i];
@@ -32,16 +44,64 @@ module.exports = function (grunt) {
   minifyFiles[distPath + 'js/main.min.js'] = jsFiles;
   minifyFiles[distPath + 'js/initialScripts.min.js'] = initialLoadScripts;
 
+  var preprocessOpts = {
+    context: {
+      DEBUG: true,
+      NODE_ENV: 'development',
+    }
+  };
+
+  if (grunt.option('production')) {
+    preprocessOpts.context.NODE_ENV = 'production';
+  } else if (grunt.option('development')) {
+    preprocessOpts.context.NODE_ENV = 'development';
+  }
+
   // Grunt configuration
   var config = {
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
       options: {
-        mangle: true
+        mangle: true,
+        maxLineLen: 100000,
+        ASCIIOnly: true
       },
       js: {
         files: minifyFiles
       }
+    },
+    ngAnnotate: {
+      options: {
+        singleQuotes: true
+      },
+      app: {
+        files: {
+          'dist/js/tasks/tasksModule.js': ['js/tasks/tasksModule.js'],
+          'dist/js/tasks/tasksService.js': ['js/tasks/tasksService.js'],
+          'dist/js/tasks/tasksController.js': ['js/tasks/tasksController.js'],
+          'dist/directives/pie-chart/pieChart.js': ['js/directives/pie-chart/pieChart.js'],
+          'dist/directives/line-chart/lineChart.js': ['js/directives/line-chart/lineChart.js'],
+          'dist/services/chartsService.js': ['js/services/chartsService.js'],
+        }
+      }
+    },
+    concat: {
+      dist: {
+        files: {
+          'dist/css/lib.min.css': [
+            libPath + 'angular-material/angular-material.min.css',
+            libPath + 'bootstrap/dist/css/bootstrap.min.css',
+            libPath + 'material-design-lite/material.min.css',
+            libPath + 'datatables/media/css/dataTables.material.css',
+            libPath + 'components-font-awesome/css/font-awesome.min.css',
+            libPath + 'toastr/toastr.css',
+            libPath + 'tether/dist/css/tether.min.css',
+            libPath + 'datatables.net-responsive-bs/css/responsive.bootstrap.min.css',
+            libPath + 'datatables.net-colreorder-bs/css/colReorder.bootstrap.min.css',
+            libPath + 'angular-block-ui/dist/angular-block-ui.min.css'
+          ]
+        },
+      },
     },
     cssmin: {
       options: {
@@ -76,6 +136,13 @@ module.exports = function (grunt) {
         files: cssFiles
       }
     },
+    preprocess: {
+      options: preprocessOpts,
+      html: {
+        src: 'index.toprocess.html',
+        dest: 'index.html'
+      }
+    },
     watch: {
       css: {
         files: cssPath + '*.less',
@@ -96,23 +163,32 @@ module.exports = function (grunt) {
     }
   };
 
+
   grunt.initConfig(config);
   grunt.registerTask('prod', function () {
     grunt.task.run('less');
+    grunt.task.run('ngAnnotate');
+    grunt.task.run('concat');
     grunt.task.run('uglify');
     grunt.task.run('cssmin');
     grunt.task.run('imagemin');
+    grunt.task.run('preprocess');
+    grunt.task.run('copy');
   });
   grunt.registerTask('dev', function () {
     grunt.task.run('less');
+    grunt.task.run('preprocess');
   });
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-preprocess');
   // Default task(s).
   grunt.registerTask('default', ['uglify', 'cssmin', 'less']);
 };

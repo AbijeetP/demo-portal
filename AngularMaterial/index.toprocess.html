@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="A demo application on Angular Material">
+  <meta name="keywords" content="angular material demo, demo on angular material, angular material">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Osmosys Demo :: Angular Material</title>
+
+  <!-- @if NODE_ENV='development'-->
+  <link rel="shortcut icon" type="image/x-icon" href="img/osmIcon.png">
+  <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="lib/material-design-lite/material.min.css">
+  <link rel="stylesheet" href="lib/datatables/media/css/dataTables.material.css">
+  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="lib/toastr/toastr.css">
+  <link rel="stylesheet" href="lib/tether/dist/css/tether.min.css">
+  <link rel="stylesheet" type="text/css" href="lib/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="lib/datatables.net-colreorder-bs/css/colReorder.bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="lib/angular-block-ui/dist/angular-block-ui.min.css" />
+  <link rel="stylesheet" href="dist/css/style.css">
+  <!-- @endif -->
+
+  <!-- @if NODE_ENV='production'-->
+  <link rel="stylesheet" href="dist/css/lib.min.css">
+  <link rel="stylesheet" href="dist/css/style.min.css">
+  <!-- @endif -->
+
+</head>
+
+<body ng-app="angularDemo" ng-controller="angularDemoController as tsk" ng-cloak>
+  <div class="header-container">
+    <div class="logo">
+      <a href="http://osmosys.asia/">
+        <img src="img/osmosys-logo.png" alt="logo">
+      </a>
+    </div>
+    <div class="links">
+      <ul>
+        <li>
+          <a href="../">Introduction</a>
+        </li>
+        <li>
+          <a class="help-link">Help</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="modal help-modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h5 class="modal-title" id="exampleModalLabel">Angular Material</h5>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li>
+              This portal will allow us to add, edit and delete the task.
+            </li>
+            <li>
+              This will call our CakePHP API. The CakePHP API will return the raw JSON which contains list of tasks.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="container main-container" id="tasksContainer">
+    <section layout="row" layout-padding class="statistics-heading padding-botton-0 padding-left-0">
+      <h1 class="form-heading">Add Task</h1>
+    </section>
+    <section>
+      <md-card md-theme="default" md-theme-watch>
+        <form name="tsk.taskForm" class="add-task-form" novalidate ng-class="{'frm-is-submitted': tsk.submitted}" ng-submit="tsk.createNewTask(tsk.taskForm.$valid)">
+          <div layout="row" layout-xs="column">
+            <md-input-container class="md-block" flex>
+              <label>Task Name</label>
+              <input required name="taskName" ng-model="tsk.taskDetails.taskName" maxlength="200">
+              <div ng-messages="tsk.taskForm.taskName.$error">
+                <div ng-message="required">This field is required.</div>
+              </div>
+            </md-input-container>
+            <div flex="10" hide-xs hide-sm>
+              <!-- Spacer //-->
+            </div>
+            <md-input-container class="md-block" flex>
+              <label>Status</label>
+              <md-select name="status" name="" ng-model="tsk.taskDetails.status" required>
+                <md-option ng-if="!tsk.status.length">No status found</md-option>
+                <md-option ng-if="tsk.status.length" ng-repeat="status in tsk.status" ng-value="status.statusID">
+                  {{status.statusName}}
+                </md-option>
+              </md-select>
+              <div ng-messages="tsk.taskForm.status.$error">
+                <div ng-message="required">This field is required.</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div layout="row" layout-xs="column">
+            <md-input-container class="md-block date-picker" flex>
+              <label>Due Date</label>
+              <md-datepicker name="dueDate" ng-model="tsk.taskDetails.dueDate" required></md-datepicker>
+              <div ng-messages="tsk.taskForm.dueDate.$error">
+                <div ng-message="required">This field is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block text-right" flex>
+              <md-button type="submit" class="md-raised md-btn-success" aria-label="Save">
+                <i class="fa fa-save mg-rt-5"></i>
+                <span> {{tsk.buttonName}}</span>
+              </md-button>
+              <md-button class="md-raised md-btn-danger margin-right-zero" aria-label="Save" ng-click="tsk.reset()">
+                <span> Reset</span>
+              </md-button>
+            </md-input-container>
+          </div>
+        </form>
+      </md-card>
+    </section>
+    <section class="task-grid-section">
+      <h2 class="form-heading task-list-header">Task List</h2>
+      <div>
+        <div class="toggle-col-drop-down">
+          <button class="btn btn-secondary dropdown-toggle dt-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" ng-click="tsk.toggleColumnsDropDown()" title="Click here to select the columns which you want to view in the below table.">
+            <i class="fa fa-list-alt"></i>
+          </button>
+          <div class="toggle-dropdown-content hide">
+            <md-checkbox class="green" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-model="tsk.isCheckedColumn[column.data]"
+              ng-change="tsk.columnVisibilityChanged(column.data, this)">
+              {{column.title}}
+            </md-checkbox>
+          </div>
+        </div>
+        <md-input-container class="md-block custom-search" flex>
+          <label>Search</label>
+          <input name="search" ng-keyup="tsk.changeSearch()">
+        </md-input-container>
+      </div>
+      <table id="tasksGrid" class="mdl-data-table" cellspacing="0" width="100%">
+
+      </table>
+
+    </section>
+    <section layout="row" layout-padding class="statistics-heading padding-botton-0 padding-left-0">
+      <h2 class="form-heading margin-top-zero">Statistics</h2>
+    </section>
+    <section class="statistics-container" flex>
+      <div layout="row" flex>
+        <div layout="row" layout-xs="column" flex>
+          <!-- define layout here -->
+          <div class="parent" layout="column" flex>
+            <pie-chart></pie-chart>
+          </div>
+          <div class="parent" layout="column" flex>
+            <line-chart></line-chart>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+  <!--  Footer section starts here -->
+  <footer class="footer">
+    <div class="container">
+      <div class="text-center">
+        Developed with &hearts; at
+        <a href="http://osmosys.asia/" target="_blank">Osmosys Software Solutions</a>
+      </div>
+    </div>
+  </footer>
+  <!-- @if NODE_ENV='development'-->
+  <script src="lib/jquery/dist/jquery.min.js"></script>
+
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/angular-animate/angular-animate.min.js"></script>
+  <script src="lib/angular-aria/angular-aria.min.js"></script>
+  <script src="lib/angular-messages/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="lib/angular-material/angular-material.min.js"></script>
+
+  <!-- Datatable library -->
+  <script src="lib/tether/dist/js/tether.min.js"></script>
+  <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="lib/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="lib/datatables/media/js/dataTables.material.min.js"></script>
+  <script type="text/javascript" src="lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script type="text/javascript" src="lib/datatables.net-responsive-bs/js/responsive.bootstrap.min.js"></script>
+  <script type="text/javascript" src="lib/datatables.net-colreorder/js/dataTables.colReorder.min.js"></script>
+  <script type="text/javascript" src="lib/angular-block-ui/dist/angular-block-ui.min.js"></script>
+
+  <script src="lib/toastr/toastr.min.js"></script>
+  <script src="lib/moment/min/moment.min.js"></script>
+  <script src="lib/ngstorage/ngStorage.min.js"></script>
+
+  <!-- Tasks scripts -->
+  <script src="js/tasks/tasksModule.js"></script>
+  <script src="js/tasks/tasksService.js"></script>
+  <script src="js/tasks/tasksController.js"></script>
+
+  <script src="lib/chart.js/dist/Chart.min.js"></script>
+  <script src="js/directives/pie-chart/pieChart.js"></script>
+  <script src="js/directives/line-chart/lineChart.js"></script>
+  <script src="js/services/chartsService.js"></script>
+  <!-- @endif -->
+
+  <!-- @if NODE_ENV='production'-->
+  <script src="dist/js/initialScripts.min.js"></script>
+  <script src="dist/js/main.min.js"></script>
+  <!-- @endif -->
+</body>
+
+</html>
