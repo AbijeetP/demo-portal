@@ -2,32 +2,37 @@
   "name": "angular-material-demo",
   "version": "1.0.0",
   "description": "A demo project for Angular Material.",
+  "main": "index.js",
   "license": "-",
   "repository": "http://10.0.0.150/prasanna03/demo-portal.git",
   "private": true,
-  "devDependencies": {
+  "dependencies": {
     "bower": "^1.7.7",
     "eslint": "4.2.0",
     "eslint-config-angular": "0.5.0",
     "eslint-plugin-angular": "3.0.0 ",
-    "grunt": "1.0.1",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
     "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-cssmin": "^2.1.0",
     "grunt-contrib-imagemin": "^1.0.1",
-    "grunt-contrib-jshint": "^1.0.0 ",
     "grunt-contrib-less": "^1.4.0",
-    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-uglify": "^2.3.0",
     "grunt-contrib-watch": "^1.0.0",
+    "grunt-preprocess": "^5.1.0",
+    "datatables.net-colreorder-bs4": "^1.4.1",
+    "datatables.net-responsive-bs4": "^2.2.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-htmlmin": "^2.4.0",
-    "angular-material-source": "1.0.10",
-    "grunt-preprocess": "^5.1.0"
+    "grunt-contrib-uglify": "^2.3.0",
+    "grunt-ng-annotate": "^3.0.0",
+    "grunt-npm-install": "^0.3.1"
   },
   "scripts": {
     "start": "grunt dev && http-server -a localhost -p 8000 -c-1 -o -g",
     "postinstall": "bower install"
-  },
-  "dependencies": {
-    "datatables.net-colreorder-bs4": "^1.4.1",
-    "datatables.net-responsive-bs4": "^2.2.0"
   }
 }
