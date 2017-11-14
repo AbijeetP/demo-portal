@@ -25,11 +25,6 @@
           <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <!-- Add body of the page here -->
-        <header id="header" class="clearfix">
-            <button type="button" id="btnSidebarHeader" class="btn btn-info fred-nav-btn">
-                <i class="fa fa-bars" aria-hidden="true"></i>
-            </button>
-        </header>
         <nav id="sidebar" class="expanded">
             <!-- Sidebar Header -->
             <div class="sidebar-header clearfix">
@@ -204,6 +199,10 @@
             </ul>
         </nav>
         <div id="content">
+            <header id="header">
+            <button type="button" id="btnSidebarHeader" class="btn btn-info fred-nav-btn">
+              <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
             <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
                 <a class="navbar-brand" href="http://osmosys.asia/">
                     <img src="img/osmosys-logo.png" alt="logo">
@@ -217,6 +216,7 @@
                     </li>
                 </ul>
             </nav>
+            </header>
             <div class="modal help-modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
