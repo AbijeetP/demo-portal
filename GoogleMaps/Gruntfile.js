@@ -132,7 +132,7 @@ module.exports = function (grunt) {
         expand: true,
         singleQuotes: true,
       },
-      app1: {
+      app: {
         files: {
           'dist/js/bootstrap-contributors.js': 'dist/js/bootstrap-contributors.js',
           'dist/js/search-location.js': 'dist/js/search-location.js'
