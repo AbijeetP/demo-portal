@@ -8,8 +8,8 @@ module.exports = function (grunt) {
     'dist/js/tasks/tasksModule.js',
     'dist/js/tasks/tasksService.js',
     'dist/js/tasks/tasksController.js',
-    'dist/js/directives/pie-chart/pieChart.js',
-    'dist/js/directives/line-chart/lineChart.js',
+    'dist/js/directives/task-status-chart/taskStatusChart.js',
+    'dist/js/directives/task-complete-chart/taskCompleteChart.js',
     'dist/js/services/chartsService.js'
   ];
 
@@ -37,6 +37,7 @@ module.exports = function (grunt) {
     'chart.js/dist/Chart.min.js'
   ];
 
+  var minifyFiles = {};
   // For minifying initial load plugin js files.
   for (var i = 0; i < initialLoadScripts.length; i++) {
     initialLoadScripts[i] = libPath + initialLoadScripts[i];
@@ -48,6 +49,7 @@ module.exports = function (grunt) {
     context: {
       DEBUG: true,
       NODE_ENV: 'development',
+      VERSION: pkg.version
     }
   };
 
@@ -79,8 +81,8 @@ module.exports = function (grunt) {
           'dist/js/tasks/tasksModule.js': ['js/tasks/tasksModule.js'],
           'dist/js/tasks/tasksService.js': ['js/tasks/tasksService.js'],
           'dist/js/tasks/tasksController.js': ['js/tasks/tasksController.js'],
-          'dist/directives/pie-chart/pieChart.js': ['js/directives/pie-chart/pieChart.js'],
-          'dist/directives/line-chart/lineChart.js': ['js/directives/line-chart/lineChart.js'],
+          'dist/js/directives/task-complete-chart/taskCompleteChart.jss': ['js/directives/task-complete-chart/taskCompleteChart.js'],
+          'dist/js/directives/task-complete-chart/taskCompleteChart.js': ['js/directives/task-complete-chart/taskCompleteChart.js'],
           'dist/services/chartsService.js': ['js/services/chartsService.js'],
         }
       }
@@ -173,7 +175,6 @@ module.exports = function (grunt) {
     grunt.task.run('cssmin');
     grunt.task.run('imagemin');
     grunt.task.run('preprocess');
-    grunt.task.run('copy');
   });
   grunt.registerTask('dev', function () {
     grunt.task.run('less');
