@@ -28,16 +28,29 @@ nav {
   margin-left: 1em;
 }
 body {
-  font-size: 16px;
+  font-size: 0.82em;
 }
-body h1 {
-  font-size: 1.5em;
-  margin: 1em 0em;
+body h1,
+body h2 {
+  font-size: 1.88em;
 }
 .add-task-form {
   width: 97%;
   margin: auto;
   margin-top: 2em;
+}
+.add-task-form label {
+  font-size: 16px;
+}
+.hidden {
+  display: none;
+}
+.add-task-form h1,
+.task-grid-section h2 {
+  margin: 0.5em 0em;
+}
+div.dataTables_wrapper div.dataTables_length select {
+  font-size: 0.82em;
 }
 .btn {
   cursor: pointer;
@@ -69,18 +82,22 @@ body h1 {
   cursor: pointer;
 }
 .charts-container {
-  margin-bottom: 15px;
+  margin-bottom: 35px;
+}
+.charts-container h2 {
+  position: relative;
+  right: 16px;
+}
+.charts-container h3 {
+  font-size: 1.5em;
+  font-weight: 400;
+  line-height: 1em;
 }
 .custom-pie-chart {
   padding-left: 0px;
 }
 .custom-line-chart {
   padding-right: 0px;
-}
-.custom-card h2 {
-  font-size: 1.2em;
-  font-weight: 400;
-  line-height: 1em;
 }
 .custom-card canvas {
   padding: 8px;
@@ -91,7 +108,7 @@ body h1 {
   border-radius: 2px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
-  padding: 10px;
+  padding: 15px;
   margin-top: 15px;
 }
 .toggle-column-heading {
@@ -112,6 +129,7 @@ body h1 {
 }
 .mark-as-done.disabled {
   cursor: not-allowed;
+  color: #B4B4B4;
 }
 .table-actions span {
   margin-left: 1em;
@@ -180,4 +198,21 @@ input[type="checkbox"]:checked + .check-box::after {
 }
 .task-submit {
   margin-right: 15px;
+}
+.help-link {
+  cursor: pointer;
+}
+.loading-gif {
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 1em;
+}
+.loading-message {
+  display: inline-block;
+  margin-bottom: 0.4em;
+  font-size: 15px;
+}
+.loading-div {
+  padding-top: 1em;
+  padding-bottom: 1em;
 }

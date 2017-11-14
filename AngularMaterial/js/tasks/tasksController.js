@@ -85,7 +85,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   tsk.changeSearch = function () {
     var searchTxt = angular.element('[name="search"]').val();
     angular.element('#tasksGrid_filter .form-control').val(searchTxt).trigger('keyup');
-  }
+  };
 
   /**
    * Call to getStatus API.
@@ -239,7 +239,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
       showErrorMessage(DemoConstants.FETCH_ERROR_MESSAGE + 'tasks' + DemoConstants.FETCH_ERROR_MESSAGE_2);
     }
     $scope.dtApi.bindData([]);
-  }, function (error) {
+  }, function () {
     $scope.dtApi.bindData([]);
     showErrorMessage(DemoConstants.FETCH_ERROR_MESSAGE + 'tasks' + DemoConstants.FETCH_ERROR_MESSAGE_2);
   });
@@ -248,7 +248,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     var tasks = $localStorage.tasks ? $localStorage.tasks : [];
     tasksDataTableConfig.data = tasks;
     if (tasksDataTableObj) {
-      tasksDataTableObj.clear()
+      tasksDataTableObj.clear();
       tasksDataTableObj.rows.add(tasks).draw(false);
     } else {
       tasksDataTableObj = $tasksGrid.DataTable(tasksDataTableConfig);
@@ -321,7 +321,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
         var deleteTaskIndex = getTaskIndex(rowData);
         $localStorage.tasks.splice(deleteTaskIndex, 1);
         bindDataToTable();
-        showSuccessMessage(DemoConstants.DELETE_MESSAGE)
+        showSuccessMessage(DemoConstants.DELETE_MESSAGE);
         $mdDialog.hide();
       };
     }

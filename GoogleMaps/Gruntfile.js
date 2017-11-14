@@ -26,7 +26,7 @@ module.exports = function (grunt) {
     jsFiles[i] = jsPath + jsFiles[i];
   }
 
-  //For adding blockUI plugin into jsFiles
+  // For adding blockUI plugin into jsFiles
   jsFiles.push(libPath + 'blockUI/jquery.blockUI.js');
 
   // For minifying initial load plugin js files.
@@ -36,6 +36,14 @@ module.exports = function (grunt) {
 
   minifyFiles[distPath + 'js/main.min.js'] = jsFiles;
   minifyFiles[distPath + 'js/initialScripts.min.js'] = initialLoadScripts;
+
+  var preprocessOpts = {
+    context: {
+      DEBUG: true,
+      NODE_ENV: 'development',
+      VERSION: pkg.version
+    }
+  };
 
   // Grunt configuration
   var config = {
@@ -55,12 +63,12 @@ module.exports = function (grunt) {
             libPath + 'bootstrap/dist/css/bootstrap.min.css',
             libPath + 'components-font-awesome/css/font-awesome.min.css'
           ],
-          'dist/js/bootstrap-contributors.js' : [
+          'dist/js/bootstrap-contributors.js': [
             jsPath + 'bootstrap-contributors/googleMapsModule.js',
             jsPath + 'bootstrap-contributors/googleMapsController.js',
             jsPath + 'bootstrap-contributors/googleMapsService.js'
           ],
-          'dist/js/search-location.js' : [
+          'dist/js/search-location.js': [
             jsPath + 'search-location/searchLocationModule.js',
             jsPath + 'search-location/searchLocationController.js',
           ]
@@ -100,6 +108,15 @@ module.exports = function (grunt) {
         files: cssFiles
       }
     },
+    preprocess: {
+      options: preprocessOpts,
+      multifile: {
+        files: {
+          'index.html': 'index.toprocess.html',
+          'search-location.html': 'search-location.toprocess.html'
+        }
+      }
+    },
     watch: {
       css: {
         files: cssPath + '*.less',
@@ -128,11 +145,13 @@ module.exports = function (grunt) {
     grunt.task.run('uglify');
     grunt.task.run('cssmin');
     grunt.task.run('imagemin');
+    grunt.task.run('preprocess');
   });
 
   grunt.registerTask('dev', function () {
     grunt.task.run('less');
     grunt.task.run('concat');
+    grunt.task.run('preprocess');
   });
 
   // Load the plugin that provides the "uglify" task.
@@ -142,6 +161,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-preprocess');
 
   // Default task(s).
   grunt.registerTask('default', ['uglify', 'cssmin', 'less']);

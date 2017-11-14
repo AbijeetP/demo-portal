@@ -1,9 +1,9 @@
 
 angular
-  .module('angularDemo').directive('pieChart', function (ChartsService, $localStorage) {
+  .module('angularDemo').directive('taskStatusChart', function (ChartsService, $localStorage) {
     return {
       restrict: 'E',
-      templateUrl: 'js/directives/pie-chart/pieChart.html',
+      templateUrl: 'js/directives/task-status-chart/taskStatusChart.html',
       link: function ($scope, $ele, $atr) {
         var pieChartElement = null;
         var pieChart = null;
@@ -18,7 +18,7 @@ angular
           if (pieChartElement) {
             pieChartElement = null;
           }
-          pieChartElement = $ele.find('#pieChart')[0].getContext('2d');
+          pieChartElement = $ele.find('#taskStatusChart')[0].getContext('2d');
 
           var chartConfig = {
             type: 'pie',

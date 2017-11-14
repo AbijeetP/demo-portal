@@ -1,0 +1,21 @@
+{
+    "name": "custom-sidebar",
+    "description": "A re-usable custom sidebar",
+    "main": "index.js",
+    "authors": [
+        "Osmosys"
+    ],
+    "license": "MIT",
+    "keywords": [
+        "sidebar",
+        "custom-sidebar"
+    ],
+    "homepage": "",
+    "dependencies": {
+        "jquery": "^3.2.1",
+        "bootstrap": "v4.0.0-alpha.6",
+        "components-font-awesome": "^4.7.0",
+        "jquery.nicescroll": "3.7.6",
+        "eventEmitter": "5.2.3"
+    }
+}

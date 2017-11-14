@@ -6,11 +6,11 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
   vm.pos = [];
   vm.places = [];
   vm.locations = [{
-    key: 'movie_theater',
+    key: searchLocationConstants.MOVIES,
     name: 'Movie theaters',
     img: 'movie.png'
   }, {
-    key: 'restaurants',
+    key: searchLocationConstants.RESTAURANTS,
     name: 'Restaurants',
     img: 'restaurant.png'
   }];
@@ -20,21 +20,21 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
    */
   function checkForLocationAccess() {
     navigator.permissions.query({ name: 'geolocation' }).then(function (permissionStatus) {
-      if (permissionStatus.state === 'granted') {
+      if (permissionStatus.state === searchLocationConstants.PERMISSION_GRANTED) {
         vm.locationEnabled = true;
       }
       permissionStatus.onchange = function () {
-        if (this.state === 'granted') {
+        if (this.state === searchLocationConstants.PERMISSION_GRANTE) {
           vm.locationEnabled = true;
           $scope.$digest();
         }
       };
     });
-  };
+  }
 
   function setSearchResultsContainerHeight() {
-    $timeout(function(){
-      var headerHeight = angular.element('.search-form').height() + angular.element('.header').height()+angular.element('.footer').height()+320+angular.element('.search-container h1').height();
+    $timeout(function () {
+      var headerHeight = angular.element('.search-form').height() + angular.element('.header').height() + angular.element('.footer').height() + 320 + angular.element('.search-container h1').height();
       angular.element('.search-results-container').css('height', 'calc(100vh - ' + headerHeight + 'px)');
     });
   }
@@ -53,6 +53,7 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
       }
     });
   };
+
   vm.toggleLeft = function () {
     $mdSidenav('left').toggle();
   };
@@ -69,13 +70,13 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
     var service = new google.maps.places.PlacesService(vm.map);
     service.textSearch(request, function (results, status, pagination) {
       if (status !== google.maps.places.PlacesServiceStatus.OK) {
-        showErrorMessage('Sorry something went wrong. Please try after sometime.');
+        showErrorMessage(searchLocationConstants.ERROR_MESSAGE);
         return;
       }
       vm.places = vm.places.concat(results);
       vm.places.map(function (location) {
         location.currPos = [location.geometry.location.lat(), location.geometry.location.lng()],
-          location.customIcon = vm.selectedPlace === 'movie_theater' ? '../../img/movie.png' : '../../img/restaurant.png';
+        location.customIcon = vm.selectedPlace === 'movie_theater' ? '../../img/movie.png' : '../../img/restaurant.png';
       });
       if (pagination.hasNextPage) {
         pagination.nextPage();
@@ -95,7 +96,7 @@ angular.module('googleSearchLocation').controller('SearchLocationController', fu
   vm.showDetails = function (event, place) {
     vm.place = place;
     vm.place.actualRating = (place.rating * 20) + '%';
-    vm.map.showInfoWindow("infoWindow", this);
+    vm.map.showInfoWindow('infoWindow', this);
   };
   setSearchResultsContainerHeight();
   $(window).resize(function () {
