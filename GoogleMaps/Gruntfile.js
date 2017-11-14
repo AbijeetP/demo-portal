@@ -49,6 +49,12 @@ module.exports = function (grunt) {
     }
   };
 
+  if (grunt.option('production')) {
+    preprocessOpts.context.NODE_ENV = 'production';
+  } else if (grunt.option('development')) {
+    preprocessOpts.context.NODE_ENV = 'development';
+  }
+
   // Grunt configuration
   var config = {
     pkg: grunt.file.readJSON('package.json'),

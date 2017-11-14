@@ -14,13 +14,13 @@
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?ver=<!-- @echo VERSION -->">
   <link rel="stylesheet" href="lib/toastr/toastr.css?ver=<!-- @echo VERSION -->">
   <link rel="stylesheet" href="lib/angular-material/angular-material.min.css?ver=<!-- @echo VERSION -->">
-   <!-- @if NODE_ENV='production' -->
-     <link rel="stylesheet" href="dist/css/style.min.css?ver=<!-- @echo VERSION -->">
-   <!-- @endif -->
+  <!-- @if NODE_ENV='production' -->
+  <link rel="stylesheet" href="dist/css/style.min.css?ver=<!-- @echo VERSION -->">
+  <!-- @endif -->
 
-   <!-- @if NODE_ENV='development'-->
-   <link rel="stylesheet" href="dist/css/style.css?ver=<!-- @echo VERSION -->">
-   <!-- @endif -->
+  <!-- @if NODE_ENV='development'-->
+  <link rel="stylesheet" href="dist/css/style.css?ver=<!-- @echo VERSION -->">
+  <!-- @endif -->
 </head>
 
 <body ng-app="googleSearchLocation">
@@ -56,7 +56,8 @@
     </div>
   </div>
   <section class="main-container map-container" layout="row" flex ng-controller="SearchLocationController as vm">
-    <md-sidenav ng-cloak class="md-sidenav-left search-container" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop>
+    <md-sidenav ng-cloak class="md-sidenav-left search-container" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
+      md-disable-backdrop>
       <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools">Search Location</h1>
       </md-toolbar>
@@ -105,8 +106,8 @@
       </md-content>
     </md-sidenav>
     <!-- FIXME - Please remove the hard-coded lat, lon with user location. -->
-    <ng-map ng-cloak center="[17.385044, 78.486671]" geo-fallback-center="[40.74, -74.18]" map-initialized="vm.myCallBack(map)" default-style="false"
-      class="google-maps">
+    <ng-map ng-cloak center="[17.385044, 78.486671]" geo-fallback-center="[40.74, -74.18]" map-initialized="vm.myCallBack(map)"
+      default-style="false" class="google-maps">
       <marker ng-repeat="place in vm.places" position="{{place.currPos}}" title="{{place.name}}" icon={{place.customIcon}} on-mouseover="vm.showDetails(event,place)"></marker>
       <info-window id="infoWindow">
         <div ng-non-bindable>
@@ -146,13 +147,13 @@
   <script src="lib/angular-material/angular-material.min.js?ver=<!-- @echo VERSION -->"></script>
   <script src="lib/ngmap/build/scripts/ng-map.min.js?ver=<!-- @echo VERSION -->"></script>
   <script src="lib/toastr/toastr.min.js?ver=<!-- @echo VERSION -->"></script>
-   <!-- @if NODE_ENV='production' -->
-   <script src="dist/js/search-location.min.js?ver=<!-- @echo VERSION -->"></script>
-   <!-- @endif -->
+  <!-- @if NODE_ENV='production' -->
+  <script src="dist/js/search-location.min.js?ver=<!-- @echo VERSION -->"></script>
+  <!-- @endif -->
 
-   <!-- @if NODE_ENV='development' -->
-   <script src="dist/js/search-location.js?ver=<!-- @echo VERSION -->"></script>
-   <<!-- @endif -->
+  <!-- @if NODE_ENV='development' -->
+  <script src="dist/js/search-location.js?ver=<!-- @echo VERSION -->"></script>
+  <!-- @endif -->
 
   <script src="js/helper.js?ver=<!-- @echo VERSION -->"></script>
   <footer class="footer">
