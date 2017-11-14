@@ -67,8 +67,8 @@ var Sidebar = (function () {
   var BODY_ANIM_DELAY = 50;
 
   // icons to be shown during the state.
-  var COLLAPSED_ICON = 'glyphicon-chevron-right';
-  var EXPANDED_ICON = 'glyphicon-chevron-left';
+  var COLLAPSED_ICON = 'fa-angle-right';
+  var EXPANDED_ICON = 'fa-angle-left';
   var CURRENT_PAGE = 'current-page';
 
   var $sidebar = null;
