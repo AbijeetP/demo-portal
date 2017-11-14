@@ -80,7 +80,8 @@ $(document).ready(function () {
     columns: taskListColumns,
     data: [],
     autoWidth: true,
-    isFullWidth: true
+    isFullWidth: true,
+    stateSave: true
   };
 
   var taskListObj = $tasksGrid.DataTable(taskListConfig);
@@ -119,7 +120,7 @@ $(document).ready(function () {
   function cbBindTaskDataToGrid(response) {
     if (response.hasOwnProperty('success') && response.success) {
       var taskData = response.data;
-      taskListObj.rows.add(taskData).draw();
+      taskListObj.rows.add(taskData).draw(false);
       setTasksInLocalStorage(taskData);
 
     } else {
@@ -165,7 +166,7 @@ $(document).ready(function () {
     taskListObj
       .row($currentRowToDlt)
       .remove()
-      .draw();
+      .draw(false);
     setTasksInLocalStorage();
     udpatePieChartData();
     updateLineChart();
@@ -219,7 +220,7 @@ $(document).ready(function () {
         taskListObj
           .row($currentRow)
           .data(rowData)
-          .draw();
+          .draw(false);
       } else {
         taskListObj.row.add(rowData).draw(false);
       }
@@ -283,7 +284,7 @@ $(document).ready(function () {
       taskListObj
         .row($rowToUpdate)
         .data(rowData)
-        .draw();
+        .draw(false);
       setTasksInLocalStorage();
       udpatePieChartData();
       updateLineChart();
