@@ -14,7 +14,13 @@
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?ver=<!-- @echo VERSION -->">
   <link rel="stylesheet" href="lib/toastr/toastr.css?ver=<!-- @echo VERSION -->">
   <link rel="stylesheet" href="lib/angular-material/angular-material.min.css?ver=<!-- @echo VERSION -->">
-  <link rel="stylesheet" href="dist/css/style.css?ver=<!-- @echo VERSION -->">
+   <!-- @if NODE_ENV='production' -->
+     <link rel="stylesheet" href="dist/css/style.min.css?ver=<!-- @echo VERSION -->">
+   <!-- @endif -->
+
+   <!-- @if NODE_ENV='development'-->
+   <link rel="stylesheet" href="dist/css/style.css?ver=<!-- @echo VERSION -->">
+   <!-- @endif -->
 </head>
 
 <body ng-app="googleSearchLocation">
@@ -140,7 +146,14 @@
   <script src="lib/angular-material/angular-material.min.js?ver=<!-- @echo VERSION -->"></script>
   <script src="lib/ngmap/build/scripts/ng-map.min.js?ver=<!-- @echo VERSION -->"></script>
   <script src="lib/toastr/toastr.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="dist/js/search-location.js?ver=<!-- @echo VERSION -->"></script>
+   <!-- @if NODE_ENV='production' -->
+   <script src="dist/js/search-location.min.js?ver=<!-- @echo VERSION -->"></script>
+   <!-- @endif -->
+
+   <!-- @if NODE_ENV='development' -->
+   <script src="dist/js/search-location.js?ver=<!-- @echo VERSION -->"></script>
+   <<!-- @endif -->
+
   <script src="js/helper.js?ver=<!-- @echo VERSION -->"></script>
   <footer class="footer">
     <div class="container">
