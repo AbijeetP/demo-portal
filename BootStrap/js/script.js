@@ -303,6 +303,7 @@ $(document).ready(function () {
       setTasksInLocalStorage();
       udpatePieChartData();
       updateLineChart();
+      createNotification('success', appMessages.taskDone);
     }
   });
 

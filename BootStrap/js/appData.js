@@ -10,5 +10,6 @@
    somethingWrongTaskStatus: 'Something went wrong while populating the task statuses. Please try again later.',
    taskDelete: 'Task has been deleted successfully.',
    taskUpdate: 'Task has been updated successfully.',
-   taskCreate: 'Task has been created successfully.'
+   taskCreate: 'Task has been created successfully.',
+   taskDone : 'Task status has been updated successfully.'
   }
