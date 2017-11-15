@@ -11,5 +11,5 @@
    taskDelete: 'Task has been deleted successfully.',
    taskUpdate: 'Task has been updated successfully.',
    taskCreate: 'Task has been created successfully.',
-   taskDone : 'Task has been done successfully.'
+   taskDone : 'Task status has been updated successfully.'
   }

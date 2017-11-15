@@ -13,7 +13,7 @@ angular.module('angularDemo', ['ngMaterial', 'ngMessages', 'ngStorage', 'blockUI
   CREATE_MESSAGE : 'Task has been created successfully.',
   UPDATE_MESSAGE : 'Task has been updated successfully.',
   DELETE_MESSAGE : 'Task has been deleted successfully.',
-  MARK_AS_DONE_MESSAGE : 'Task has been done successfully.'
+  MARK_AS_DONE_MESSAGE : 'Task status has been updated successfully.'
 });
 angular.module('angularDemo').config(function (blockUIConfig, $mdDateLocaleProvider) {
   // Template to load while blocking the UI.
