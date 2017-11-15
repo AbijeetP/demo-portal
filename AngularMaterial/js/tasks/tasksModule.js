@@ -12,7 +12,8 @@ angular.module('angularDemo', ['ngMaterial', 'ngMessages', 'ngStorage', 'blockUI
   FETCH_ERROR_MESSAGE_2 : '. Please try again later.',
   CREATE_MESSAGE : 'Task has been created successfully.',
   UPDATE_MESSAGE : 'Task has been updated successfully.',
-  DELETE_MESSAGE : 'Task has been deleted successfully.'
+  DELETE_MESSAGE : 'Task has been deleted successfully.',
+  MARK_AS_DONE_MESSAGE : 'Task has been done successfully.'
 });
 angular.module('angularDemo').config(function (blockUIConfig, $mdDateLocaleProvider) {
   // Template to load while blocking the UI.

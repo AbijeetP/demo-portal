@@ -354,6 +354,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
       doneTask.completedOn = formatDate(new Date());
       $localStorage.tasks[doneTaskIndex] = doneTask;
       bindDataToTable();
+      showSuccessMessage(DemoConstants.MARK_AS_DONE_MESSAGE);
     }
   });
 
