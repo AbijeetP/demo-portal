@@ -36,16 +36,17 @@ $(document).ready(function () {
       setTimeout(function () {
         var selectedDate = $dueDate.val();
         if (!selectedDate) {
-            Validator.setError($currentInput, Validator.errorMessages.required);
+            Validator.setError($currentInput, $.fn.osmValidator.defaultOptions.errorMessages.required);
         } else {
             Validator.removeError($currentInput);
         }
       }, 200);
   });
 
+  // Click event for datepicker icon
   $('.open-datepicker').click(function (event) {
     event.preventDefault();
-    $(this).parent().find('input').datepicker('show');
+    $(this).parent().find('input').focus();
   });
 
   // Table columns
