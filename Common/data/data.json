@@ -28,7 +28,7 @@
       "desc": "<ul><li>A reusable sidebar component designed using Bootstrap 4.</li></ul>",
       "link": "SideBar/index.html",
       "moduleName": "Sidebar",
-      "tech": "Bootstrap 4, jQuery"
+      "tech": "HTML, CSS, jQuery, Bootstrap 4"
     }
   ]
 }

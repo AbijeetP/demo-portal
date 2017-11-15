@@ -39,8 +39,8 @@ module.exports = function( grunt ) {
 
   if (grunt.option('production')) {
     preprocessOpts.context.NODE_ENV = 'production';
-  } else if (grunt.option('staging')) {
-    preprocessOpts.context.NODE_ENV = 'staging';
+  } else if (grunt.option('development')) {
+    preprocessOpts.context.NODE_ENV = 'development';
   }
 
   // Grunt config object
