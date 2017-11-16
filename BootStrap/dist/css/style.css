@@ -216,3 +216,16 @@ input[type="checkbox"]:checked + .check-box::after {
   padding-top: 1em;
   padding-bottom: 1em;
 }
+@media only screen and (max-width: 576px) {
+  .custom-line-chart,
+  .custom-pie-chart,
+  .custom-card {
+    margin: auto;
+  }
+  .custom-card {
+    margin-top: 15px;
+  }
+  .charts-container h2 {
+    position: initial;
+  }
+}

@@ -1,6 +1,6 @@
 /*/node_modules/
 /BootStrap/.netbeans.xml
 /*/lib/
-/*/dist
+/*/dist/
 node_modules/
 !/Common/lib/
