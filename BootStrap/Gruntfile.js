@@ -16,7 +16,7 @@ module.exports = function (grunt) {
 
   var initialLoadScripts = [
     'jquery/dist/jquery.min.js',
-    'jquery.notify/js/jquery.notify.min.js',
+    'noty/lib/noty.min.js',
     'moment/min/moment.min.js',
     'tether/dist/js/tether.min.js',
     'datatables.net/js/popper.js/dist/umd/popper.min.js',
@@ -84,7 +84,7 @@ module.exports = function (grunt) {
             libPath + 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css',
             libPath + 'datatables.net-bs4/css/dataTables.bootstrap4.min.css',
             libPath + 'components-font-awesome/css/font-awesome.min.css',
-            libPath + 'jquery.notify/css/jquery.notify.css'
+            libPath + 'noty/lib/noty.css'
           ]
         },
       },
