@@ -256,23 +256,12 @@ $(document).ready(function () {
   });
 
   function createNotification(type, message) {
-    notify({
+    new Noty({
+      text: message,
       type: type, // alert | success | error | warning | info
-      message: message,
-      position: {
-        x: 'right', // right | left | center
-        y: 'bottom' // top | bottom | center
-      },
-      size: 'normal', // normal | full | small
-      overlay: false, // true | false
-      closeBtn: false, // true | false
-      overflowHide: false, // true | false
-      spacing: 20, // number px
-      theme: 'dark-theme', // default | dark-theme
-      autoHide: true, // true | false
-      delay: 2500, // number ms
-      template: '<div class="notify"><div class="notify-text"></div></div>'
-    });
+      timeout: 2500,
+      layout: 'bottomRight',
+    }).show();
   }
 
   /**
