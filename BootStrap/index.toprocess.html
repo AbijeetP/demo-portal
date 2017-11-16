@@ -58,18 +58,18 @@
   </div>
   <div class="main-container body-container container">
     <div class="row add-edit-task-container">
-      <form class="add-task-form col-lg-12 custom-card" id="addTaskForm">
+      <form class="add-task-form col-11 col-sm-12 custom-card" id="addTaskForm">
         <h1>Add Task</h1>
         <div class="form-group row">
-          <label for="txtTaskName" class="col-2 col-form-label">Task Name</label>
-          <div class="col-10">
+          <label for="txtTaskName" class="col-12 col-sm-2 col-form-label">Task Name</label>
+          <div class="col-12 col-sm-10">
             <input class="form-control req-cntrl" name="taskName" type="text" id="txtTaskName" maxlength="200" error-element=".error">
             <div class="error"></div>
           </div>
         </div>
         <div class="form-group row">
-          <label for="dueDate" class="col-2 col-form-label">Due Date</label>
-          <div class="col-10">
+          <label for="dueDate" class="col-12 col-sm-2 col-form-label">Due Date</label>
+          <div class="col-12 col-sm-10">
             <div class="input-group date">
               <input type="text" class="form-control req-cntrl datepicker" id="dueDate" name="dueDate" error-element=".error">
               <span class="input-group-addon open-datepicker"><i class="fa fa-calendar" aria-hidden="true"></i></span>
@@ -78,8 +78,8 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="taskStatus" class="col-2">Status</label>
-          <div class="col-10">
+          <label for="taskStatus" class="col-12 col-sm-2">Status</label>
+          <div class="col-12 col-sm-10">
             <select class="form-control req-cntrl" name="statusID" id="taskStatus" error-element=".error">
             </select>
             <div class="error"></div>
@@ -92,7 +92,7 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-12 custom-card task-grid-section">
+      <div class="col-11 col-sm-12 custom-card task-grid-section">
         <h2 class="task-list-header">Task List</h2>
         <div class="dropdown float-right">
           <button class="btn btn-secondary dropdown-toggle dt-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -125,8 +125,8 @@
     <div class="charts-container">
       <h2>Statistics</h2>
       <div class="row">
-        <div class="col-lg-6 custom-pie-chart">
-          <div class="col-lg-12 custom-card">
+        <div class="col-11 col-sm-6 custom-pie-chart">
+          <div class="col-12 custom-card">
             <h3>Task status</h3>
             <canvas id="canvas-pie-chart"></canvas>
             <div class="empty-chart empty-pie-chart hide-div">
@@ -134,8 +134,8 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6 custom-line-chart">
-          <div class="col-lg-12 custom-card">
+        <div class="col-11 col-sm-6 custom-line-chart">
+          <div class="col-12 custom-card">
             <h3>Tasks completed per day</h3>
             <canvas id="canvas-line-chart"></canvas>
             <div class="empty-chart empty-line-chart hide-div">
