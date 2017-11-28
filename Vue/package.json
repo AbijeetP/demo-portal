@@ -1,0 +1,17 @@
+{
+  "name": "vue-demo-portal",
+  "version": "1.0.0",
+  "description": "A demo project for Vue",
+  "main": "index.js",
+  "license": "-",
+  "repository": "http://10.0.0.150/prasanna03/demo-portal.git",
+  "private": true,
+  "dependencies": {
+    "element-ui": "^2.0.5",
+    "vue": "^2.4.2",
+    "vue-cli": "^2.9.1"
+  },
+  "scripts": {
+    "start": "http-server -a localhost -p 8000 -c-1 -o -g"
+  }
+}
