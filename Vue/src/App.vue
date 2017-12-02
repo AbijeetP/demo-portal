@@ -23,7 +23,6 @@ var eventHub = new Vue();
 export default {
   name: "app",
   data: function() {
-    debugger;
     return {
       taskDetails: '',
       fullName: ''
@@ -37,15 +36,13 @@ export default {
   },
   computed: {
     filteredUsers: function () {
-      console.log('test')
       this.fullName = this.taskDetails
       return this.taskDetails
     }
   },
   methods: {
-    createNewTask: function(name) {
-       console.log('test')
-      this.taskDetails  = name;
+    createNewTask: function(taskDetails) {
+      this.taskDetails = taskDetails;
 
     }
   }

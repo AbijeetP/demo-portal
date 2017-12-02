@@ -8,7 +8,7 @@
       </el-col>
       <el-col :span='12'>
          <el-form-item label='Status'>
-    <el-select v-model='form.region' placeholder='please select status'>
+    <el-select v-model='form.status' placeholder='please select status'>
       <el-option label='Blocked' value='1'></el-option>
       <el-option label='Done' value='2'></el-option>
       <el-option label="In Progress" value = "3"></el-option>
@@ -22,7 +22,7 @@
   <el-col :span='12'>
   <el-form-item label='Due date'>
     <el-col :span='24'>
-      <el-date-picker type='date' placeholder='Pick a date' v-model='form.date1' style='width: 100%;'></el-date-picker>
+      <el-date-picker type='date' placeholder='Pick a date' v-model='form.dueDate' style='width: 100%;'></el-date-picker>
     </el-col>
   </el-form-item>
     </el-col>
@@ -47,7 +47,6 @@ var eventHub = new Vue()
 export default {
   name: "AddTask",
   data() {
-    debugger
     return {
       form: {
         name: "",
@@ -62,9 +61,43 @@ export default {
     };
   },
   methods: {
-    createNewTask: function() {
-    var name =this.form.name
-     this.$emit('addTask', name)
+    createNewTask: function () {
+    var taskData = {};
+    taskData.taskName = this.form.name;
+    taskData.createdOn = this.formatDate(new Date());
+    taskData.dueDate = this.formatDate(this.form.dueDate);
+    taskData.statusId = this.form.status;
+    taskData.statusName = this.getStatusName(this.form.status);
+    this.$emit('addTask', taskData);
+    },
+    formatDate: function (date) {
+      var dateObj = moment(date, 'DD-MM-YYYY').toDate();
+      return moment(dateObj).format('DD-MM-YYYY');
+    },
+    getStatusName: function (statusId) {
+      var statusList = [
+        {
+          statusId: 1,
+          statusName: 'Blocked'
+        },
+        {
+          statusId: 2,
+          statusName: 'Done'
+        },
+        {
+          statusId: 3,
+          statusName: 'In Progress'
+        },
+        {
+          statusId: 4,
+          statusName: 'Planned'
+        }
+      ];
+      for (var i = 0; i < statusList.length; i++) {
+        if (statusList[i].statusId === +statusId) {
+          return statusList[i].statusName;
+        }
+      }
     }
   },
   components: {
