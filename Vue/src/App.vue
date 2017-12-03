@@ -18,7 +18,7 @@ import Vue from "vue";
 import FooterBar from "./components/layouts/footer.vue";
 import HeaderBar from "./components/layouts/header.vue";
 import AddTask from "./components/add-task.vue";
-import TasksList from "./components/TasksList.vue";
+  import TasksList from "./components/TasksList.vue";
 var eventHub = new Vue();
 export default {
   name: "app",

@@ -4,6 +4,9 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
+
+ 
 export default {
   name: 'TasksList',
   props: ['users'],
@@ -53,14 +56,31 @@ export default {
     };
     return returnData;
   },
+  methods: {
+    ...mapActions(['updateTaskDetails']),
+  },
  watch: {
-   tasksListData: function(newTasksList){
-     this.dtHandle.clear();
-     this.dtHandle.rows.add(newTasksList);
-    this.dtHandle.draw();
+   tasksListData: function (newTasksList) {
+
+
+       this.dtHandle.clear();
+       this.dtHandle.rows.add(newTasksList);
+       this.dtHandle.draw();
+  
+    
    },
-   users: function(newTaskData){
-     this.tasksListData.push(newTaskData);
+   users: function (newTaskData) {
+     if (newTaskData.isUpdate) {
+       var data = this.dtHandle.row(this.currentTask).data();
+       data.taskName = newTaskData.taskName;
+       data.statusName = newTaskData.statusName;
+       data.statusId = newTaskData.statusId;
+       data.dueDate = newTaskData.dueDate;
+       this.dtHandle.row(this.currentTask).data(data).draw(false);
+     } else {
+       this.tasksListData.push(newTaskData);
+     }
+    
    }
   },
 
@@ -79,10 +99,16 @@ export default {
         markAsDoneData.statusId = 2;
         vm.dtHandle.row($(this).parents('tr')).data(markAsDoneData).draw(false);
       });
+      $('#tasksList').on('click', '.edit-task', function () {
+        var taskData = vm.dtHandle.row($(this).parents('tr')).data();
+        vm.updateTaskDetails(taskData);
+        vm.currentTask = $(this).parents('tr');
+      });
     });
 
     $.ajax({
       url: 'http://10.0.0.160/demo-api/tasks',
+      timeout: 500,
       success: function(res){
         console.log(res.data)
         vm.tasksListData = res.data

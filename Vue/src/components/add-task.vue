@@ -1,9 +1,12 @@
 <template>
+  
 <el-form ref='form' :model='form' label-width='120px' class='add-task'>
+  <div>{{ getTaskDetails}}</div>
+  <div>{{taskDetails}}</div>
   <el-row>
     <el-col :span='12'>
 <el-form-item label='Task Name'>
-    <el-input v-model='form.name'></el-input>
+    <el-input  v-model="form.name" ></el-input>
   </el-form-item>
       </el-col>
       <el-col :span='12'>
@@ -41,7 +44,8 @@
 <script>
 import Vue from "vue";
 import ElementUI from "element-ui";
-import "element-ui/lib/theme-chalk/index.css";
+  import "element-ui/lib/theme-chalk/index.css";
+  import { mapGetters } from 'vuex';
 Vue.use(ElementUI);
 var eventHub = new Vue()
 export default {
@@ -50,17 +54,27 @@ export default {
     return {
       form: {
         name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: ""
+        status: "",
+        dueDate: "",
+        isUpdate: ""
       }
     };
   },
+  computed: {
+    ...mapGetters(['getTaskDetails']),
+    taskDetails: function () {
+      console.log('tst');
+      this.changeFormDetails();
+      return this.getTaskDetails;
+    }
+  },
   methods: {
+    changeFormDetails: function () {
+      this.form.name = this.getTaskDetails.taskName;
+      this.form.status = this.getTaskDetails.statusId;
+      this.form.dueDate = this.getTaskDetails.dueDate;
+      this.form.isUpdate = this.getTaskDetails.taskName ? true : false;
+      },
     createNewTask: function () {
     var taskData = {};
     taskData.taskName = this.form.name;
@@ -68,7 +82,9 @@ export default {
     taskData.dueDate = this.formatDate(this.form.dueDate);
     taskData.statusId = this.form.status;
     taskData.statusName = this.getStatusName(this.form.status);
+    taskData.isUpdate = this.form.isUpdate;
     this.$emit('addTask', taskData);
+    this.form.isUpdate = false;
     },
     formatDate: function (date) {
       var dateObj = moment(date, 'DD-MM-YYYY').toDate();
