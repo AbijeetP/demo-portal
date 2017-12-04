@@ -1,3 +1,1 @@
-export const getters {
-getTaskDetails = state => state.taskDetails
-}
+export const getTaskDetails = state => state.taskDetails

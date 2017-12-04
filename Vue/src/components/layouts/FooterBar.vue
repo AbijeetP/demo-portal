@@ -9,12 +9,13 @@
 </template>
 
 <script>
-export default{
+export default {
   name: 'FooterBar'
-}
+};
 </script>
-<style>
-.footer-container{
+
+<style scoped>
+.footer-container {
   position: absolute;
   bottom: 20px;
   width: 100%;

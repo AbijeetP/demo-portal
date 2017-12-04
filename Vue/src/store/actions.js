@@ -1,5 +1,2 @@
-export const actions: {
-  updateTaskDetails(payload){
-    commit('updateTaskDetails', payload);
-  }
-}
+export const updateTaskDetails = ({ commit }, payload) =>
+  commit('updateTaskDetails', payload);

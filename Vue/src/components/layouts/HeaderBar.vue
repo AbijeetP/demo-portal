@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-    <div class="header-container">
+  <div class="header-container">
     <div class="logo">
       <a href="http://osmosys.asia/">
         <img src="../../assets/osmosys-logo.png" alt="logo">
@@ -42,17 +42,17 @@
 
 
 <script>
-export default{
+export default {
   name: 'HeaderBar'
-}
+};
 </script>
 
-<style>
+<style scoped>
 .header-container {
-  background-color: #292b2c!important;
+  background-color: #292b2c !important;
 }
 .help-modal {
-  display : none
+  display: none;
 }
 .header-container .logo,
 .header-container .links {

@@ -1,31 +1,25 @@
 <template>
-  <div id="app">
-    <header-bar/>
-
-<div class="main-content">
-<add-task @addTask="createNewTask"/>
-    <tasks-list :users="filteredUsers"/>
-  </div>
-
-
-
-    <footer-bar/>
-  </div>
+   <div id="app">
+      <header-bar/>
+      <div class="main-content">
+         <add-task @addTask="createNewTask"/>
+         <tasks-list :task="taskDetails"/>
+      </div>
+      <footer-bar/>
+   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import FooterBar from "./components/layouts/footer.vue";
-import HeaderBar from "./components/layouts/header.vue";
-import AddTask from "./components/add-task.vue";
-  import TasksList from "./components/TasksList.vue";
-var eventHub = new Vue();
+import Vue from 'vue';
+import FooterBar from './components/layouts/FooterBar.vue';
+import HeaderBar from './components/layouts/HeaderBar.vue';
+import AddTask from './components/AddTask.vue';
+import TasksList from './components/TasksList.vue';
 export default {
-  name: "app",
+  name: 'app',
   data: function() {
     return {
-      taskDetails: '',
-      fullName: ''
+      taskDetails: ''
     };
   },
   components: {
@@ -34,16 +28,9 @@ export default {
     AddTask,
     TasksList
   },
-  computed: {
-    filteredUsers: function () {
-      this.fullName = this.taskDetails
-      return this.taskDetails
-    }
-  },
   methods: {
     createNewTask: function(taskDetails) {
       this.taskDetails = taskDetails;
-
     }
   }
 };

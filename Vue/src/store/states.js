@@ -1,3 +1,4 @@
-export const state: {
-  taskDetails: {}
-}
+
+export default {
+  getTaskDetails: {}
+};

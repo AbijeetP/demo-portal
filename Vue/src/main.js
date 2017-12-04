@@ -3,34 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+import { store } from './store/store.js'
 
 Vue.config.productionTip = false
 
-import Vuex from 'vuex';
-Vue.use(Vuex);
-
-
-const store = new Vuex.Store({
-  state: {
-    taskDetails: {}
-  },
-  getters: {
-    getTaskDetails: state => {
-      return state.taskDetails;
-    }
-  },
-  mutations: {
-    updateTaskDetails(state, payload) {
-      state.taskDetails = payload;
-    }
-  },
-  actions: {
-    updateTaskDetails({ commit }, payload) {
-      commit('updateTaskDetails', payload);
-    }
-  }
-})
 
 /* eslint-disable no-new */
 new Vue({

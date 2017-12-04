@@ -1,5 +1,9 @@
+import Vue from 'vue';
 import Vuex from 'vuex';
-import Vue from 'Vue';
+import states from './states.js';
+import * as getters from './getters';
+import { mutations } from './mutations';
+import * as actions from './actions';
 Vue.use(Vuex);
 
 
@@ -7,19 +11,7 @@ export const store = new Vuex.Store({
   state: {
     taskDetails: {}
   },
-  getters: {
-    getTaskDetails: state => {
-      return state.taskDetails;
-    }
-  },
-  mutations: {
-    updateTaskDetails(state, payload) {
-      state.taskDetails = payload;
-    }
-  },
-  actions: {
-    updateTaskDetails({ commit }, payload) {
-      commit('updateTaskDetails', payload);
-    }
-  }
+  getters,
+  mutations,
+  actions
 })
