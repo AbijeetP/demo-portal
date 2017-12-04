@@ -2,7 +2,7 @@ $(document).ready(function () {
   var technologies = [
     {
       name: 'HTML',
-      class: 'badge-secondary'
+      class: 'badge-danger'
     }, {
       name: 'CSS',
       class: 'badge-primary'
@@ -17,7 +17,7 @@ $(document).ready(function () {
       class: 'badge-warning'
     }, {
       name: 'jQuery',
-      class: 'badge-danger'
+      class: 'badge-secondary'
     }, {
       name: 'Bootstrap 4',
       class: 'badge-dark'
@@ -27,7 +27,7 @@ $(document).ready(function () {
     }, {
       name: 'Angular Material',
       class: 'badge-blue'
-    },
+    }
   ];
 
   function getTechClass(tech) {

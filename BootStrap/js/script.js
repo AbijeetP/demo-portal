@@ -18,7 +18,10 @@ $(document).ready(function () {
     TASKS_COMPLETED: '#00caca'
   };
   var Validator = $('#addTaskForm').osmValidator();
-
+  
+  // Displaying tooltip for column selector
+  $('#dropdownMenuButton').tooltip();
+  
   $('.add-task-form').on('blur', '.reqCntrl', function () {
     Validator.removeErrForFld($(this));
   });
@@ -48,7 +51,7 @@ $(document).ready(function () {
     event.preventDefault();
     $(this).parent().find('input').focus();
   });
-
+  
   // Table columns
   var taskListColumns = [{
     data: 'taskName',
@@ -75,10 +78,10 @@ $(document).ready(function () {
     width: '20%',
     title: 'Actions',
     render: function (data, type, row) {
-      var actions = '<span><span title="Edit" class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
-      actions += '<span><span title="Delete" class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
+      var actions = '<span><span title="Edit" data-toggle="tooltip" class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
+      actions += '<span><span title="Delete" data-toggle="tooltip" class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
       if (row.statusID != DONE_STATUS) {
-        actions += '<span><span title="Mark as done" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>';
+        actions += '<span><span title="Mark as done" data-toggle="tooltip" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>';
       } else {
         actions += '<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
       }
@@ -145,6 +148,8 @@ $(document).ready(function () {
     } else {
       createNotification('error', appMessages.somethingWrongTaskGrid);
     }
+    // Declaring bootstrap tooltips
+    $('[data-toggle="tooltip"]').tooltip(); 
   }
 
   // Fixing issues with Datatable bootstrap 4 UI
@@ -204,6 +209,10 @@ $(document).ready(function () {
     isEdit = true;
     $addTaskForm.find('h1').text('Edit Task');
     fillDetailsInForm(rowData);
+    $('html,body').animate({
+      scrollTop: $('.add-edit-task-container').offset().top
+    },
+    'slow');
     $addTaskForm.find('input')[0].focus();
   });
 
