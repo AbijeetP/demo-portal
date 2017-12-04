@@ -186,7 +186,11 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     columns: tsk.dtColumns,
     data: [],
     isFullWidth: true,
-    stateSave: true
+    stateSave: true,
+    language: {
+      info: "Showing _START_ to _END_ of _TOTAL_ tasks",
+      sLengthMenu: "Show _MENU_ tasks"
+    }
   };
 
   var $tasksGrid = angular.element('#tasksGrid');

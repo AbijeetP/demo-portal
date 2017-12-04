@@ -96,7 +96,11 @@ $(document).ready(function () {
     data: [],
     autoWidth: true,
     isFullWidth: true,
-    stateSave: true
+    stateSave: true,
+    language: {
+      info: "Showing _START_ to _END_ of _TOTAL_ tasks",
+      sLengthMenu: "Show _MENU_ tasks"
+    }
   };
 
   var taskListObj = $tasksGrid.DataTable(taskListConfig);
@@ -194,11 +198,13 @@ $(document).ready(function () {
 
   // Click event for edit icon in the grid
   $tasksGrid.on('click', '.edit-setting', function () {
+    var $addTaskForm = $('.add-task-form');
     $currentRow = $(this).parents('tr');
     var rowData = taskListObj.row($(this).parents('tr')).data();
     isEdit = true;
+    $addTaskForm.find('h1').text('Edit Task');
     fillDetailsInForm(rowData);
-    $('.add-task-form').find('input')[0].focus();
+    $addTaskForm.find('input')[0].focus();
   });
 
   function fillDetailsInForm(rowData) {
@@ -220,7 +226,9 @@ $(document).ready(function () {
 
   // Reset the add task form fields on click of the reset button.
   $('.task-reset').click(function () {
-    Validator.resetResponse($('#addTaskForm'));
+    var $taskForm = $('#addTaskForm');
+    Validator.resetResponse($taskForm);
+    $taskForm.find('h1').text('Add Task');
   });
 
 
@@ -246,6 +254,7 @@ $(document).ready(function () {
       $('.add-task-form')[0].reset();
       if (isEdit) {
         isEdit = false;
+        $taskForm.find('h1').text('Add Task');
         createNotification('success', appMessages.taskUpdate);
       } else {
         createNotification('success', appMessages.taskCreate);
