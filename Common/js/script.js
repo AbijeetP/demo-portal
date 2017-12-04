@@ -1,44 +1,44 @@
 $(document).ready(function () {
   var technologies = [
     {
-      name : 'HTML',
-      class : 'badge-secondary'
+      name: 'HTML',
+      class: 'badge-secondary'
     }, {
-      name : 'CSS',
-      class : 'badge-primary'
+      name: 'CSS',
+      class: 'badge-primary'
     }, {
-      name : 'AngularJS',
-      class : 'badge-success'
+      name: 'AngularJS',
+      class: 'badge-success'
     }, {
-      name : 'Material-UI',
-      class : 'badge-info'
+      name: 'Material-UI',
+      class: 'badge-info'
     }, {
-      name : 'CakePHP 3',
-      class : 'badge-warning'
+      name: 'CakePHP 3',
+      class: 'badge-warning'
     }, {
-      name : 'jQuery',
-      class : 'badge-danger'
+      name: 'jQuery',
+      class: 'badge-danger'
     }, {
-      name : 'Bootstrap 4',
-      class : 'badge-dark'
+      name: 'Bootstrap 4',
+      class: 'badge-dark'
     }, {
-      name : 'Google Maps',
-      class : 'badge-purple'
+      name: 'Google Maps',
+      class: 'badge-purple'
     }, {
-      name : 'Angular Material',
-      class : 'badge-blue'
+      name: 'Angular Material',
+      class: 'badge-blue'
     },
   ];
-  
+
   function getTechClass(tech) {
-    for(var i=0; i<technologies.length; i++) {
-      if(technologies[i].name === tech) {
+    for (var i = 0; i < technologies.length; i++) {
+      if (technologies[i].name === tech) {
         return technologies[i].class;
       }
     }
     return 'badge-primary';
   }
-  
+
   $('#demoList').DataTable({
     "ajax": "Common/data/data.json",
     "paging": false,
@@ -63,10 +63,10 @@ $(document).ready(function () {
         "render": function (data, type, row) {
           var techs = row.tech.split(",");
           var techHtml = '';
-          for(var i=0; i<techs.length; i++) {
+          for (var i = 0; i < techs.length; i++) {
             var currentTech = $.trim(techs[i]);
             var techCls = getTechClass(currentTech);
-            techHtml += '<span class="badge '+ techCls +'">' + currentTech + '</span>';
+            techHtml += '<span class="badge ' + techCls + '">' + currentTech + '</span>';
           }
           return techHtml;
         },
