@@ -1,6 +1,7 @@
 angular.module('angularDemo').controller('angularDemoController', function ($scope, $document, $http, $compile, $localStorage, $mdDialog, $timeout, DemoConstants, tasksService, blockUI) {
   var tsk = this;
   tsk.buttonName = 'Submit';
+  tsk.heading = 'Add Task';
   tsk.isUpdate = false;
   var highestIndex = 0;
   var tasksDataTableObj = '';
@@ -36,6 +37,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
       $localStorage.tasks.splice(tsk.editTaskIndex, 1);
       tsk.isUpdate = false;
       tsk.buttonName = 'Submit';
+      tsk.heading = 'Add Task';
       showSuccessMessage(DemoConstants.UPDATE_MESSAGE);
     } else {
       showSuccessMessage(DemoConstants.CREATE_MESSAGE);
@@ -186,7 +188,11 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     columns: tsk.dtColumns,
     data: [],
     isFullWidth: true,
-    stateSave: true
+    stateSave: true,
+    language: {
+      info: "Showing _START_ to _END_ of _TOTAL_ tasks",
+      sLengthMenu: "Show _MENU_ tasks"
+    }
   };
 
   var $tasksGrid = angular.element('#tasksGrid');
@@ -283,6 +289,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   angular.element('#tasksGrid').on('click', '.edit-setting', function () {
     tsk.taskDetails = {};
     tsk.buttonName = 'Update';
+    tsk.heading = 'Edit Task';
     tsk.isUpdate = true;
     var rowData = tasksDataTableObj.row(this.parentElement).data();
     tsk.taskDetails.taskName = rowData.taskName;
@@ -293,7 +300,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.editTaskData = tasksDataTableObj.row(this.parentElement).data();
 
     angular.element('html,body').animate({
-      scrollTop: angular.element('.add-task-form ').offset().top
+      scrollTop: angular.element('.form-heading').offset().top
     },
       'slow');
   });
@@ -367,6 +374,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.taskDetails = {};
     tsk.submitted = true;
     tsk.buttonName = 'Submit';
+    tsk.heading = 'Add Task';
   };
 
   /**

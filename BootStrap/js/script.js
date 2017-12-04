@@ -18,7 +18,10 @@ $(document).ready(function () {
     TASKS_COMPLETED: '#00caca'
   };
   var Validator = $('#addTaskForm').osmValidator();
-
+  
+  // Displaying tooltip for column selector
+  $('#dropdownMenuButton').tooltip();
+  
   $('.add-task-form').on('blur', '.reqCntrl', function () {
     Validator.removeErrForFld($(this));
   });
@@ -48,7 +51,7 @@ $(document).ready(function () {
     event.preventDefault();
     $(this).parent().find('input').focus();
   });
-
+  
   // Table columns
   var taskListColumns = [{
     data: 'taskName',
@@ -75,10 +78,10 @@ $(document).ready(function () {
     width: '20%',
     title: 'Actions',
     render: function (data, type, row) {
-      var actions = '<span><span title="Edit" class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
-      actions += '<span><span title="Delete" class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
+      var actions = '<span><span title="Edit" data-toggle="tooltip" class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
+      actions += '<span><span title="Delete" data-toggle="tooltip" class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
       if (row.statusID != DONE_STATUS) {
-        actions += '<span><span title="Mark as done" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>';
+        actions += '<span><span title="Mark as done" data-toggle="tooltip" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>';
       } else {
         actions += '<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
       }
@@ -96,7 +99,11 @@ $(document).ready(function () {
     data: [],
     autoWidth: true,
     isFullWidth: true,
-    stateSave: true
+    stateSave: true,
+    language: {
+      info: "Showing _START_ to _END_ of _TOTAL_ tasks",
+      sLengthMenu: "Show _MENU_ tasks"
+    }
   };
 
   var taskListObj = $tasksGrid.DataTable(taskListConfig);
@@ -141,6 +148,8 @@ $(document).ready(function () {
     } else {
       createNotification('error', appMessages.somethingWrongTaskGrid);
     }
+    // Declaring bootstrap tooltips
+    $('[data-toggle="tooltip"]').tooltip(); 
   }
 
   // Fixing issues with Datatable bootstrap 4 UI
@@ -194,11 +203,17 @@ $(document).ready(function () {
 
   // Click event for edit icon in the grid
   $tasksGrid.on('click', '.edit-setting', function () {
+    var $addTaskForm = $('.add-task-form');
     $currentRow = $(this).parents('tr');
     var rowData = taskListObj.row($(this).parents('tr')).data();
     isEdit = true;
+    $addTaskForm.find('h1').text('Edit Task');
     fillDetailsInForm(rowData);
-    $('.add-task-form').find('input')[0].focus();
+    $('html,body').animate({
+      scrollTop: $('.add-edit-task-container').offset().top
+    },
+    'slow');
+    $addTaskForm.find('input')[0].focus();
   });
 
   function fillDetailsInForm(rowData) {
@@ -220,7 +235,9 @@ $(document).ready(function () {
 
   // Reset the add task form fields on click of the reset button.
   $('.task-reset').click(function () {
-    Validator.resetResponse($('#addTaskForm'));
+    var $taskForm = $('#addTaskForm');
+    Validator.resetResponse($taskForm);
+    $taskForm.find('h1').text('Add Task');
   });
 
 
@@ -246,6 +263,7 @@ $(document).ready(function () {
       $('.add-task-form')[0].reset();
       if (isEdit) {
         isEdit = false;
+        $taskForm.find('h1').text('Add Task');
         createNotification('success', appMessages.taskUpdate);
       } else {
         createNotification('success', appMessages.taskCreate);
