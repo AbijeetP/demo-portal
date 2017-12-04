@@ -28,6 +28,7 @@ module.exports = function (grunt) {
     grunt.task.run(['buildProd:GoogleMaps']);
     grunt.task.run(['buildProd:BootStrap']);
     grunt.task.run(['buildProd:AngularMaterial']);
+    grunt.task.run(['buildProd:SideBar']);
   });
 
   grunt.registerTask('default', ['build']);

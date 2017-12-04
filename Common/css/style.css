@@ -30,6 +30,7 @@ body {
 }
 #demoList .sorting_asc {
   background-image: none !important;
+  cursor: auto;
 }
 #demoList.dataTable.no-footer {
     border-bottom: none;
@@ -40,4 +41,16 @@ body {
 }
 .jumbotron img  {
   width: 25%;
+}
+.jumbotron {
+    border-radius: 0rem 0rem .3rem .3rem;
+}
+#demoList .badge {
+    margin-right: 0.2em;
+}
+#demoList .badge-blue {
+    background-color: #3f51b5;
+}
+#demoList .badge-purple {
+    background-color: #800080;
 }

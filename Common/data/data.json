@@ -1,13 +1,13 @@
 {
   "data": [
     {
-      "desc": "<ul><li>A responsive page that uses the bootstrap classes.</li><li>Add/update/delete tasks and view the status of the tasks in the charts shown in the page.</li><li>It uses CakePHP API and returns JSON which contains list of tasks.</li></ul>",
+      "desc": "<ul><li>A very basic task management system with a responsive design.</li><li>Initial data is fed through a CakePHP REST API.</li></ul>",
       "link": "BootStrap/index.html",
       "moduleName": "Bootstrap",
       "tech": "HTML, CSS, jQuery, Bootstrap 4, CakePHP 3"
     },
     {
-      "desc": "<ul><li>A responsive page that uses angularjs platform.</li><li> Add/update/delete tasks and view the status of the tasks in the charts shown in the page.</li><li>It uses CakePHP API and returns JSON which contains list of tasks.</li></ul>",
+      "desc": "<ul><li>A very basic task management system with a responsive design.</li><li>Initial data is fed through a CakePHP REST API.</li></ul>",
       "link": "AngularMaterial/index.html",
       "moduleName": "AngularJS",
       "tech": "HTML, CSS, AngularJS, Material-UI, CakePHP 3"
@@ -27,7 +27,7 @@
     {
       "desc": "<ul><li>A reusable sidebar component designed using Bootstrap 4.</li></ul>",
       "link": "SideBar/index.html",
-      "moduleName": "Sidebar",
+      "moduleName": "Responsive Sidebar",
       "tech": "HTML, CSS, jQuery, Bootstrap 4"
     }
   ]
