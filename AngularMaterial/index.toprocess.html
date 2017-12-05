@@ -126,8 +126,9 @@
       <div>
         <div class="toggle-col-drop-down">
           <md-button class="md-fab md-mini md-raised dropdown-toggle dt-dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false" ng-click="tsk.toggleColumnsDropDown()" title="Click here to select the columns which you want to view in the below table.">
-            <i class="fa fa-list-alt"></i>
+            aria-haspopup="true" aria-expanded="false" ng-click="tsk.toggleColumnsDropDown()" >
+              <md-tooltip>Click here to select the columns which you want to view in the below table.</md-tooltip>
+              <i class="fa fa-list-alt"></i>
           </md-button>
           <div class="toggle-dropdown-content hide">
             <md-checkbox class="green" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-model="tsk.isCheckedColumn[column.data]"
