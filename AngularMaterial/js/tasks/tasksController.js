@@ -45,7 +45,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     }
     var tasks = $localStorage.tasks ? $localStorage.tasks : [];
     tsk.taskDetails.statusName = getSelectedStatus(tsk.taskDetails.status);
-    tsk.taskDetails.createdOn = formatDate(new Date());
+    tsk.taskDetails.createdOn = tsk.taskDetails.createdOn ? tsk.taskDetails.createdOn : formatDate(new Date());
     tsk.taskDetails.statusID = tsk.taskDetails.status;
     tsk.taskDetails = addCompletedOn(tsk.taskDetails);
     tasks.push(tsk.taskDetails);
