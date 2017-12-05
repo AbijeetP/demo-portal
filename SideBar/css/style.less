@@ -60,3 +60,149 @@ footer {
         text-decoration: underline;
     }
 }
+
+// main.less
+
+body.sidebar-collapsed #content {
+  width: 100%;
+  padding-left: @sidebar-collapsed-width;
+}
+
+#content {
+  min-height: 100vh;
+  transition: padding @content-anim-duration, width @content-anim-duration;
+  padding-left: @sidebar-width;
+  width: 100%;
+  background: @content-bg;
+
+  @media (max-width: @viewport-max) {
+    width: 100% !important;
+    padding-left: 0px !important;
+  }
+
+}
+
+#mainContent {
+  @media (max-width: @viewport-mobile) {
+    padding: 5px 4px;
+  }
+
+  @media (max-width: @viewport-graph-full) {
+    padding: 5px 0px;
+  }
+}
+
+#overlay {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  z-index: 998;
+}
+
+.fred-nav-btn {
+  background: transparent;
+  border: 1px solid @nav-btn-border-color;
+  padding: 3px 14px 6px 14px;
+  font-size: 1.4em;
+
+  &:hover, &:focus, &:active, &:active:focus {
+    background: @nav-btn-focus-border-color;
+    border: 1px solid @nav-btn-focus-bg-color;
+    color: @nav-btn-focus-color;
+    box-shadow: none;
+  }
+}
+
+// Adds height to shrink the loading icon
+.page-loading {
+  height: 40px;
+}
+
+.error-message {
+  margin: auto;
+  display: none;
+  color: @paragraph-text-color;
+  a {
+    color: @a-font;
+    text-decoration: underline;
+  }
+  .error-body {
+    margin-left: 3px;
+  }
+  h2 {
+    margin: 0px;
+    margin-bottom: 8px;
+  }
+  p {
+    color: @paragraph-text-color;
+  }
+  ul {
+    width: 85%;
+    line-height: 1.8em;
+    text-align: justify;
+    margin-top: 10px;
+  }
+}
+
+body.page-load-error {
+  #sidebar {
+    display: none
+  }
+  #content {
+    padding-left: 0px;
+  }
+  @media  (max-width: @viewport-max) {
+    #appError{
+      padding: 0px 10px;
+    }
+  }
+}
+
+
+
+.custom-font-line-height() {
+  line-height: 22px;
+  font-size: 15px;
+}
+
+// Error box
+#errorBox {
+  position: fixed;
+  z-index: 10000;
+  bottom: 10px;
+  right: 10px;
+  max-width: 300px;
+  padding: 10px;
+  border-radius: 3px;
+  font-size: 0.85em;
+  display: none;
+  background: @error-box-bg;
+  color: @error-box-color;
+  box-shadow: 0px 0px 4px 1px #cfcfcf;
+
+  #btnCloseErrorBox {
+    font-size: 0.85em;
+  }
+}
+
+input[type="text"], input[type="search"] {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+body.is-mobile .btn-default:hover {
+  background-color: @default-button-bg;
+}
+
+body.is-mobile .fred-nav-btn:hover {
+  color: @fred-btn-text-color !important;
+  background-color: transparent !important;
+}
+
+.gap-bottom {
+  margin-bottom: 15px !important;
+}
