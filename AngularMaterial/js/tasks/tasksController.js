@@ -159,19 +159,21 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     className: 'mdl-data-table__cell--non-numeric'
   },
   {
-    data: '',
-    title: 'Actions',
-    render: function (data, type, row) {
-      var elem = null;
-      elem = $compile('<span><span class="edit-setting row-action"><md-tooltip>Edit</md-tooltip><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0].innerHTML;
-      elem += $compile('<span><span class="delete-setting row-action"><md-tooltip>Delete</md-tooltip><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0].innerHTML;
-      if (row.statusID !== DemoConstants.DONE_STATUS) {
-        elem += $compile('<span><span class="mark-as-done row-action"><md-tooltip>Mark as done</md-tooltip><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0].innerHTML;
-      } else {
-        elem += $compile('<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0].innerHTML;
-      }
-      return elem;
+    data: 'statusID',
+    createdCell( cell, statusID) {
+      $timeout(function () {
+        var elem = null;
+        elem = '<span><span class="edit-setting row-action"><md-tooltip>Edit</md-tooltip><i class="fa fa-1x fa-pencil"></span></i></span>';
+        elem += '<span><span class="delete-setting row-action"><md-tooltip>Delete</md-tooltip><i class="fa fa-1x fa-trash"></span></i></span>';
+        if (statusID !== DemoConstants.DONE_STATUS) {
+          elem += '<span><span class="mark-as-done row-action"><md-tooltip>Mark as done</md-tooltip><i class="fa fa-1x fa-check"></span></i></span>';
+        } else {
+          elem += '<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
+        }
+        angular.element(cell).empty().append($compile(elem)($scope));
+      });
     },
+    title: 'Actions',
     className: 'text-center mdl-data-table__cell--non-numeric',
     width: '20%',
     bSortable: false,
@@ -180,18 +182,14 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
 
   var tasksDataTableConfig = {
     responsive: true,
-    language: {
-      emptyTable: 'No matching records found.',
-      zeroRecords: 'No matching records found.',
-    },
     colReorder: true,
     columns: tsk.dtColumns,
     data: [],
     isFullWidth: true,
     stateSave: true,
     language: {
-      info: "Showing _START_ to _END_ of _TOTAL_ tasks",
-      sLengthMenu: "Show _MENU_ tasks"
+      info: 'Showing _START_ to _END_ of _TOTAL_ tasks',
+      sLengthMenu: 'Show _MENU_ tasks'
     }
   };
 
