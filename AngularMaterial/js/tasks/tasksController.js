@@ -163,12 +163,12 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     createdCell( cell, statusID) {
       $timeout(function () {
         var elem = null;
-        elem = '<span><span class="edit-setting row-action"><md-tooltip>Edit</md-tooltip><i class="fa fa-1x fa-pencil"></span></i></span>';
-        elem += '<span><span class="delete-setting row-action"><md-tooltip>Delete</md-tooltip><i class="fa fa-1x fa-trash"></span></i></span>';
+        elem = '<span class="action-span"><span class="edit-setting row-action"><md-tooltip md-direction="top">Edit</md-tooltip><i class="fa fa-1x fa-pencil"></span></i></span>';
+        elem += '<span class="action-span"><span class="delete-setting row-action"><md-tooltip md-direction="top">Delete</md-tooltip><i class="fa fa-1x fa-trash"></span></i></span>';
         if (statusID !== DemoConstants.DONE_STATUS) {
-          elem += '<span><span class="mark-as-done row-action"><md-tooltip>Mark as done</md-tooltip><i class="fa fa-1x fa-check"></span></i></span>';
+          elem += '<span class="action-span"><span class="mark-as-done row-action"><md-tooltip md-direction="top">Mark as done</md-tooltip><i class="fa fa-1x fa-check"></span></i></span>';
         } else {
-          elem += '<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
+          elem += '<span class="action-span"><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
         }
         angular.element(cell).empty().append($compile(elem)($scope));
       });
