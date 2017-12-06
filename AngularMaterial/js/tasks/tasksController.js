@@ -160,7 +160,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   },
   {
     data: 'statusID',
-    createdCell( cell, statusID) {
+    createdCell: function ( cell, statusID) {
       $timeout(function () {
         var elem = null;
         elem = '<span class="action-span"><span class="edit-setting row-action"><md-tooltip md-direction="top">Edit</md-tooltip><i class="fa fa-1x fa-pencil"></span></i></span>';
