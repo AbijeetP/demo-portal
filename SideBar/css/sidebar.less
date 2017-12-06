@@ -8,6 +8,22 @@
   position: fixed;
   z-index: 999;
 
+  .fred-nav-btn {
+    padding: 5px 12px;
+    line-height: 1em;
+    font-size: 1.5em;
+  }
+
+  // fixes the static elements of the sidebar to the bottom of the screen.
+  .ui-items-static {
+    width: @sidebar-width;
+    position: absolute;
+    bottom: 0px;
+    background-color: @sidebar-bg;
+    border-right: 1px solid @sidebar-bg;
+    background-clip: padding-box;
+  }
+
   ul {
     list-style: none;
     margin: 0;
@@ -22,12 +38,7 @@
   }
 
   ul.components {
-    padding: 10px 0;
-  }
-
-  .treeview-menu {
-    display: none;
-    background-color: @sidebar-sub-menu-bg;
+    margin-top: 85px;
   }
 
   .ui-menu-item i:first-of-type {
@@ -37,17 +48,46 @@
   }
 
   // Adds background color and font color on hover of a menu item.
-  .treeview > a:hover {
-    background-color: @sidebar-menu-item-hover-bg;
-    color: @sidebar-menu-item-hover-font;
+  .treeview {
+    > a:hover, .treeview-menu .ui-menu-item:hover {
+      background-color: @sidebar-menu-item-hover-bg;
+      color: @sidebar-menu-item-hover-font;
+    }
+    // the current page item.
+    &.active, &.active > a:hover, a.current-page {
+      background: @sidebar-active-item-bg;
+      color: @sidebar-active-item-color;
+    }
+    .treeview-menu {
+      display: none;
+      background-color: @sidebar-sub-menu-bg;
+      text-transform: capitalize;
+      .ui-menu-item {
+        color: @sidebar-font;
+      }
+      .fa-pencil {
+        font-size: 1em !important;
+        margin-top: 2px !important;
+      }
+    }
   }
 
+
   .sidebar-header {
-    padding: 15px 10px 5px 10px;
+    padding: 10px 10px 8px 10px;
     background: @sidebar-header-bg;
-    h3 {
-      margin: 0px;
-      width: 80%;
+    position: absolute;
+    top: 0px;
+    z-index: 999;
+    border-bottom: 1px solid @sidebar-menu-bottom-border;
+
+    @media  (max-width: @viewport-max) {
+      padding-bottom: 12px;
+    }
+
+    h2 {
+      margin: 0px 15px 0px 0px;
+      width: 76%;
     }
   }
 
@@ -55,31 +95,40 @@
     background: @sidebar-bg;
     // fa icons are by default this height.
     min-height: 44px;
+    span {
+      padding-top: 12px !important;
+    }
   }
 
   .ui-menu-item-border {
-    border-top: 1px solid #4f93d7;
+    border-top: 1px solid @sidebar-menu-bottom-border;
   }
 
-  // the current page item.
-  a.current-page {
-    font-weight: bold;
+  .ui-menu-item-separater{
+    margin-top: 15px;
   }
 }
 
 // code that applies to the expanded sidebar.
 #sidebar.expanded {
   .sidebar-header {
-    h3 {
-      font-size: 1.35em;
-      line-height: 1.35em;
-      float: right;
+    width: @sidebar-width;
+    h2 {
+        font-size: 1.5em;
+        line-height: 1.5em;
+        float: right;
     }
     button {
-      float:left;
+      float: left;
+    }
+    #btnSidebar i:before {
+      content: "\f100";
     }
   }
-
+  // Sets the width of the static elements.
+  .ui-items-static {
+    width: @sidebar-width;
+  }
   // handles the rotation of the arrow icon
   .treeview.expand {
     > a > i.pull-right {
@@ -87,15 +136,10 @@
       // after we rotate, the height becomes the width
       max-height: 20px;
     }
-    > a {
-      background-color: @sidebar-active-item-bg !important;
-      color: @sidebar-active-item-color !important;
-    }
   }
 
-  // Padding for the sub menu items
-  .treeview-menu > div {
-      padding-left: 19px;
+  .treeview-menu a {
+    padding-left: 29px;
   }
 
   .ui-menu-item-header {
@@ -104,11 +148,16 @@
 
   .ui-menu-item {
     a {
-      display: flex;
+      width: 100%;
+      border: 1px;
+      min-height: @sidebar-menu-item-min-height;
       > span {
-        flex: 1;
+        width: @sidebar-menu-items-label-width;
         padding-left: 8px;
         padding-right: 8px;
+      }
+      > * {
+        float: left;
       }
     }
   }
@@ -129,14 +178,27 @@
     color: @sidebar-active-item-color;
   }
 
+  #btnSidebar i:before {
+    content: "\f101";
+  }
+  .indicator-item > a > span {
+    margin-right: 5px;
+  }
+
   .sidebar-header {
     padding: 0px;
-    padding-top: 15px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    width: @sidebar-collapsed-width;
     // hide the heading.
-    h3 {
+    h2 {
       display: none;
     }
   }
+  // Sets the width of the static elements.
+  .ui-items-static {
+     width: @sidebar-collapsed-width;
+   }
 
   .ui-menu-item {
     i:first-of-type {
@@ -146,10 +208,10 @@
 
   // hide the text, the submenu, the arrow icon
   // don't hide the actual icon though.
-  .ui-menu-item a > span,
-  .ui-menu-item .treeview-menu,
-  .ui-menu-item a > .pull-right {
-    display: none !important;
+  .ui-menu-item {
+     a  span, .treeview-menu, a .pull-right{
+      display: none !important;
+    }
   }
 
   // on hover, display the submenu menu
@@ -166,6 +228,15 @@
     }
     .sub-menu-container {
       max-height: @sidebar-submenu-height;
+      max-width: @sidebar-width;
+    }
+    // display the submenu items.
+    .ui-menu-item > a > span {
+      display: block !important;
+      flex: 1;
+    }
+    .ui-menu-item a {
+      display: flex;
     }
   }
 
@@ -179,9 +250,11 @@
     // show the treeview-menu
     > .treeview-menu {
       margin-left: 0;
-      // display the submenu items.
-      a > span {
-        display: block !important;
+
+      // Adds border to the last item of the sub menu
+      .indicator-item:last-child {
+        border: 1px solid @sidebar-sub-menu-bg;
+        background-clip: padding-box;
       }
     }
   }
@@ -190,6 +263,7 @@
     // when sidebar is collapsed below @viewport-max, make it have no width
     // and hide all overflowing elements.
     width: 0px;
+    display: none;
     overflow: hidden;
   }
 }
@@ -197,6 +271,7 @@
 #sidebarCollapse {
   background-color: @sidebar-menu-button;
 }
+
 #btnSidebarHeader {
   display: none;
 }
@@ -214,8 +289,8 @@ body.sidebar-collapsed #content {
 }
 #content {
     min-height: 100vh;
-    transition: padding 0.2s, width 0.2s;
-    padding-left: 280px;
+    transition: padding @content-anim-duration, width @content-anim-duration;
+    padding-left: @sidebar-width;
     width: 100%;
     display: flex;
     flex-direction: column;

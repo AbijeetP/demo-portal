@@ -7,6 +7,8 @@ module.exports = function( grunt ) {
 
   // Add custom scripts to the below array.
   var customJSFiles = [
+    'js/constants.js',
+    'js.utility.js',
     'js/app.js',
     'js/script.js',
     'js/sidebar.js',
