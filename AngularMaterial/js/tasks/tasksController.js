@@ -163,10 +163,10 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     title: 'Actions',
     render: function (data, type, row) {
       var elem = null;
-      elem = $compile('<span><span class="edit-setting row-action" title="Edit"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0].innerHTML;
-      elem += $compile('<span><span class="delete-setting row-action" title="Delete"><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0].innerHTML;
+      elem = $compile('<span><span class="edit-setting row-action"><md-tooltip>Edit</md-tooltip><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0].innerHTML;
+      elem += $compile('<span><span class="delete-setting row-action"><md-tooltip>Delete</md-tooltip><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0].innerHTML;
       if (row.statusID !== DemoConstants.DONE_STATUS) {
-        elem += $compile('<span><span title="Mark as done" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0].innerHTML;
+        elem += $compile('<span><span class="mark-as-done row-action"><md-tooltip>Mark as done</md-tooltip><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0].innerHTML;
       } else {
         elem += $compile('<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0].innerHTML;
       }
