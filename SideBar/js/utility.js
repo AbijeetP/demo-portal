@@ -1,30 +1,6 @@
 var Utility = (function() {
 
   /**
-   * Fetches the category of the indicator ID given.
-   * @param {String} indicatorId to which the category and indicator id should be returned.
-   */
-  function getCategoryAndIndicatorId(indicatorId) {
-    var index = indicatorId.split('.');
-    return {
-      categoryId: +index[0],
-      indicatorId: +index[1]
-    };
-  }
-
-  /**
-   * Gives a carousel index using the indicator id and the separator given.
-   * @param {String} indicatorId to which the carousel index should be provided.
-   * @param {String} separator which is used to separate the given indicatorId.
-   */
-  function getCarouselIndex(indicatorId, separator) {
-    if (!indicatorId) {
-      return false;
-    }
-    return indicatorId.split(separator)[1];
-  }
-
-  /**
    *  Given a string it makes starting letter of each word in the string to uppercase.
    * @param {String} text Text to be capitalized
    */
@@ -46,19 +22,6 @@ var Utility = (function() {
    */
   function getViewPortHeight() {
     return window.innerHeight;
-  }
-
-  /**
-   * Prepares a chart ID using the indicator ID given.
-   * @param {String} indicatorId to which the chart ID should be provided.
-   */
-  function getChartId(indicatorId) {
-    var chartId = '#chart-' + indicatorId;
-
-    // Selecting ids havings dots like #chart-0.1 through jQuery will not return the desired element.
-    // so to fix this we need to escape dot(.).
-    chartId = chartId.replace(/\./g, '\\.');
-    return chartId;
   }
 
   /**
@@ -98,10 +61,7 @@ var Utility = (function() {
   }
 
   return {
-    getCategoryAndIndicatorId: getCategoryAndIndicatorId,
     getViewPortWidth: getViewPortWidth,
-    getCarouselIndex: getCarouselIndex,
-    getChartId: getChartId,
     capitalize: capitalize,
     shouldResize: shouldResize,
     getViewPortHeight: getViewPortHeight,
