@@ -1,7 +1,5 @@
 <template>
    <el-form ref='form' :model='form' label-width='120px' class='add-task'>
-      <div>{{getTaskDetails}}</div>
-      <div>{{taskDetails}}</div>
       <el-row>
          <el-col :span='12'>
             <el-form-item label='Task Name'>
@@ -12,7 +10,7 @@
          <el-col :span='12'>
             <el-form-item label='Status'>
                <el-select v-validate="'required'" :class = "{'is-danger': errors.has('status')}" name = "status" v-model='form.status' placeholder='please select status'>
-                  <el-option v-for="status in statusList" :label='status.statusName' :value = 'status.statusID'></el-option>
+                  <el-option v-for="status in statusList" :label='status.statusName' :value = 'status.statusID' :key= 'status.statusID'></el-option>
                </el-select>
                <span v-show="errors.has('status')" class="is-danger">{{errors.first('status')}}</span>
             </el-form-item>
@@ -22,7 +20,7 @@
          <el-col :span='12'>
             <el-form-item label='Due date'>
                <el-col :span='24'>
-                  <el-date-picker  v-validate="'required|date_format'" :class = "{'is-danger': errors.has('dueDate')}" name = "dueDate" type='date' placeholder='Pick a date' v-model='form.dueDate' style='width: 100%;'></el-date-picker>
+                  <el-date-picker  v-validate="'required|date_format'" :class = "{'is-danger': errors.has('dueDate')}" name = "dueDate" type="date" format = "dd-MM-yyyy" placeholder='Pick a date' v-model='form.dueDate' style='width: 100%;'></el-date-picker>
                   <span v-show="errors.has('dueDate')" class="is-danger">{{errors.first('dueDate')}}</span>
                </el-col>
             </el-form-item>
@@ -64,17 +62,18 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getTaskDetails']),
-    taskDetails: function() {
+    ...mapGetters(['getTaskDetails'])
+  },
+  watch: {
+    getTaskDetails: function(){
       this.addFormValues();
-      return this.getTaskDetails;
     }
   },
   methods: {
     addFormValues: function() {
         this.form.name = this.getTaskDetails.taskName;
         this.form.status = this.getTaskDetails.statusID;
-        this.form.dueDate = this.getTaskDetails.dueDate;
+        this.form.dueDate = moment(this.getTaskDetails.dueDate, 'DD-MM-YYYY').toDate();
         this.form.isUpdate = this.getTaskDetails.taskName ? true : false;
     },
     createNewTask: function() {
