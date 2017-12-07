@@ -4,45 +4,47 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 export default {
-  name: 'TasksList',
-  props: ['task'],
+  name: "TasksList",
+  props: ["task"],
   data: function() {
     var returnData = {
       headers: [
         {
-          data: 'taskName',
-          title: 'Task Name'
+          data: "taskName",
+          title: "Task Name"
         },
         {
-          data: 'dueDate',
-          title: 'Due Date',
-          class: 'align-right'
+          data: "dueDate",
+          title: "Due Date",
+          class: "align-right"
         },
         {
-          data: 'createdOn',
-          title: 'Created On',
-          class: 'align-right'
+          data: "createdOn",
+          title: "Created On",
+          class: "align-right"
         },
         {
-          data: 'statusName',
-          title: 'Status'
+          data: "statusName",
+          title: "Status"
         },
         {
-          data: '',
-          title: 'Action',
+          data: "",
+          title: "Action",
           render: function(row, type, data) {
             var elem = '<i class="el-icon-edit edit-task row-action"></i>';
             elem += '<i class="el-icon-delete delete-task row-action"></i>';
             if (+data.statusID === 2) {
-              elem += '<i class="el-icon-check mark-as-done-task row-action disabled-action"></i>';
+              elem +=
+                '<i class="el-icon-check mark-as-done-task row-action disabled-action"></i>';
             } else {
-              elem += '<i class="el-icon-check mark-as-done-task row-action"></i>';
+              elem +=
+                '<i class="el-icon-check mark-as-done-task row-action"></i>';
             }
             return elem;
           },
-          class: 'align-center'
+          class: "align-center"
         }
       ],
       rows: [],
@@ -53,96 +55,109 @@ export default {
     return returnData;
   },
   methods: {
-    ...mapActions(['updateTaskDetails'])
+    ...mapActions(["updateTaskDetails", "updateTasksList"])
   },
   watch: {
-  tasksListData: function(newTasksList) {
+    tasksListData: function(newTasksList) {
       this.dtHandle.clear();
       this.dtHandle.rows.add(newTasksList);
       this.dtHandle.draw();
+      var vm = this;
     },
     task: function(newTaskData) {
+      if (newTaskData.statusID === 2) {
+        newTaskData.completedOn = moment(new Date()).format("DD-MM-YYYY");
+      }else{
+        newTaskData.completedOn = '';
+      }
       if (newTaskData.isUpdate) {
         var data = this.dtHandle.row(this.currentTask).data();
         data.taskName = newTaskData.taskName;
         data.statusName = newTaskData.statusName;
         data.statusID = newTaskData.statusID;
         data.dueDate = newTaskData.dueDate;
+        data.completedOn = newTaskData.completedOn;
         this.dtHandle
           .row(this.currentTask)
           .data(data)
           .draw(false);
+          this.updateTasksList(this.dtHandle.rows().data());
       } else {
         this.tasksListData.push(newTaskData);
+        this.updateTasksList(this.tasksListData);
       }
     }
   },
   mounted: function() {
     var vm = this;
     this.$nextTick(function() {
-      $('#tasksList').on('click', '.delete-task', function() {
+      $("#tasksList").on("click", ".delete-task", function() {
         var deletedRow = vm.dtHandle
-          .row($(this).parents('tr'))
+          .row($(this).parents("tr"))
           .remove()
           .draw(false);
+        vm.updateTasksList(vm.dtHandle.rows().data());
       });
-      $('#tasksList').on('click', '.mark-as-done-task', function() {
-        if ($(this).hasClass('disabled-action')) {
+      $("#tasksList").on("click", ".mark-as-done-task", function() {
+        if ($(this).hasClass("disabled-action")) {
           return;
         }
-        var markAsDoneData = vm.dtHandle.row($(this).parents('tr')).data();
-        markAsDoneData.statusName = 'Done';
+        var markAsDoneData = vm.dtHandle.row($(this).parents("tr")).data();
+        markAsDoneData.statusName = "Done";
         markAsDoneData.statusID = 2;
+        markAsDoneData.completedOn = moment(new Date()).format("DD-MM-YYYY");
         vm.dtHandle
-          .row($(this).parents('tr'))
+          .row($(this).parents("tr"))
           .data(markAsDoneData)
           .draw(false);
+        vm.updateTasksList(vm.dtHandle.rows().data());
       });
-      $('#tasksList').on('click', '.edit-task', function() {
-        var taskData = vm.dtHandle.row($(this).parents('tr')).data();
+      $("#tasksList").on("click", ".edit-task", function() {
+        var taskData = vm.dtHandle.row($(this).parents("tr")).data();
         vm.updateTaskDetails(taskData);
-        vm.currentTask = $(this).parents('tr');
+        vm.currentTask = $(this).parents("tr");
       });
     });
     $.ajax({
-      url: 'http://10.0.0.160/demo-api/tasks',
+      url: "http://10.0.0.160/demo-api/tasks",
       success: function(res) {
         vm.tasksListData = res.data;
+        vm.updateTasksList(vm.tasksListData);
       },
       error: function() {
         vm.tasksListData = [
           {
-            taskName: 'test task',
-            dueDate: '01-11-2017',
-            statusName: 'Blocked',
-            createdOn: '02-11-2017',
-            statusID: '1'
+            taskName: "test task",
+            dueDate: "01-11-2017",
+            statusName: "Blocked",
+            createdOn: "02-11-2017",
+            statusID: "1"
           },
           {
-            taskName: 'test task 2',
-            dueDate: '02-11-2017',
-            statusName: 'Done',
-            createdOn: '02-11-2017',
-            statusID: '2'
+            taskName: "test task 2",
+            dueDate: "02-11-2017",
+            statusName: "Done",
+            createdOn: "02-11-2017",
+            statusID: "2"
           },
           {
-            taskName: 'test task 3',
-            dueDate: '03-11-2017',
-            statusName: 'In Progress',
-            createdOn: '02-11-2017',
-            statusID: '3'
+            taskName: "test task 3",
+            dueDate: "03-11-2017",
+            statusName: "In Progress",
+            createdOn: "02-11-2017",
+            statusID: "3"
           },
           {
-            taskName: 'test task 4',
-            dueDate: '04-11-2017',
-            statusName: 'Planned',
-            createdOn: '02-11-2017',
-            statusID: '4'
+            taskName: "test task 4",
+            dueDate: "04-11-2017",
+            statusName: "Planned",
+            createdOn: "02-11-2017",
+            statusID: "4"
           }
         ];
       }
     });
-    this.dtHandle = $('#tasksList').DataTable({
+    this.dtHandle = $("#tasksList").DataTable({
       columns: this.headers,
       data: this.tasksListData
     });

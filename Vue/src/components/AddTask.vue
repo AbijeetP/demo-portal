@@ -28,7 +28,7 @@
       </el-row>
       <el-row type="flex" justify="end">
          <el-form-item>
-            <el-button type='submit' @click="createNewTask()">Create</el-button>
+            <el-button type='submit' @click="createNewTask()">{{buttonName}}</el-button>
             <el-button @click="resetForm()">Cancel</el-button>
          </el-form-item>
       </el-row>
@@ -39,7 +39,7 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import VeeValidate from 'vee-validate';
 
 Vue.use(ElementUI);
@@ -58,7 +58,8 @@ export default {
         dueDate: '',
         isUpdate: ''
       },
-      statusList: []
+      statusList: [],
+      buttonName: 'Create'
     };
   },
   computed: {
@@ -70,11 +71,13 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['updateTaskDetails']),
     addFormValues: function() {
         this.form.name = this.getTaskDetails.taskName;
         this.form.status = this.getTaskDetails.statusID;
         this.form.dueDate = moment(this.getTaskDetails.dueDate, 'DD-MM-YYYY').toDate();
         this.form.isUpdate = this.getTaskDetails.taskName ? true : false;
+        this.buttonName = this.form.isUpdate ? 'Update': 'Create';
     },
     createNewTask: function() {
         this.$validator.validateAll().then((result) => {
@@ -102,6 +105,8 @@ export default {
             dueDate: '',
             isUpdate: ''
         }
+        this.buttonName = 'Create';
+        this.updateTaskDetails({});
         setTimeout(function() {
             vm.$validator.clean();
         }, 50)
