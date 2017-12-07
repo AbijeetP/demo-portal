@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $('.nav-link').click(function () {
+  $('.help-link').click(function () {
     $('.help-modal').modal('show');
   });
 

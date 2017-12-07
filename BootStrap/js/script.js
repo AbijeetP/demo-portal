@@ -352,7 +352,7 @@ $(document).ready(function () {
     return rowData;
   }
 
-  $('.nav-link.help-link').click(function () {
+  $('.help-link').click(function () {
     $('.help-modal').modal('show');
   });
 
