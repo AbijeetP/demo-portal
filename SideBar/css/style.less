@@ -93,16 +93,23 @@ body.is-mobile .fred-nav-btn:hover {
 }
 
 header {
-    background-color: @color-header;
+  background-color: @color-header;
 }
 
 footer {
-    a {
-        color: @footer-link-color;
-        text-decoration: none;
+  a {
+    color: @footer-link-color;
+    text-decoration: none;
+  }
+  a:hover {
+    color: @footer-link-color-hover;
+    text-decoration: underline;
+  }
+}
+@media (max-width: 768px){
+  .sidebar-portal.header-container {
+    .logo {
+      margin-right: 4em;
     }
-    a:hover {
-        color: @footer-link-color-hover;
-        text-decoration: underline;
-    }
+  }
 }
