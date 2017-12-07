@@ -26,19 +26,26 @@
 </head>
 
 <body ng-app="googleMaps">
-  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-    <a class="navbar-brand" href="http://osmosys.asia/">
-      <img src="img/osmosys-logo.png" alt="logo">
-    </a>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="../">Introduction</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link">About<span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-  </nav>
+  <div class="header-container">
+    <div class="logo">
+      <a href="http://osmosys.asia/">
+        <img src="img/osmosys-logo.png" alt="logo">
+      </a>
+    </div>
+    <div class="page-title">
+      <h1>Google Maps</h1>
+    </div>
+    <div class="links">
+      <ul>
+        <li>
+          <a href="../">Introduction</a>
+        </li>
+        <li>
+          <a class="help-link">About</a>
+        </li>
+      </ul>
+    </div>
+  </div>
   <div class="modal help-modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">

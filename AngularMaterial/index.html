@@ -32,13 +32,16 @@
         <img src="img/osmosys-logo.png" alt="logo">
       </a>
     </div>
+    <div class="page-title">
+      <h1>AngularJS Portal</h1>
+    </div>
     <div class="links">
       <ul>
         <li>
           <a href="../">Introduction</a>
         </li>
         <li>
-          <a class="help-link">Help</a>
+          <a class="help-link">About</a>
         </li>
       </ul>
     </div>
@@ -65,7 +68,7 @@
   </div>
   <section class="container main-container" id="tasksContainer">
     <section layout="row" layout-padding class="statistics-heading padding-botton-0 padding-left-0">
-      <h1 class="form-heading">Add Task</h1>
+      <h1 class="form-heading">{{tsk.heading}}</h1>
     </section>
     <section>
       <md-card md-theme="default" md-theme-watch>
@@ -119,10 +122,11 @@
       <h2 class="form-heading task-list-header">Task List</h2>
       <div>
         <div class="toggle-col-drop-down">
-          <button class="btn btn-secondary dropdown-toggle dt-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false" ng-click="tsk.toggleColumnsDropDown()" title="Click here to select the columns which you want to view in the below table.">
-            <i class="fa fa-list-alt"></i>
-          </button>
+          <md-button class="md-fab md-mini md-raised dropdown-toggle dt-dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" ng-click="tsk.toggleColumnsDropDown()" >
+              <md-tooltip md-direction="top">Click here to select the columns which you want to view in the below table.</md-tooltip>
+              <i class="fa fa-list-alt"></i>
+          </md-button>
           <div class="toggle-dropdown-content hide">
             <md-checkbox class="green" ng-repeat="column in tsk.dtColumns" ng-if="::!column.isRequired" ng-model="tsk.isCheckedColumn[column.data]"
               ng-change="tsk.columnVisibilityChanged(column.data, this)">

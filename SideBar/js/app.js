@@ -64,7 +64,7 @@ $(document).ready(function() {
     $firstAnchor.trigger('click', true);
   }
   
-  $('.nav-link.help-link').click(function () {
+  $('.help-link').click(function () {
     $('.help-modal').modal('show');
   });
 });
