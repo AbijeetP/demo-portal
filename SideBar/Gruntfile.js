@@ -98,6 +98,16 @@ module.exports = function( grunt ) {
       css: {
         files: minifiedCSSFiles
       }
+    },
+    imagemin: {
+      dynamic: {
+        files: [{
+          expand: true, // Enable dynamic expansion
+          cwd: 'img/', // Src matches are relative to this path
+          src: ['*.{png,jpg,gif}'], // Actual patterns to match
+          dest: 'dist/img/'                  // Destination path prefix
+        }]
+      }
     }
   };
 
@@ -115,12 +125,14 @@ module.exports = function( grunt ) {
     grunt.task.run( 'less' );
     grunt.task.run( 'preprocess' );
     grunt.task.run( 'uglify' );
-    grunt.task.run( 'cssmin' );
-  } );
+    grunt.task.run('cssmin');
+    grunt.task.run('imagemin');
+  });
 
   grunt.loadNpmTasks( 'grunt-preprocess' );
   grunt.loadNpmTasks( 'grunt-contrib-watch' );
   grunt.loadNpmTasks( 'grunt-contrib-less' );
   grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
   grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
 };
