@@ -1,6 +1,31 @@
 <template>
+<div class="custom-card">
+  <h1>Tasks List</h1>
+  <div>
+  <div class="toggle-container">
+    <button  @click="showAndhideDropdown()">
+      <i class="el-icon-tickets"></i>
+    </button>
+    <div class="toggle-dropdown-content hide">
+      <el-checkbox v-for="column in headers" :key="column.data" v-if="!column.isRequired" v-model="isChecked[column.data]" @change="toggleColumn(column)">{{column.title}}</el-checkbox>
+    </div>
+  </div>
   <table id="tasksList" class="table table-striped table-bordered">
   </table>
+  <el-dialog
+    title = "Delete"
+    :visible.sync = "deleteDialogue"
+    width = "30%"
+    >
+    <span>Are you sure you want to delete this task?</span>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
+      <el-button type="danger">Confirm</el-button>
+    </span>
+  </el-dialog>
+  </div>
+</div>
+  
 </template>
 
 <script>
@@ -10,10 +35,17 @@ export default {
   props: ["task"],
   data: function() {
     var returnData = {
+      isChecked: {
+        dueDate: true,
+        createdOn: true,
+        statusName: true
+      },
+      deleteDialogue: false,
       headers: [
         {
           data: "taskName",
-          title: "Task Name"
+          title: "Task Name",
+          isRequired: true
         },
         {
           data: "dueDate",
@@ -44,7 +76,8 @@ export default {
             }
             return elem;
           },
-          class: "align-center"
+          class: "align-center",
+          isRequired: true
         }
       ],
       rows: [],
@@ -55,8 +88,22 @@ export default {
     return returnData;
   },
   methods: {
-    ...mapActions(["updateTaskDetails", "updateTasksList"])
+    ...mapActions(["updateTaskDetails", "updateTasksList"]),
+    toggleColumn: function(column){
+      for(var i=0; i< this.headers.length; i++){
+        if(this.headers[i].data === column.data){
+          var column = this.dtHandle.column(i);
+          column.visible(!column.visible());
+          break;
+        }
+      }
+
+    },
+    showAndhideDropdown: function(){
+    $('.toggle-dropdown-content').toggleClass('hide');
+  }
   },
+  
   watch: {
     tasksListData: function(newTasksList) {
       this.dtHandle.clear();
@@ -67,8 +114,8 @@ export default {
     task: function(newTaskData) {
       if (newTaskData.statusID === 2) {
         newTaskData.completedOn = moment(new Date()).format("DD-MM-YYYY");
-      }else{
-        newTaskData.completedOn = '';
+      } else {
+        newTaskData.completedOn = "";
       }
       if (newTaskData.isUpdate) {
         var data = this.dtHandle.row(this.currentTask).data();
@@ -81,7 +128,7 @@ export default {
           .row(this.currentTask)
           .data(data)
           .draw(false);
-          this.updateTasksList(this.dtHandle.rows().data());
+        this.updateTasksList(this.dtHandle.rows().data());
       } else {
         this.tasksListData.push(newTaskData);
         this.updateTasksList(this.tasksListData);
@@ -92,6 +139,7 @@ export default {
     var vm = this;
     this.$nextTick(function() {
       $("#tasksList").on("click", ".delete-task", function() {
+        this.deleteDialogue = true;
         var deletedRow = vm.dtHandle
           .row($(this).parents("tr"))
           .remove()
@@ -185,5 +233,45 @@ export default {
 }
 .disabled-action {
   cursor: not-allowed;
+}
+.toggle-dropdown-content label{
+  display: block;
+  margin-left: 0px !important;
+  margin-bottom: 16px;
+}
+table.dataTable tbody td{
+  padding: 12px;
+}
+table.dataTable thead th,
+table.dataTable tbody td,
+table{
+  border-bottom: 1px solid rgb(236, 238, 239) !important;
+}
+.toggle-container{
+  float: right;
+  margin-left: 20px;
+  position: relative;
+}
+#tasksList_wrapper {
+  clear: none;
+  position: static;
+}
+.toggle-dropdown-content{
+    position: absolute;
+    top: 22px;
+    right: 0px;
+    min-width: 120px;
+    background: #fff;
+    box-shadow: 0px 0px 1px 1px #DADADA;
+    z-index: 4;
+    padding: 10px;
+    border-radius: 3px;
+}
+#tasksList_filter {
+  margin-bottom: 20px;
+}
+#tasksList_info,
+#tasksList_paginate{
+  margin-top: 20px;
 }
 </style>

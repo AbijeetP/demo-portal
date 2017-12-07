@@ -1,5 +1,7 @@
 <template>
-   <el-form ref='form' :model='form' label-width='120px' class='add-task'>
+<div class="custom-card">
+    <h1>Add Task</h1>
+     <el-form ref='form' :model='form' label-width='120px' class='add-task'>
       <el-row>
          <el-col :span='12'>
             <el-form-item label='Task Name'>
@@ -28,11 +30,12 @@
       </el-row>
       <el-row type="flex" justify="end">
          <el-form-item>
-            <el-button type='submit' @click="createNewTask()">{{buttonName}}</el-button>
-            <el-button @click="resetForm()">Cancel</el-button>
+            <el-button type='success' @click="createNewTask()">{{buttonName}}</el-button>
+            <el-button type = 'danger' @click="resetForm()">Reset</el-button>
          </el-form-item>
       </el-row>
    </el-form>
+</div>
 </template>
 
 <script>

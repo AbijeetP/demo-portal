@@ -1,19 +1,21 @@
 <template>
    <div id="app">
       <header-bar/>
-      <div class="main-content">
+      <div class="main-content container">
          <add-task @addTask="createNewTask"/>
          <tasks-list :task="taskDetails"/>
-         <div class="graphs-container">
-         <div class="tasks-status-graph">
-             <tasks-status/>
-           </div>
-           <div class="tasks-completed-graph">
-             <tasks-completed/>
-           </div>
-          </div>
+          <h1>Statistics</h1>
+          <el-row >
+            <el-col :span="11" class="custom-card">
+              <tasks-status/>
+            </el-col>
+            <el-col :span="12" :offset="1" class="custom-card">
+              <tasks-completed/>
+            </el-col>
+          </el-row>
       </div>
-      <footer-bar/>
+       <footer-bar/>
+    
    </div>
 </template>
 
@@ -66,6 +68,7 @@ body {
 }
 .main-content {
   margin: 50px;
+  flex: 1 0 auto;
 }
 th {
   text-align: left;
@@ -80,5 +83,45 @@ th {
 .tasks-completed-graph {
   display: inline-block;
   width: 49%;
+}
+.hide {
+  display: none;
+}
+.custom-card {
+      box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+      background-color: rgb(255, 255, 255);
+      border-radius: 2px;
+      padding: 20px;  
+      margin-top: 20px;  
+}
+.container{
+  margin: auto;
+}
+table {
+  border-color: grey;
+}
+table tr{
+  font-size: 14px;
+}
+#app{
+  color: #5a5e66 !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+a {
+  text-decoration: none;
+}
+img {
+  vertical-align: middle;
+}
+html,
+body {
+  height: 100%;
+}
+@media(min-width: 1200px){
+  .container {
+    width: 1170px;
+  }
 }
 </style>
