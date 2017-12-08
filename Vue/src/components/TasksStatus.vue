@@ -1,6 +1,10 @@
 <template>
-<div id="tasksStatusGraphContainer">
+<div>
+    <h2>Tasks status</h2>
+    <div id="tasksStatusGraphContainer">
 <canvas id="tasksStatusGraph" width="540" height="300"></canvas>
+</div>
+
 </div>
 
 </template>
@@ -58,8 +62,6 @@ export default {
 }
 </script>
 <style>
-#tasksStatusGraphContainer {
-    width: 554px;
-    height: 300px;
-}
+
+
 </style>

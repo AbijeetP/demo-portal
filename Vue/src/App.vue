@@ -4,12 +4,12 @@
       <div class="main-content container">
          <add-task @addTask="createNewTask"/>
          <tasks-list :task="taskDetails"/>
-          <h1>Statistics</h1>
+          <h1 class="graph-heading">Statistics</h1>
           <el-row >
-            <el-col :span="11" class="custom-card">
+            <el-col :xs="24" :sm="24" :md="11" class="custom-card">
               <tasks-status/>
             </el-col>
-            <el-col :span="12" :offset="1" class="custom-card">
+            <el-col :xs="24" :sm="24" :md="12" class="custom-card tasks-completed">
               <tasks-completed/>
             </el-col>
           </el-row>
@@ -119,9 +119,49 @@ html,
 body {
   height: 100%;
 }
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+  .tasks-completed {
+    margin-left: 4%;
+    width: 46%;
+  }
+}
 @media(min-width: 1200px){
   .container {
     width: 1170px;
   }
+}
+.graph-heading {
+  margin-left: 20px;
+}
+.success-notification {
+  background-color: #51A351;
+}
+.error-notification {
+  background-color: #fa5555;
+}
+.el-notification__icon:before,
+.el-notification__title,
+.el-notification__content,
+.el-icon-close{
+  color: #fff;
+}
+[class^=el-icon]{
+  font-weight: bold;
+}
+button {
+  cursor: pointer;
 }
 </style>

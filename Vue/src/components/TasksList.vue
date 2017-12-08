@@ -3,7 +3,7 @@
   <h1>Tasks List</h1>
   <div>
   <div class="toggle-container">
-    <button  @click="showAndhideDropdown()">
+    <button  @click="showAndhideDropdown()" title="Click here to select the columns which you want to view in the below table.">
       <i class="el-icon-tickets"></i>
     </button>
     <div class="toggle-dropdown-content hide">
@@ -15,12 +15,12 @@
   <el-dialog
     title = "Delete"
     :visible.sync = "deleteDialogue"
-    width = "30%"
+    class="delete-dialog"
     >
     <span>Are you sure you want to delete this task?</span>
     <span slot="footer" class="dialog-footer">
       <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
-      <el-button type="danger">Confirm</el-button>
+      <el-button type="danger" @click="deleteTask()">Confirm</el-button>
     </span>
   </el-dialog>
   </div>
@@ -30,8 +30,10 @@
 
 <script>
 import { mapActions } from "vuex";
+import mixins from './../mixins.js'
 export default {
   name: "TasksList",
+  mixins: [mixins],
   props: ["task"],
   data: function() {
     var returnData = {
@@ -49,13 +51,11 @@ export default {
         },
         {
           data: "dueDate",
-          title: "Due Date",
-          class: "align-right"
+          title: "Due Date"
         },
         {
           data: "createdOn",
-          title: "Created On",
-          class: "align-right"
+          title: "Created On"
         },
         {
           data: "statusName",
@@ -65,19 +65,20 @@ export default {
           data: "",
           title: "Action",
           render: function(row, type, data) {
-            var elem = '<i class="el-icon-edit edit-task row-action"></i>';
-            elem += '<i class="el-icon-delete delete-task row-action"></i>';
+            var elem = '<i class="el-icon-edit edit-task row-action" title="Edit"></i>';
+            elem += '<i class="el-icon-delete delete-task row-action" title="Delete"></i>';
             if (+data.statusID === 2) {
               elem +=
-                '<i class="el-icon-check mark-as-done-task row-action disabled-action"></i>';
+                '<i class="el-icon-check mark-as-done-task row-action disabled-action" title="Mark as done"></i>';
             } else {
               elem +=
-                '<i class="el-icon-check mark-as-done-task row-action"></i>';
+                '<i class="el-icon-check mark-as-done-task row-action" title="Mark as done"></i>';
             }
             return elem;
           },
           class: "align-center",
-          isRequired: true
+          isRequired: true,
+          bSortable: false
         }
       ],
       rows: [],
@@ -89,21 +90,37 @@ export default {
   },
   methods: {
     ...mapActions(["updateTaskDetails", "updateTasksList"]),
-    toggleColumn: function(column){
-      for(var i=0; i< this.headers.length; i++){
-        if(this.headers[i].data === column.data){
+    toggleColumn: function(column) {
+      for (var i = 0; i < this.headers.length; i++) {
+        if (this.headers[i].data === column.data) {
           var column = this.dtHandle.column(i);
           column.visible(!column.visible());
           break;
         }
       }
-
     },
-    showAndhideDropdown: function(){
-    $('.toggle-dropdown-content').toggleClass('hide');
-  }
+    showAndhideDropdown: function() {
+      $(".toggle-dropdown-content").toggleClass("hide");
+    },
+    deleteTask: function() {
+      var row = this.getParentRow(this.currentDeleteTask);
+      var deletedRow = this.dtHandle
+        .row(row)
+        .remove()
+        .draw(false);
+      this.deleteDialogue = false;
+      this.updateTasksList(this.dtHandle.rows().data());
+      this.showSuccessMessage('Task has been deleted successfully.')
+    },
+    getParentRow: function($element){
+       var row = $element.parents('tr');
+        if(row.hasClass('child')){
+          row = row.prev();
+        }
+        return row;
+    }
   },
-  
+
   watch: {
     tasksListData: function(newTasksList) {
       this.dtHandle.clear();
@@ -129,9 +146,11 @@ export default {
           .data(data)
           .draw(false);
         this.updateTasksList(this.dtHandle.rows().data());
+        this.showSuccessMessage('Task has been updated successfully.')
       } else {
         this.tasksListData.push(newTaskData);
         this.updateTasksList(this.tasksListData);
+        this.showSuccessMessage('Task has been created successfully.')
       }
     }
   },
@@ -139,29 +158,31 @@ export default {
     var vm = this;
     this.$nextTick(function() {
       $("#tasksList").on("click", ".delete-task", function() {
-        this.deleteDialogue = true;
-        var deletedRow = vm.dtHandle
-          .row($(this).parents("tr"))
-          .remove()
-          .draw(false);
-        vm.updateTasksList(vm.dtHandle.rows().data());
+        vm.deleteDialogue = true;
+        vm.currentDeleteTask = $(this);
+      });
+      $(".test-dialog").click(function() {
+        vm.deleteDialogue = true;
       });
       $("#tasksList").on("click", ".mark-as-done-task", function() {
         if ($(this).hasClass("disabled-action")) {
           return;
         }
-        var markAsDoneData = vm.dtHandle.row($(this).parents("tr")).data();
+       var row = vm.getParentRow($(this));
+        var markAsDoneData = vm.dtHandle.row(row).data();
         markAsDoneData.statusName = "Done";
         markAsDoneData.statusID = 2;
         markAsDoneData.completedOn = moment(new Date()).format("DD-MM-YYYY");
         vm.dtHandle
-          .row($(this).parents("tr"))
+          .row(row)
           .data(markAsDoneData)
           .draw(false);
         vm.updateTasksList(vm.dtHandle.rows().data());
+        vm.showSuccessMessage('Task status has been updated successfully.')
       });
       $("#tasksList").on("click", ".edit-task", function() {
-        var taskData = vm.dtHandle.row($(this).parents("tr")).data();
+        var row = vm.getParentRow($(this));
+        var taskData = vm.dtHandle.row(row).data();
         vm.updateTaskDetails(taskData);
         vm.currentTask = $(this).parents("tr");
       });
@@ -173,41 +194,43 @@ export default {
         vm.updateTasksList(vm.tasksListData);
       },
       error: function() {
-        vm.tasksListData = [
-          {
-            taskName: "test task",
-            dueDate: "01-11-2017",
-            statusName: "Blocked",
-            createdOn: "02-11-2017",
-            statusID: "1"
-          },
-          {
-            taskName: "test task 2",
-            dueDate: "02-11-2017",
-            statusName: "Done",
-            createdOn: "02-11-2017",
-            statusID: "2"
-          },
-          {
-            taskName: "test task 3",
-            dueDate: "03-11-2017",
-            statusName: "In Progress",
-            createdOn: "02-11-2017",
-            statusID: "3"
-          },
-          {
-            taskName: "test task 4",
-            dueDate: "04-11-2017",
-            statusName: "Planned",
-            createdOn: "02-11-2017",
-            statusID: "4"
-          }
-        ];
+        // vm.tasksListData = [
+        //   {
+        //     taskName: "test task",
+        //     dueDate: "01-11-2017",
+        //     statusName: "Blocked",
+        //     createdOn: "02-11-2017",
+        //     statusID: "1"
+        //   },
+        //   {
+        //     taskName: "test task 2",
+        //     dueDate: "02-11-2017",
+        //     statusName: "Done",
+        //     createdOn: "02-11-2017",
+        //     statusID: "2"
+        //   },
+        //   {
+        //     taskName: "test task 3",
+        //     dueDate: "03-11-2017",
+        //     statusName: "In Progress",
+        //     createdOn: "02-11-2017",
+        //     statusID: "3"
+        //   },
+        //   {
+        //     taskName: "test task 4",
+        //     dueDate: "04-11-2017",
+        //     statusName: "Planned",
+        //     createdOn: "02-11-2017",
+        //     statusID: "4"
+        //   }
+        // ];
+        vm.showErrorMessage('Some problem has occurred while fetching tasks');
       }
     });
     this.dtHandle = $("#tasksList").DataTable({
       columns: this.headers,
-      data: this.tasksListData
+      data: this.tasksListData,
+      responsive: true
     });
   }
 };
@@ -225,6 +248,9 @@ export default {
 #tasksList_wrapper {
   font-size: 15px;
 }
+/* #tasksList {
+  width: 100% !important;
+} */
 .row-action {
   cursor: pointer;
 }
@@ -234,20 +260,20 @@ export default {
 .disabled-action {
   cursor: not-allowed;
 }
-.toggle-dropdown-content label{
+.toggle-dropdown-content label {
   display: block;
   margin-left: 0px !important;
   margin-bottom: 16px;
 }
-table.dataTable tbody td{
+table.dataTable tbody td {
   padding: 12px;
 }
 table.dataTable thead th,
 table.dataTable tbody td,
-table{
+table {
   border-bottom: 1px solid rgb(236, 238, 239) !important;
 }
-.toggle-container{
+.toggle-container {
   float: right;
   margin-left: 20px;
   position: relative;
@@ -256,22 +282,30 @@ table{
   clear: none;
   position: static;
 }
-.toggle-dropdown-content{
-    position: absolute;
-    top: 22px;
-    right: 0px;
-    min-width: 120px;
-    background: #fff;
-    box-shadow: 0px 0px 1px 1px #DADADA;
-    z-index: 4;
-    padding: 10px;
-    border-radius: 3px;
+.toggle-dropdown-content {
+  position: absolute;
+  top: 22px;
+  right: 0px;
+  min-width: 120px;
+  background: #fff;
+  box-shadow: 0px 0px 1px 1px #dadada;
+  z-index: 4;
+  padding: 10px;
+  border-radius: 3px;
 }
 #tasksList_filter {
   margin-bottom: 20px;
 }
 #tasksList_info,
-#tasksList_paginate{
+#tasksList_paginate {
   margin-top: 20px;
+}
+.delete-dialog .el-dialog {
+  width: 30%;
+}
+@media (max-width: 767px) {
+  .delete-dialog .el-dialog {
+    width: 80%;
+  }
 }
 </style>

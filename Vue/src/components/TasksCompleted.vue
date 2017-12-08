@@ -1,6 +1,9 @@
 <template>
+<div>
+<h2>Tasks completed per day</h2>
 <div class="completed-on-graph-container">
 <canvas id="completedOnGraphContainer" width="540" height="300"></canvas>
+</div>
 </div>
 </template>
 <script>
@@ -128,8 +131,11 @@ export default {
 };
 </script>
 <style>
-.completed-on-graph-container {
-  width: 554px;
-  height: 300px;
-}
+
+
+/* #completedOnGraphContainer {
+  width: 90% !important;
+  margin: auto;
+} */
+
 </style>
