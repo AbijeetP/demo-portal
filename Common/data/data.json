@@ -1,33 +1,33 @@
 {
   "data": [
     {
-      "desc": "<ul><li>A responsive page that uses the bootstrap classes.</li><li>Add/update/delete tasks and view the status of the tasks in the charts shown in the page.</li><li>It uses CakePHP API and returns JSON which contains list of tasks.</li></ul>",
+      "desc": "A very basic task management system with a responsive design. Initial data is fed through a CakePHP REST API.",
       "link": "BootStrap/index.html",
       "moduleName": "Bootstrap",
       "tech": "HTML, CSS, jQuery, Bootstrap 4, CakePHP 3"
     },
     {
-      "desc": "<ul><li>A responsive page that uses angularjs platform.</li><li> Add/update/delete tasks and view the status of the tasks in the charts shown in the page.</li><li>It uses CakePHP API and returns JSON which contains list of tasks.</li></ul>",
+      "desc": "A very basic task management system with a responsive design. Initial data is fed through a CakePHP REST API.",
       "link": "AngularMaterial/index.html",
       "moduleName": "AngularJS",
       "tech": "HTML, CSS, AngularJS, Material-UI, CakePHP 3"
     },
     {
-      "desc": "<ul><li>A map that locates the bootstrap contributors.</li><li>It uses CakePHP API which fetches the location of contributers.</li></ul>",
+      "desc": "A map that locates the bootstrap contributors. It uses CakePHP API which fetches the location of contributers.",
       "link": "GoogleMaps/index.html",
       "moduleName": "Google Maps (Bootstrap contributors)",
       "tech": "Google Maps, AngularJS, Bootstrap 4, CakePHP 3"
     },
     {
-      "desc": "<ul><li>Search for nearest movies/restaurants around your location.</li><li>This page uses HTML5 Location API.</li></ul>",
+      "desc": "Search for nearest movies/restaurants around your location. This page uses HTML5 Location API.",
       "link": "GoogleMaps/search-location.html",
       "moduleName": "Google Maps (Movies and Restaurants locators)",
       "tech": "Google Maps, AngularJS, Angular Material, Bootstrap 4, CakePHP 3"
     },
     {
-      "desc": "<ul><li>A reusable sidebar component designed using Bootstrap 4.</li></ul>",
+      "desc": "A reusable sidebar component designed using Bootstrap 4.",
       "link": "SideBar/index.html",
-      "moduleName": "Sidebar",
+      "moduleName": "Responsive Sidebar",
       "tech": "HTML, CSS, jQuery, Bootstrap 4"
     }
   ]

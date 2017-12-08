@@ -1,6 +1,7 @@
 angular.module('angularDemo').controller('angularDemoController', function ($scope, $document, $http, $compile, $localStorage, $mdDialog, $timeout, DemoConstants, tasksService, blockUI) {
   var tsk = this;
   tsk.buttonName = 'Submit';
+  tsk.heading = 'Add Task';
   tsk.isUpdate = false;
   var highestIndex = 0;
   var tasksDataTableObj = '';
@@ -36,6 +37,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
       $localStorage.tasks.splice(tsk.editTaskIndex, 1);
       tsk.isUpdate = false;
       tsk.buttonName = 'Submit';
+      tsk.heading = 'Add Task';
       showSuccessMessage(DemoConstants.UPDATE_MESSAGE);
     } else {
       showSuccessMessage(DemoConstants.CREATE_MESSAGE);
@@ -43,7 +45,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     }
     var tasks = $localStorage.tasks ? $localStorage.tasks : [];
     tsk.taskDetails.statusName = getSelectedStatus(tsk.taskDetails.status);
-    tsk.taskDetails.createdOn = formatDate(new Date());
+    tsk.taskDetails.createdOn = tsk.taskDetails.createdOn ? tsk.taskDetails.createdOn : formatDate(new Date());
     tsk.taskDetails.statusID = tsk.taskDetails.status;
     tsk.taskDetails = addCompletedOn(tsk.taskDetails);
     tasks.push(tsk.taskDetails);
@@ -157,19 +159,21 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     className: 'mdl-data-table__cell--non-numeric'
   },
   {
-    data: '',
-    title: 'Actions',
-    render: function (data, type, row) {
-      var elem = null;
-      elem = $compile('<span><span class="edit-setting row-action" title="Edit"><i class="fa fa-1x fa-pencil"></span></i></span>')($scope)[0].innerHTML;
-      elem += $compile('<span><span class="delete-setting row-action" title="Delete"><i class="fa fa-1x fa-trash"></span></i></span>')($scope)[0].innerHTML;
-      if (row.statusID !== DemoConstants.DONE_STATUS) {
-        elem += $compile('<span><span title="Mark as done" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0].innerHTML;
-      } else {
-        elem += $compile('<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>')($scope)[0].innerHTML;
-      }
-      return elem;
+    data: 'statusID',
+    createdCell: function ( cell, statusID) {
+      $timeout(function () {
+        var elem = null;
+        elem = '<span class="action-span"><span class="edit-setting row-action"><md-tooltip md-direction="top">Edit</md-tooltip><i class="fa fa-1x fa-pencil"></span></i></span>';
+        elem += '<span class="action-span"><span class="delete-setting row-action"><md-tooltip md-direction="top">Delete</md-tooltip><i class="fa fa-1x fa-trash"></span></i></span>';
+        if (statusID !== DemoConstants.DONE_STATUS) {
+          elem += '<span class="action-span"><span class="mark-as-done row-action"><md-tooltip md-direction="top">Mark as done</md-tooltip><i class="fa fa-1x fa-check"></span></i></span>';
+        } else {
+          elem += '<span class="action-span"><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
+        }
+        angular.element(cell).empty().append($compile(elem)($scope));
+      });
     },
+    title: 'Actions',
     className: 'text-center mdl-data-table__cell--non-numeric',
     width: '20%',
     bSortable: false,
@@ -178,15 +182,15 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
 
   var tasksDataTableConfig = {
     responsive: true,
-    language: {
-      emptyTable: 'No matching records found.',
-      zeroRecords: 'No matching records found.',
-    },
     colReorder: true,
     columns: tsk.dtColumns,
     data: [],
     isFullWidth: true,
-    stateSave: true
+    stateSave: true,
+    language: {
+      info: 'Showing _START_ to _END_ of _TOTAL_ tasks',
+      sLengthMenu: 'Show _MENU_ tasks'
+    }
   };
 
   var $tasksGrid = angular.element('#tasksGrid');
@@ -283,6 +287,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   angular.element('#tasksGrid').on('click', '.edit-setting', function () {
     tsk.taskDetails = {};
     tsk.buttonName = 'Update';
+    tsk.heading = 'Edit Task';
     tsk.isUpdate = true;
     var rowData = tasksDataTableObj.row(this.parentElement).data();
     tsk.taskDetails.taskName = rowData.taskName;
@@ -293,7 +298,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.editTaskData = tasksDataTableObj.row(this.parentElement).data();
 
     angular.element('html,body').animate({
-      scrollTop: angular.element('.add-task-form ').offset().top
+      scrollTop: angular.element('.form-heading').offset().top
     },
       'slow');
   });
@@ -367,6 +372,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.taskDetails = {};
     tsk.submitted = true;
     tsk.buttonName = 'Submit';
+    tsk.heading = 'Add Task';
   };
 
   /**

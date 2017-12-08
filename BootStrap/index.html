@@ -24,24 +24,32 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-    <a class="navbar-brand" href="http://osmosys.asia/">
-      <img src="img/osmosys-logo.png" alt="logo">
-    </a>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="../">Introduction</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link help-link">Help<span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-  </nav>
+  <div class="header-container">
+    <div class="logo">
+      <a href="http://osmosys.asia/">
+        <img src="img/osmosys-logo.png" alt="logo">
+      </a>
+    </div>
+    <div class="page-title">
+      <h1>Bootstrap Portal</h1>
+    </div>
+    <div class="links">
+      <ul>
+        <li>
+          <a href="../">Introduction</a>
+        </li>
+        <li>
+          <a class="help-link">About</a>
+        </li>
+      </ul>
+    </div>
+  </div>
   <div class="modal help-modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Bootstrap</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
           <p>This portal will allow us to add, edit and delete the task.</p>
@@ -92,7 +100,7 @@
           <button class="btn btn-secondary dropdown-toggle dt-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false" title="Click here to select the columns which you want to view in the below table.">
             <i class="fa fa-list-alt"></i>
-  </button>
+          </button>
           <div class="dropdown-menu dropdown-menu-right" id="dropdown-list" aria-labelledby="dropdownMenuButton">
           </div>
         </div>

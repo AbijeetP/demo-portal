@@ -5,9 +5,6 @@ body {
 button {
   cursor: pointer;
 }
-a:focus, a:hover {
-  text-decoration: none;
-}
 .main-container button.md-btn-success {
   background-color: #4caf50 !important;
   color: #fff !important;
@@ -158,39 +155,9 @@ md-dialog-actions {
 .hide {
  	display: none;
 }
-.row-action:not(:last-child) {
+.action-span:not(:last-child) {
   margin-right: 20px;
 }
-.header-container {
-  background-color: #292b2c!important;
-}
-
-.header-container {
-   .logo, .links {
-     display: inline-block;
-     line-height: 65px;
-     margin: 0px 20px;
-   }
-   .links {
-     float: right;
-    ul {
-      line-height: 65px;
-      margin: 0px;
-      li {
-        display: inline-block;
-        font-size: 18px;
-        a{
-          color: #ffffff;
-          cursor: pointer;
-        }
-        .help-link {
-          margin-left: 20px;
-        }
-      }
-    }
-  }
-}
-
 a {
   color: #007bff;
 }
@@ -323,7 +290,11 @@ table th {
     text-align: center;
     .form-control  {
       display: inline;
-      width: auto;
     }
   }
+}
+.toggle-col-drop-down .toggle-dropdown-content {
+    top: 47px;
+    background-color: rgb(250,250,250);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
 }

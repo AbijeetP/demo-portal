@@ -27,8 +27,67 @@ nav {
 .nav-link {
   margin-left: 1em;
 }
+/*
+Header styles
+*/
+.header-container {
+  text-align: center;
+  background-color: #292b2c!important;
+}
+.header-container .logo,
+.header-container .links {
+  line-height: 4.5em;
+  margin: 0px 20px;
+  float: left;
+}
+.header-container .links {
+  float: right;
+}
+.header-container .links ul {
+  line-height: 5em;
+  margin: 0px;
+  padding-left: 0px;
+}
+.header-container .links ul li {
+  display: inline-block;
+  font-size: 18px;
+}
+.header-container .links ul li a {
+  color: #ffffff;
+  cursor: pointer;
+}
+.header-container .links ul li .help-link {
+  margin-left: 20px;
+}
+.header-container .links ul li .help-link:hover {
+  color: #fff !important;
+}
+.header-container .page-title {
+  display: inline-block;
+}
+.header-container .page-title h1 {
+  display: inline-block;
+  margin: 0;
+  color: #fff2f2;
+  font-size: 2.5em;
+  line-height: 2em;
+}
+a:focus,
+a:hover {
+  text-decoration: none;
+}
+@media (max-width: 768px) {
+  .header-container .links,
+  .header-container .logo {
+    float: none;
+  }
+  .header-container .page-title h1 {
+    font-size: 1.9em;
+    line-height: 2em;
+  }
+}
 body {
-  font-size: 0.82em;
+  font-size: 13px;
 }
 body h1,
 body h2 {
@@ -228,4 +287,7 @@ input[type="checkbox"]:checked + .check-box::after {
   .charts-container h2 {
     position: initial;
   }
+}
+.task-grid-section #task-grid_filter input[type=search] {
+  width: 80%;
 }
