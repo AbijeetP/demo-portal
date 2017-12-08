@@ -51,7 +51,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.ProvidePlugin({
       moment: 'moment'
     })
-
+    
   ]
 })
 
