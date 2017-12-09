@@ -137,11 +137,30 @@ export default {
     var vm = this;
     $.ajax({
       url: "http://10.0.0.160/demo-api/task-statuses",
+      timeout: 100,
       success: function(response) {
         vm.statusList = response.data;
       },
-      error: function(response) {
-        vm.showErrorMessage("Some problem has occurred while fetching statuses");
+      error: function (response) {
+        vm.statusList = [
+          {
+            statusName: 'Blocked',
+            statusID: 1
+          },
+          {
+            statusName: 'In Progress',
+            statusID: 3
+          },
+          {
+            statusName: 'Done',
+            statusID: 2
+          },
+          {
+            statusName: 'Planned',
+            statusID: 4
+          }
+          ]
+        // vm.showErrorMessage("Some problem has occurred while fetching statuses");
       }
     });
   },
