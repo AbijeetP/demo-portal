@@ -1,5 +1,5 @@
 
-export default {
-  getTaskDetails: {},
-  getTasksList: {}
+export const state = {
+  taskDetails: {},
+  tasksList: {}
 };

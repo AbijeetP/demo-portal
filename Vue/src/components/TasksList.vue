@@ -30,7 +30,12 @@
 
 <script>
 import { mapActions } from "vuex";
-import mixins from './../mixins.js'
+  import mixins from './../mixins.js';
+  import 'datatables.net/js/jquery.dataTables.js';
+  import 'datatables.net-responsive/js/dataTables.responsive.min.js'
+  import 'datatables.net-dt/css/jquery.dataTables.css'
+  import 'datatables.net-responsive-dt/css/responsive.dataTables.css'
+  import { constants} from './../constants.js';
 export default {
   name: "TasksList",
   mixins: [mixins],
@@ -110,7 +115,7 @@ export default {
         .draw(false);
       this.deleteDialogue = false;
       this.updateTasksList(this.dtHandle.rows().data());
-      this.showSuccessMessage('Task has been deleted successfully.')
+      this.showSuccessMessage(constants.MESSAGES.DELETE_SUCCESS);
     },
     getParentRow: function($element){
        var row = $element.parents('tr');
@@ -130,7 +135,7 @@ export default {
     },
     task: function(newTaskData) {
       if (newTaskData.statusID === 2) {
-        newTaskData.completedOn = moment(new Date()).format("DD-MM-YYYY");
+        newTaskData.completedOn = moment(new Date()).format(constants.DATE_FORMAT);
       } else {
         newTaskData.completedOn = "";
       }
@@ -146,11 +151,11 @@ export default {
           .data(data)
           .draw(false);
         this.updateTasksList(this.dtHandle.rows().data());
-        this.showSuccessMessage('Task has been updated successfully.')
+        this.showSuccessMessage(constants.MESSAGES.UPDATE_SUCCESS);
       } else {
         this.tasksListData.push(newTaskData);
         this.updateTasksList(this.tasksListData);
-        this.showSuccessMessage('Task has been created successfully.')
+        this.showSuccessMessage(constants.CREATE_SUCCESS);
       }
     }
   },
@@ -171,14 +176,14 @@ export default {
        var row = vm.getParentRow($(this));
         var markAsDoneData = vm.dtHandle.row(row).data();
         markAsDoneData.statusName = "Done";
-        markAsDoneData.statusID = 2;
-        markAsDoneData.completedOn = moment(new Date()).format("DD-MM-YYYY");
+        markAsDoneData.statusID = constants.DONE_STATUS_ID;
+        markAsDoneData.completedOn = moment(new Date()).format(constants.DATE_FORMAT);
         vm.dtHandle
           .row(row)
           .data(markAsDoneData)
           .draw(false);
         vm.updateTasksList(vm.dtHandle.rows().data());
-        vm.showSuccessMessage('Task status has been updated successfully.')
+        vm.showSuccessMessage(constants.UPDATE_SUCCESS);
       });
       $("#tasksList").on("click", ".edit-task", function() {
         var row = vm.getParentRow($(this));
@@ -188,7 +193,7 @@ export default {
       });
     });
     $.ajax({
-      url: "http://10.0.0.160/demo-api/tasks",
+      url: constants.BASE_API+constants.TASKS,
       timeout: 100,
       success: function(res) {
         vm.tasksListData = res.data;
@@ -230,7 +235,7 @@ export default {
            }
          ];
          vm.updateTasksList(vm.tasksListData);
-       // vm.showErrorMessage('Some problem has occurred while fetching tasks');
+       // vm.showErrorMessage(constants.ERROR);
       }
     });
     this.dtHandle = $("#tasksList").DataTable({

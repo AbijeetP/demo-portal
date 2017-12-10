@@ -15,7 +15,6 @@
           </el-row>
       </div>
        <footer-bar/>
-    
    </div>
 </template>
 

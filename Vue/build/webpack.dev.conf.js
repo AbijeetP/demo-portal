@@ -49,7 +49,11 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       inject: true
     }),
     new webpack.ProvidePlugin({
-      moment: 'moment'
+      moment: 'moment',
+      $: 'jquery',
+      jquery: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
     })
     
   ]
