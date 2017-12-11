@@ -1,6 +1,6 @@
 <template>
   <div class="custom-card">
-    <h1>Add Task</h1>
+    <h1 class="form-heading">Add Task</h1>
     <el-form ref="form" :model="form" label-width="120px" class="add-task">
       <el-row>
         <el-col :xs="24">

@@ -4,8 +4,8 @@
     <div>
       <div class="toggle-container">
         <button @click="showAndhideDropdown()" title="Click here to select the columns which you want to view in the below table.">
-            <i class="el-icon-tickets"></i>
-          </button>
+              <i class="el-icon-tickets"></i>
+            </button>
         <div class="toggle-dropdown-content hide">
           <el-checkbox v-for="column in headers" :key="column.data" v-if="!column.isRequired" v-model="isChecked[column.data]" @change="toggleColumn(column)">{{column.title}}</el-checkbox>
         </div>
@@ -15,9 +15,9 @@
       <el-dialog title="Delete" :visible.sync="deleteDialogue" class="delete-dialog">
         <span>Are you sure you want to delete this task?</span>
         <span slot="footer" class="dialog-footer">
-            <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
-            <el-button type="danger" @click="deleteTask()">Confirm</el-button>
-          </span>
+              <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
+              <el-button type="danger" @click="deleteTask()">Confirm</el-button>
+            </span>
       </el-dialog>
     </div>
   </div>
@@ -188,6 +188,10 @@
           var taskData = vm.dtHandle.row(row).data();
           vm.updateTaskDetails(taskData);
           vm.currentTask = $(this).parents('tr');
+          // Scroll to form when a user clicks on edit.
+          $('html, body').animate({
+            scrollTop: $('.form-heading').offset().top
+          });
         });
       });
       $.ajax({
