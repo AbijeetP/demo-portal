@@ -132,12 +132,12 @@
     margin-left: 20px;
   }
 
-  .success-notification {
-    background-color: #51a351 !important;
+  body .success-notification {
+    background-color: #51a351;
   }
 
-  .error-notification {
-    background-color: #fa5555 !important;
+  body .error-notification {
+    background-color: #fa5555;
   }
 
   body .el-dialog__body {
@@ -149,11 +149,11 @@
     padding-bottom: 0px;
   }
 
-  .el-notification__icon:before,
-  .el-notification__title,
-  .el-notification__content,
-  .el-notification .el-icon-close {
-    color: #fff !important;
+  body .el-notification__icon:before,
+  body .el-notification__title,
+  body .el-notification__content,
+  body .el-notification .el-icon-close {
+    color: #fff;
   }
 
   [class^="el-icon"] {
