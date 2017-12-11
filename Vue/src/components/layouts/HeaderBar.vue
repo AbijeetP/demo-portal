@@ -16,13 +16,16 @@
           <img src="../../assets/osmosys-logo.png" alt="logo">
         </a>
       </div>
+      <div class="page-title">
+        <h1>Vue Portal</h1>
+      </div>
       <div class="links">
         <ul>
           <li>
             <a href="../">Introduction</a>
           </li>
           <li>
-            <a class="help-link" @click="helpModal = true">Help</a>
+            <a class="help-link" @click="helpModal = true">About</a>
           </li>
         </ul>
       </div>
@@ -45,49 +48,73 @@
 <style>
   .header-container {
     background-color: #292b2c !important;
+    text-align: center;
   }
-  
+
   .el-dialog {
-    width: 80%;
+    width: 60%;
   }
-  
+
+  .header-container .logo {
+    float: left;
+  }
+
   .header-container .logo,
   .header-container .links {
     display: inline-block;
-    line-height: 65px;
+    line-height: 80px;
     margin: 0px 20px;
   }
-  
+
   .header-container .links {
     float: right;
   }
-  
+
   .header-container .links ul {
-    line-height: 65px;
+    line-height: 80px;
     margin: 0px;
   }
-  
+
   .header-container .links ul li {
     display: inline-block;
     font-size: 18px;
   }
-  
+
   .header-container .links ul li a {
     color: #ffffff;
     cursor: pointer;
   }
-  
+
   .header-container .links ul li .help-link {
     margin-left: 20px;
   }
-  
+
+  .page-title {
+    display: inline-block;
+  }
+
+  .page-title h1 {
+    display: inline-block;
+    margin: 0;
+    color: #fff2f2;
+    font-size: 2.5em;
+    line-height: 2em;
+  }
+
   @media (max-width: 767px) {
     .header-container .logo,
-    .header-container .links {
-      line-height: 40px;
+    .header-container .links,
+    .header-container .links ul {
+      line-height: 30px;
+    }
+    .page-title h1 {
+      font-size: 1.5em;
     }
     .header-container .links {
       float: none;
+    }
+    .page-title {
+      display: block;
     }
     .header-container {
       text-align: center;
@@ -97,6 +124,7 @@
     }
     .header-container .logo {
       margin-top: 8px;
+      float: none;
     }
     .help-modal .el-dialog {
       width: 80% !important;
