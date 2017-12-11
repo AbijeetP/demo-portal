@@ -13,7 +13,6 @@ export default {
         message: message,
         type: 'success',
         position: 'bottom-right',
-        duration: 60000,
         customClass: 'success-notification'
       })
     },
@@ -24,7 +23,6 @@ export default {
         message: message,
         type: 'error',
         position: 'bottom-right',
-        duration: 60000,
         customClass: 'error-notification'
       })
     }

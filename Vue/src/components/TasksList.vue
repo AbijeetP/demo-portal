@@ -123,7 +123,7 @@
         return row;
       }
     },
-  
+
     watch: {
       tasksListData: function(newTasksList) {
         this.dtHandle.clear();
@@ -198,41 +198,41 @@
           vm.updateTasksList(vm.tasksListData);
         },
         error: function() {
-          vm.tasksListData = [{
-              taskName: 'test task',
-              completedOn: '02-11-2017',
-              dueDate: '01-11-2017',
-              statusName: 'Blocked',
-              createdOn: '02-11-2017',
-              statusID: '1'
-            },
-            {
-              taskName: 'test task 2',
-              completedOn: '02-11-2017',
-              dueDate: '02-11-2017',
-              statusName: 'Done',
-              createdOn: '02-11-2017',
-              statusID: '2'
-            },
-            {
-              taskName: 'test task 3',
-              completedOn: '02-11-2017',
-              dueDate: '03-11-2017',
-              statusName: 'In Progress',
-              createdOn: '02-11-2017',
-              statusID: '3'
-            },
-            {
-              taskName: 'test task 4',
-              completedOn: '02-11-2017',
-              dueDate: '04-11-2017',
-              statusName: 'Planned',
-              createdOn: '02-11-2017',
-              statusID: '4'
-            }
-          ];
+          // vm.tasksListData = [{
+          //     taskName: 'test task',
+          //     completedOn: '02-11-2017',
+          //     dueDate: '01-11-2017',
+          //     statusName: 'Blocked',
+          //     createdOn: '02-11-2017',
+          //     statusID: '1'
+          //   },
+          //   {
+          //     taskName: 'test task 2',
+          //     completedOn: '02-11-2017',
+          //     dueDate: '02-11-2017',
+          //     statusName: 'Done',
+          //     createdOn: '02-11-2017',
+          //     statusID: '2'
+          //   },
+          //   {
+          //     taskName: 'test task 3',
+          //     completedOn: '02-11-2017',
+          //     dueDate: '03-11-2017',
+          //     statusName: 'In Progress',
+          //     createdOn: '02-11-2017',
+          //     statusID: '3'
+          //   },
+          //   {
+          //     taskName: 'test task 4',
+          //     completedOn: '02-11-2017',
+          //     dueDate: '04-11-2017',
+          //     statusName: 'Planned',
+          //     createdOn: '02-11-2017',
+          //     statusID: '4'
+          //   }
+          // ];
           vm.updateTasksList(vm.tasksListData);
-          // vm.showErrorMessage(constants.MESSAGES.ERROR);
+          vm.showErrorMessage(constants.MESSAGES.ERROR);
         }
       });
       this.dtHandle = $('#tasksList').DataTable({
@@ -248,58 +248,58 @@
   .edit-task {
     color: #0275d8;
   }
-  
+
   .delete-task {
     color: #f4511e;
   }
-  
+
   .mark-as-done-task {
     color: #449d48;
   }
-  
+
   #tasksList_wrapper {
     font-size: 15px;
   }
-  
+
   .row-action {
     cursor: pointer;
   }
-  
+
   .row-action:not(:last-child) {
     margin-right: 20px;
   }
-  
+
   .disabled-action {
     cursor: not-allowed;
   }
-  
+
   .toggle-dropdown-content label {
     display: block;
     margin-left: 0px !important;
     margin-bottom: 16px;
   }
-  
+
   table.dataTable tbody td {
     padding: 12px;
   }
-  
+
   table.dataTable thead th,
   table.dataTable tbody td,
   table {
     border-bottom: 1px solid rgb(236, 238, 239) !important;
   }
-  
+
   .toggle-container {
     float: right;
     margin-left: 20px;
     position: relative;
   }
-  
+
   #tasksList_wrapper {
     clear: none;
     position: static;
   }
-  
+
   .toggle-dropdown-content {
     position: absolute;
     top: 22px;
@@ -311,20 +311,20 @@
     padding: 10px;
     border-radius: 3px;
   }
-  
+
   #tasksList_filter {
     margin-bottom: 20px;
   }
-  
+
   #tasksList_info,
   #tasksList_paginate {
     margin-top: 20px;
   }
-  
+
   .delete-dialog .el-dialog {
     width: 30%;
   }
-  
+
   @media (max-width: 767px) {
     .delete-dialog .el-dialog {
       width: 80%;

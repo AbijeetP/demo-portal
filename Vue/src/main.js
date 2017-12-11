@@ -7,9 +7,8 @@ import VueI18n from 'vue-i18n'
 import messages from 'element-ui/lib/locale/lang/en.js'
 import { store } from './store/store.js'
 
-
 Vue.use(VueI18n)
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 // Create VueI18n instance with options
 Vue.config.lang = 'en'
@@ -18,7 +17,6 @@ Vue.locale('en', messages)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  
   router,
   store,
   template: '<App/>',
