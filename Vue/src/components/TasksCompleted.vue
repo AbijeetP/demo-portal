@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Tasks completed per day</h2>
+    <h3>Tasks completed per day</h3>
     <div class="completed-on-graph-container">
       <canvas id="completedOnGraphContainer" width="540" height="300"></canvas>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Tasks status</h2>
+    <h3>Tasks status</h3>
     <div id="tasksStatusGraphContainer">
       <canvas id="tasksStatusGraph" width="540" height="300"></canvas>
     </div>

@@ -4,7 +4,7 @@
     <div class="main-content container">
       <add-task @addTask="createNewTask" />
       <tasks-list :task="taskDetails" />
-      <h1 class="graph-heading">Statistics</h1>
+      <h2 class="graph-heading">Statistics</h2>
       <el-row>
         <el-col :xs="24" :sm="24" :md="11" class="custom-card">
           <tasks-status/>
@@ -170,7 +170,7 @@
     .container {
       width: 970px;
     }
-    .tasks-completed {
+    body .tasks-completed {
       margin-left: 4%;
       width: 46%;
     }

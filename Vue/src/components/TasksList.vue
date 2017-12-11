@@ -1,6 +1,6 @@
 <template>
   <div class="custom-card">
-    <h1>Tasks List</h1>
+    <h2>Tasks List</h2>
     <div>
       <div class="toggle-container">
         <button @click="showAndhideDropdown()" title="Click here to select the columns which you want to view in the below table.">
@@ -248,7 +248,7 @@
     margin-bottom: 16px;
   }
 
-  table.dataTable tbody td {
+  body table.dataTable tbody td {
     padding: 12px;
   }
 
