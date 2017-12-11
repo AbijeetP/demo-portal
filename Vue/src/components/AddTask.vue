@@ -6,7 +6,7 @@
         <el-col :xs="24">
           <el-form-item label="Task Name" for="taskName">
             <el-input v-validate="'required'" :class="{'is-danger': errors.has('taskName')}" name="taskName" v-model="form.name" id="taskName"></el-input>
-            <span v-show="errors.has('taskName')" class="help is-danger">{{errors.first("taskName")}}</span>
+            <span v-show="errors.has('taskName')" class="help is-danger">This field is required.</span>
           </el-form-item>
         </el-col>
         <el-col :xs="24">
@@ -14,7 +14,7 @@
             <el-select v-validate="'required'" :class="{'is-danger': errors.has('status')}" name="status" v-model="form.status" placeholder="please select status" id="status">
               <el-option v-for="status in statusList" :label="status.statusName" :value="status.statusID" :key="status.statusID"></el-option>
             </el-select>
-            <span v-show="errors.has('status')" class="is-danger">{{errors.first("status")}}</span>
+            <span v-show="errors.has('status')" class="is-danger">This field is required.</span>
           </el-form-item>
         </el-col>
       </el-row>
@@ -22,8 +22,8 @@
         <el-col :xs="24">
           <el-form-item label="Due Date" for="dueDate">
             <el-col :span="24">
-              <el-date-picker id="dueDate" format="dd-MM-yyyy" v-validate="'date_format|required'" :class="{'is-danger': errors.has('dueDate')}" name="dueDate" type="date" placeholder="Pick a date" v-model="form.dueDate" @change="datePkcr()" style="width: 100%;"></el-date-picker>
-              <span v-show="errors.has('dueDate')" class="is-danger">{{errors.first("dueDate")}}</span>
+              <el-date-picker id="dueDate" format="dd-MM-yyyy" v-validate="'date_format:DD-MM-YYYY|required'" :class="{'is-danger': errors.has('dueDate')}" name="dueDate" type="date" placeholder="Pick a date" v-model="form.dueDate" @change="datePkcr()" style="width: 100%;"></el-date-picker>
+              <span v-show="errors.has('dueDate')" class="is-danger">This field is required.</span>
             </el-col>
           </el-form-item>
         </el-col>
