@@ -6,7 +6,7 @@
       <tasks-list :task="taskDetails" />
       <h2 class="graph-heading">Statistics</h2>
       <el-row>
-        <el-col :xs="24" :sm="24" :md="11" class="custom-card">
+        <el-col :xs="24" :sm="24" :md="12" class="custom-card tasks-status-graph-container">
           <tasks-status/>
         </el-col>
         <el-col :xs="24" :sm="24" :md="12" class="custom-card tasks-completed">
@@ -62,6 +62,7 @@
 
   body {
     margin: 0px;
+    font-size: 13px;
   }
 
   .align-center {
@@ -132,18 +133,27 @@
   }
 
   .success-notification {
-    background-color: #51a351;
+    background-color: #51a351 !important;
   }
 
   .error-notification {
-    background-color: #fa5555;
+    background-color: #fa5555 !important;
+  }
+
+  body .el-dialog__body {
+    padding: 15px;
+    padding-top: 0px;
+  }
+
+  body .el-dialog__header {
+    padding-bottom: 0px;
   }
 
   .el-notification__icon:before,
   .el-notification__title,
   .el-notification__content,
-  .el-icon-close {
-    color: #fff;
+  .el-notification .el-icon-close {
+    color: #fff !important;
   }
 
   [class^="el-icon"] {
@@ -170,9 +180,15 @@
     .container {
       width: 970px;
     }
+    body .tasks-status-graph-container,
     body .tasks-completed {
-      margin-left: 4%;
-      width: 46%;
+      width: 49%;
+    }
+    body .tasks-status-graph-container {
+      margin-right: 1%;
+    }
+    body .tasks-completed {
+      margin-left: 1%;
     }
   }
 

@@ -62,7 +62,7 @@
   .header-container .logo,
   .header-container .links {
     display: inline-block;
-    line-height: 80px;
+    line-height: 65px;
     margin: 0px 20px;
   }
 
@@ -71,7 +71,7 @@
   }
 
   .header-container .links ul {
-    line-height: 80px;
+    line-height: 65px;
     margin: 0px;
   }
 
@@ -97,7 +97,7 @@
     display: inline-block;
     margin: 0;
     color: #fff2f2;
-    font-size: 2em;
+    font-size: 2.5em;
     line-height: 2em;
   }
 
