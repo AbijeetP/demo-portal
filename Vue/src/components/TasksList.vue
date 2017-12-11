@@ -201,40 +201,6 @@
           vm.updateTasksList(vm.tasksListData);
         },
         error: function() {
-          // vm.tasksListData = [{
-          //     taskName: 'test task',
-          //     completedOn: '02-11-2017',
-          //     dueDate: '01-11-2017',
-          //     statusName: 'Blocked',
-          //     createdOn: '02-11-2017',
-          //     statusID: '1'
-          //   },
-          //   {
-          //     taskName: 'test task 2',
-          //     completedOn: '02-11-2017',
-          //     dueDate: '02-11-2017',
-          //     statusName: 'Done',
-          //     createdOn: '02-11-2017',
-          //     statusID: '2'
-          //   },
-          //   {
-          //     taskName: 'test task 3',
-          //     completedOn: '02-11-2017',
-          //     dueDate: '03-11-2017',
-          //     statusName: 'In Progress',
-          //     createdOn: '02-11-2017',
-          //     statusID: '3'
-          //   },
-          //   {
-          //     taskName: 'test task 4',
-          //     completedOn: '02-11-2017',
-          //     dueDate: '04-11-2017',
-          //     statusName: 'Planned',
-          //     createdOn: '02-11-2017',
-          //     statusID: '4'
-          //   }
-          // ];
-          vm.updateTasksList(vm.tasksListData);
           vm.showErrorMessage(constants.MESSAGES.ERROR);
         }
       });

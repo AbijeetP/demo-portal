@@ -1,6 +1,6 @@
 # demo-portal
 
-The idea of this page is to demonstrate to our end clients our technical powers.
+The idea of this page is to demonstrate to our end clients our technical prowess.
 
 ## Vue
 To get you started you can simply clone the repository, move to the Vue folder and install the dependencies.

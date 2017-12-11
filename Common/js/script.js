@@ -27,7 +27,11 @@ $(document).ready(function () {
     }, {
       name: 'Angular Material',
       class: 'badge-blue'
+    }, {
+      name: 'VueJS',
+      class: 'badge-dark-blue'
     }
+
   ];
 
   function getTechClass(tech) {

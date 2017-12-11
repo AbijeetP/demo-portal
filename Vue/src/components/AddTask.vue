@@ -147,25 +147,7 @@
           vm.statusList = response.data;
         },
         error: function(response) {
-          // vm.statusList = [
-          //   {
-          //     statusName: "Blocked",
-          //     statusID: 1
-          //   },
-          //   {
-          //     statusName: "In Progress",
-          //     statusID: 3
-          //   },
-          //   {
-          //     statusName: "Done",
-          //     statusID: 2
-          //   },
-          //   {
-          //     statusName: "Planned",
-          //     statusID: 4
-          //   }
-          // ]
-          vm.showErrorMessage("Some problem has occurred while fetching statuses");
+          vm.showErrorMessage(constants.MESSAGES.ERROR);
         }
       });
     },
