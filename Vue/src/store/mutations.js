@@ -1,8 +1,8 @@
 export const mutations = {
-  updateTaskDetails(state, payload) {
+  updateTaskDetails (state, payload) {
     state.taskDetails = payload;
   },
-  updateTasksList(state, payload) {
+  updateTasksList (state, payload) {
     state.tasksList = payload;
   }
 }
