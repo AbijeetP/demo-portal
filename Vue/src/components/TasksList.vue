@@ -196,7 +196,6 @@
       });
       $.ajax({
         url: constants.BASE_API + constants.TASKS,
-        timeout: 100,
         success: function(res) {
           vm.tasksListData = res.data;
           vm.updateTasksList(vm.tasksListData);
