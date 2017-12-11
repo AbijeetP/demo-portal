@@ -55,7 +55,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       jQuery: 'jquery',
       'window.jQuery': 'jquery'
     })
-    
+
   ]
 })
 
