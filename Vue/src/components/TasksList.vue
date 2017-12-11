@@ -155,7 +155,7 @@ export default {
       } else {
         this.tasksListData.push(newTaskData);
         this.updateTasksList(this.tasksListData);
-        this.showSuccessMessage(constants.CREATE_SUCCESS);
+        this.showSuccessMessage(constants.MESSAGES.CREATE_SUCCESS);
       }
     }
   },
@@ -183,7 +183,7 @@ export default {
           .data(markAsDoneData)
           .draw(false);
         vm.updateTasksList(vm.dtHandle.rows().data());
-        vm.showSuccessMessage(constants.UPDATE_SUCCESS);
+        vm.showSuccessMessage(constants.MESSAGES.UPDATE_SUCCESS);
       });
       $("#tasksList").on("click", ".edit-task", function() {
         var row = vm.getParentRow($(this));
@@ -235,7 +235,7 @@ export default {
            }
          ];
          vm.updateTasksList(vm.tasksListData);
-       // vm.showErrorMessage(constants.ERROR);
+       // vm.showErrorMessage(constants.MESSAGES.ERROR);
       }
     });
     this.dtHandle = $("#tasksList").DataTable({
