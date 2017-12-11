@@ -11,6 +11,9 @@ A demo portal created using various technologies
 |  | It uses CakePHP API and returns JSON which contains list of tasks. |
 | Google Maps (Movies and Restaurants locators) | Search for nearest movies/restaurants around your location.|
 |  | This page uses HTML 5 Location API. |
+| VueJS |A responsive page that uses Vuejs platform. |
+|  | Add/update/delete tasks and view the status of the tasks in the charts shown in the page. |
+|  | It uses CakePHP API and returns JSON which contains list of tasks. |
 
 
 ## Getting started
@@ -46,27 +49,27 @@ npm start
 ├── project1
 │   ├── css
 │   │   └── empty
-│   ├── img  
+│   ├── img
 │   │   └── empty
-│   ├── js  
+│   ├── js
 │   │   └── empty
-│   ├── Gruntfile.js  
-│   ├── index.html  
-│   ├── package.json  
-│   ├── bower.json  
-│   ├── .bowerrc 
+│   ├── Gruntfile.js
+│   ├── index.html
+│   ├── package.json
+│   ├── bower.json
+│   ├── .bowerrc
 │   ├── README.md
 ├── project2
 │   ├── css
 │   │   └── empty
-│   ├── img  
+│   ├── img
 │   │   └── empty
-│   ├── js  
+│   ├── js
 │   │   └── empty
-│   ├── Gruntfile.js  
-│   ├── index.html  
-│   ├── package.json  
-│   ├── bower.json  
-│   ├── .bowerrc 
-│   ├── README.md 
+│   ├── Gruntfile.js
+│   ├── index.html
+│   ├── package.json
+│   ├── bower.json
+│   ├── .bowerrc
+│   ├── README.md
 ```
