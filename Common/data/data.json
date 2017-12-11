@@ -29,6 +29,12 @@
       "link": "SideBar/index.html",
       "moduleName": "Responsive Sidebar",
       "tech": "HTML, CSS, jQuery, Bootstrap 4"
+    },
+    {
+      "desc": "A very basic task management system with a responsive design. Initial data is fed through a CakePHP REST API.",
+      "link": "Vue/index.html",
+      "moduleName": "VueJS",
+      "tech": "HTML, CSS, VueJS, jQuery, CakePHP 3"
     }
   ]
 }
