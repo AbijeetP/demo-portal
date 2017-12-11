@@ -11,6 +11,7 @@ A demo portal created using various technologies
 |  | It uses CakePHP API and returns JSON which contains list of tasks. |
 | Google Maps (Movies and Restaurants locators) | Search for nearest movies/restaurants around your location.|
 |  | This page uses HTML 5 Location API. |
+| Responsive Sidebar | A reusable sidebar component designed using Bootstrap 4.|
 | VueJS |A responsive page that uses Vuejs platform. |
 |  | Add/update/delete tasks and view the status of the tasks in the charts shown in the page. |
 |  | It uses CakePHP API and returns JSON which contains list of tasks. |
