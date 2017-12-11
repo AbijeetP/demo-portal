@@ -4,8 +4,8 @@
     <div>
       <div class="toggle-container">
         <button @click="showAndhideDropdown()" title="Click here to select the columns which you want to view in the below table.">
-                  <i class="el-icon-tickets"></i>
-                </button>
+                    <i class="el-icon-tickets"></i>
+                  </button>
         <div class="toggle-dropdown-content hide">
           <el-checkbox v-for="column in headers" :key="column.data" v-if="!column.isRequired" v-model="isChecked[column.data]" @change="toggleColumn(column)">{{column.title}}</el-checkbox>
         </div>
@@ -15,9 +15,9 @@
       <el-dialog title="Delete" :visible.sync="deleteDialogue" class="delete-dialog">
         <span>Are you sure you want to delete this task?</span>
         <span slot="footer" class="dialog-footer">
-                  <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
-                  <el-button type="danger" @click="deleteTask()">Confirm</el-button>
-                </span>
+                    <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
+                    <el-button type="danger" @click="deleteTask()">Confirm</el-button>
+                  </span>
       </el-dialog>
     </div>
   </div>
@@ -28,10 +28,12 @@
     mapActions
   } from 'vuex';
   import mixins from './../mixins.js';
-  import 'datatables.net/js/jquery.dataTables.js';
-  import 'datatables.net-responsive/js/dataTables.responsive.min.js'
   import 'datatables.net-dt/css/jquery.dataTables.css'
+  import 'datatables.net-colreorder-dt/css/colReorder.dataTables.min.css'
   import 'datatables.net-responsive-dt/css/responsive.dataTables.css'
+  import 'datatables.net/js/jquery.dataTables.js';
+  import 'datatables.net-colreorder/js/dataTables.colReorder.js'
+  import 'datatables.net-responsive/js/dataTables.responsive.min.js'
   import {
     constants
   } from './../constants.js';
@@ -216,6 +218,7 @@
         columns: this.headers,
         data: this.tasksListData,
         responsive: true,
+        colReorder: true,
         language: {
           info: 'showing _START_ to _END_ of _TOTAL_ tasks',
           sLengthMenu: 'show _MENU_ tasks'
