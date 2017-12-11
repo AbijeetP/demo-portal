@@ -66,11 +66,11 @@
           },
           {
             data: '',
-            title: 'Action',
+            title: 'Actions',
             render: function(row, type, data) {
               var elem = '<i class="el-icon-edit edit-task row-action" title="Edit"></i>';
               elem += '<i class="el-icon-delete delete-task row-action" title="Delete"></i>';
-              if (+data.statusID === 2) {
+              if (+data.statusID === constants.DONE_STATUS_ID) {
                 elem +=
                   '<i class="el-icon-check mark-as-done-task row-action disabled-action" title="Mark as done"></i>';
               } else {

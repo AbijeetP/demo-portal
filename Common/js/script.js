@@ -31,7 +31,6 @@ $(document).ready(function () {
       name: 'VueJS',
       class: 'badge-dark-blue'
     }
-
   ];
 
   function getTechClass(tech) {
