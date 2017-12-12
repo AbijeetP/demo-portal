@@ -1,6 +1,7 @@
 <template>
   <div class="custom-card">
     <h2>Tasks List</h2>
+
     <div>
       <div class="toggle-container">
         <el-tooltip class="item" effect="dark" content="Click here to select the columns which you want to view in the below table." placement="bottom-start">
@@ -26,6 +27,7 @@
 </template>
 
 <script>
+
   import {
     mapActions
   } from 'vuex';
@@ -54,19 +56,23 @@
         headers: [{
             data: 'taskName',
             title: 'Task Name',
-            isRequired: true
+            isRequired: true,
+            width: '40%'
           },
           {
             data: 'dueDate',
-            title: 'Due Date'
+            title: 'Due Date',
+            width: '15%'
           },
           {
             data: 'createdOn',
-            title: 'Created On'
+            title: 'Created On',
+            width: '15%'
           },
           {
             data: 'statusName',
-            title: 'Status'
+            title: 'Status',
+            width: '10%'
           },
           {
             data: '',
@@ -85,7 +91,8 @@
             },
             class: 'align-center',
             isRequired: true,
-            bSortable: false
+            bSortable: false,
+            width: '20%'
           }
         ],
         rows: [],
@@ -107,7 +114,7 @@
         }
       },
       showAndhideDropdown: function() {
-        $('.toggle-dropdown-content').toggleClass('hide');
+        $('.toggle-dropdown-content').toggleClass('hide');  
       },
       deleteTask: function() {
         var row = this.getParentRow(this.currentDeleteTask);
