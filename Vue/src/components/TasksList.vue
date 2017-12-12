@@ -5,8 +5,8 @@
       <div class="toggle-container">
         <el-tooltip class="item" effect="dark" content="Click here to select the columns which you want to view in the below table." placement="bottom-start">
           <button @click="showAndhideDropdown()">
-              <i class="el-icon-tickets"></i>
-            </button>
+                <i class="el-icon-tickets"></i>
+              </button>
         </el-tooltip>
         <div class="toggle-dropdown-content hide">
           <el-checkbox v-for="column in headers" :key="column.data" v-if="!column.isRequired" v-model="isChecked[column.data]" @change="toggleColumn(column)">{{column.title}}</el-checkbox>
@@ -17,9 +17,9 @@
       <el-dialog title="Delete" :visible.sync="deleteDialogue" class="delete-dialog">
         <span>Are you sure you want to delete this task?</span>
         <span slot="footer" class="dialog-footer">
-              <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
-              <el-button type="danger" @click="deleteTask()">Confirm</el-button>
-            </span>
+          <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
+          <el-button type="danger" @click="deleteTask()">Confirm</el-button>
+        </span>
       </el-dialog>
     </div>
   </div>
@@ -30,7 +30,7 @@
     mapActions
   } from 'vuex';
   import mixins from './../mixins.js';
-    import 'datatables.net-dt/css/jquery.dataTables.css'
+  import 'datatables.net-dt/css/jquery.dataTables.css'
   import 'datatables.net-colreorder-dt/css/colReorder.dataTables.min.css'
   import 'datatables.net-responsive-dt/css/responsive.dataTables.css'
   import 'datatables.net/js/jquery.dataTables.js';
