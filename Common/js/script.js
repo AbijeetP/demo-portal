@@ -29,7 +29,7 @@ $(document).ready(function () {
       class: 'badge-blue'
     }, {
       name: 'VueJS',
-      class: 'badge-dark-blue'
+      class: 'badge-orange'
     }
   ];
 

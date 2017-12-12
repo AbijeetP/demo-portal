@@ -9,7 +9,7 @@ export default {
     showSuccessMessage: function (message) {
       this.notification ? this.notification.close() : ''
       this.notification = this.$notify({
-        title: 'success',
+        title: 'Success',
         message: message,
         type: 'success',
         position: 'bottom-right',
