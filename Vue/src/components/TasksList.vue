@@ -5,8 +5,8 @@
       <div class="toggle-container">
         <el-tooltip class="item" effect="dark" content="Click here to select the columns which you want to view in the below table." placement="bottom-start">
           <button @click="showAndhideDropdown()">
-                <i class="el-icon-tickets"></i>
-              </button>
+            <i class="el-icon-tickets"></i>
+          </button>
         </el-tooltip>
         <div class="toggle-dropdown-content hide">
           <el-checkbox v-for="column in headers" :key="column.data" v-if="!column.isRequired" v-model="isChecked[column.data]" @change="toggleColumn(column)">{{column.title}}</el-checkbox>
