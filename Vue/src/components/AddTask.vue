@@ -85,34 +85,37 @@
     methods: {
       ...mapActions(['updateTaskDetails']),
       addFormValues: function() {
-        this.form.name = this.getTaskDetails.taskName;
-        this.form.status = this.getTaskDetails.statusID;
-        this.form.dueDate = moment(
-          this.getTaskDetails.dueDate,
-          constants.DATE_FORMAT
-        ).toDate();
-        this.form.isUpdate = this.getTaskDetails.taskName ? true : false;
-        this.buttonName = this.form.isUpdate ? 'Update' : 'Create';
-        this.formHeading = this.form.isUpdate ? 'Edit Task' : 'Add Task';
+        if (this.getTaskDetails.hasOwnProperty('taskName')) {
+          this.form.name = this.getTaskDetails.taskName;
+          this.form.status = this.getTaskDetails.statusID;
+          this.form.dueDate = moment(
+            this.getTaskDetails.dueDate,
+            constants.DATE_FORMAT
+          ).toDate();
+          this.form.isUpdate = this.getTaskDetails.taskName ? true : false;
+          this.buttonName = this.form.isUpdate ? 'Update' : 'Create';
+          this.formHeading = this.form.isUpdate ? 'Edit Task' : 'Add Task';
+        }
       },
       datePkcr: function() {
         this.$validator.validate('dueDate');
       },
       createNewTask: function() {
+        var vm = this;
         this.$validator.validateAll().then(result => {
           if (!result) {
             return;
           } else {
             var newTaskData = {};
-            newTaskData.taskName = this.form.name;
-            newTaskData.createdOn = this.formatDate(new Date());
-            newTaskData.dueDate = this.formatDate(this.form.dueDate);
-            newTaskData.statusID = this.form.status;
-            newTaskData.statusName = this.getStatusName(this.form.status);
-            newTaskData.isUpdate = this.form.isUpdate;
-            this.$emit('addTask', newTaskData);
-            this.form.isUpdate = false;
-            this.resetForm();
+            newTaskData.taskName = vm.form.name;
+            newTaskData.createdOn = vm.formatDate(new Date());
+            newTaskData.dueDate = vm.formatDate(this.form.dueDate);
+            newTaskData.statusID = vm.form.status;
+            newTaskData.statusName = vm.getStatusName(this.form.status);
+            newTaskData.isUpdate = vm.form.isUpdate;
+            vm.$emit('addTask', newTaskData);
+            vm.form.isUpdate = false;
+            vm.resetForm();
           }
         });
       },

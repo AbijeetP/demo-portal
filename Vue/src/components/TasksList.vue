@@ -149,14 +149,15 @@
           newTaskData.completedOn = '';
         }
         if (newTaskData.isUpdate) {
-          var data = this.dtHandle.row(this.currentTask).data();
+          var row = this.getParentRow(this.currentTask);
+          var data = this.dtHandle.row(row).data();
           data.taskName = newTaskData.taskName;
           data.statusName = newTaskData.statusName;
           data.statusID = newTaskData.statusID;
           data.dueDate = newTaskData.dueDate;
           data.completedOn = newTaskData.completedOn;
           this.dtHandle
-            .row(this.currentTask)
+            .row(row)
             .data(data)
             .draw(false);
           this.updateTasksList(this.dtHandle.rows().data());
@@ -206,7 +207,7 @@
           var row = vm.getParentRow($(this));
           var taskData = vm.dtHandle.row(row).data();
           vm.updateTaskDetails(taskData);
-          vm.currentTask = $(this).parents('tr');
+          vm.currentTask = $(this);
           // Scroll to form when a user clicks on edit.
           $('html, body').animate({
             scrollTop: $('.main-content').offset().top
@@ -230,7 +231,8 @@
         colReorder: true,
         language: {
           info: 'Showing _START_ to _END_ of _TOTAL_ tasks',
-          sLengthMenu: 'Show _MENU_ tasks'
+          sLengthMenu: 'Show _MENU_ tasks',
+          zeroRecords: 'No matching tasks found.'
         }
       });
     }
