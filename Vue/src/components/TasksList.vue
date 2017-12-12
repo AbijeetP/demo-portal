@@ -4,7 +4,7 @@
 
     <div>
       <div class="toggle-container">
-        <el-tooltip class="item" effect="dark" content="Click here to select the columns which you want to view in the below table." placement="bottom-start">
+        <el-tooltip class="item" effect="dark" content="Click here to select the columns which you want to view in the below table." placement="top">
           <button @click="showAndhideDropdown()">
             <i class="el-icon-tickets"></i>
           </button>
