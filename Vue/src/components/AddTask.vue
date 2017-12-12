@@ -1,11 +1,11 @@
 <template>
   <div class="custom-card">
-    <h2 class="form-heading">Add Task</h2>
-    <el-form ref="form" :model="form" label-width="120px" class="add-task">
+    <h2 class="form-heading">{{formHeading}}</h2>
+    <el-form ref="form" :model="form" label-width="120px" v-bind:class="{ 'reset-form': isReset }">
       <el-row>
         <el-col :xs="24">
           <el-form-item label="Task Name" for="taskName">
-            <el-input v-validate="'required'" :class="{'is-danger': errors.has('taskName')}" name="taskName" v-model="form.name" id="taskName"></el-input>
+            <el-input v-validate="'required'" :class="{'is-danger': errors.has('taskName')}" name="taskName" :maxlength=200 v-model="form.name" id="taskName"></el-input>
             <span v-show="errors.has('taskName')" class="help is-danger">This field is required.</span>
           </el-form-item>
         </el-col>
@@ -69,7 +69,9 @@
           isUpdate: ''
         },
         statusList: [],
-        buttonName: 'Create'
+        buttonName: 'Create',
+        isReset: false,
+        formHeading: 'Add Task'
       };
     },
     computed: {
@@ -91,6 +93,7 @@
         ).toDate();
         this.form.isUpdate = this.getTaskDetails.taskName ? true : false;
         this.buttonName = this.form.isUpdate ? 'Update' : 'Create';
+        this.formHeading = this.form.isUpdate ? 'Edit Task' : 'Add Task';
       },
       datePkcr: function() {
         this.$validator.validate('dueDate');
@@ -115,17 +118,23 @@
       },
       resetForm() {
         var vm = this;
+        vm.isReset = true;
         vm.form = {
           name: '',
           status: '',
           dueDate: '',
           isUpdate: ''
         };
+  
         this.buttonName = 'Create';
+        this.formHeading = 'Add Task';
         this.updateTaskDetails({});
-        setTimeout(function() {
-          vm.$validator.clean();
-        }, 50);
+        this.$nextTick(() => {
+          setTimeout(function() {
+            vm.errors.clear();
+            vm.isReset = false;
+          }, 1)
+        });
       },
       formatDate: function(date) {
         var dateObj = moment(date, constants.DATE_FORMAT).toDate();
@@ -162,16 +171,20 @@
   .is-danger select {
     border-color: #ff3860;
   }
-
+  
   .is-danger {
     color: #ff3860;
   }
-
+  
   .el-form-item label {
     text-align: left;
   }
-
+  
   .tasks-buttons .el-form-item__content {
     margin-left: 0px !important;
+  }
+  
+  .reset-form span.is-danger {
+    display: none;
   }
 </style>

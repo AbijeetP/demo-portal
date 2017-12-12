@@ -156,10 +156,6 @@
     color: #fff;
   }
 
-  [class^="el-icon"] {
-    font-weight: bold;
-  }
-
   button {
     cursor: pointer;
   }

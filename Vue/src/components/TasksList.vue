@@ -3,9 +3,11 @@
     <h2>Tasks List</h2>
     <div>
       <div class="toggle-container">
-        <button @click="showAndhideDropdown()" title="Click here to select the columns which you want to view in the below table.">
-          <i class="el-icon-tickets"></i>
-        </button>
+        <el-tooltip class="item" effect="dark" content="Click here to select the columns which you want to view in the below table." placement="bottom-start">
+          <button @click="showAndhideDropdown()">
+            <i class="el-icon-tickets"></i>
+          </button>
+        </el-tooltip>
         <div class="toggle-dropdown-content hide">
           <el-checkbox v-for="column in headers" :key="column.data" v-if="!column.isRequired" v-model="isChecked[column.data]" @change="toggleColumn(column)">{{column.title}}</el-checkbox>
         </div>
@@ -125,7 +127,7 @@
         return row;
       }
     },
-
+  
     watch: {
       tasksListData: function(newTasksList) {
         this.dtHandle.clear();
@@ -172,7 +174,7 @@
             $toggleDropdownContent.addClass('hide');
           }
         });
-
+  
         $('#tasksList').on('click', '.delete-task', function() {
           vm.deleteDialogue = true;
           vm.currentDeleteTask = $(this);
@@ -200,7 +202,7 @@
           vm.currentTask = $(this).parents('tr');
           // Scroll to form when a user clicks on edit.
           $('html, body').animate({
-            scrollTop: $('.form-heading').offset().top
+            scrollTop: $('.main-content').offset().top
           });
         });
       });
@@ -220,8 +222,8 @@
         responsive: true,
         colReorder: true,
         language: {
-          info: 'showing _START_ to _END_ of _TOTAL_ tasks',
-          sLengthMenu: 'show _MENU_ tasks'
+          info: 'Showing _START_ to _END_ of _TOTAL_ tasks',
+          sLengthMenu: 'Show _MENU_ tasks'
         }
       });
     }
@@ -232,62 +234,66 @@
   .edit-task {
     color: #0275d8;
   }
-
+  
   .delete-task {
     color: #f4511e;
   }
-
+  
   .mark-as-done-task.disabled-action {
     color: #B4B4B4;
   }
-
+  
   .mark-as-done-task {
     color: #449d48;
   }
-
+  
   #tasksList_wrapper {
     font-size: 15px;
   }
-
+  
   .row-action {
     cursor: pointer;
   }
-
+  
   .row-action:not(:last-child) {
     margin-right: 20px;
   }
-
+  
   .disabled-action {
     cursor: not-allowed;
   }
-
+  
   .toggle-dropdown-content label {
     display: block;
     margin-left: 0px !important;
     margin-bottom: 16px;
   }
-
+  
   body table.dataTable tbody td {
     padding: 12px;
   }
-
+  
   table.dataTable thead th,
   table.dataTable tbody td,
   table {
     border-bottom: 1px solid rgb(236, 238, 239) !important;
   }
-
+  
   .toggle-container {
     float: right;
     margin-left: 20px;
     position: relative;
   }
-
+  
   #tasksList_wrapper {
     clear: none;
     position: static;
   }
-
+  
+  [class^="el-icon"] {
+    font-weight: bold;
+  }
+  
   .toggle-dropdown-content {
     position: absolute;
     top: 22px;
@@ -299,20 +305,20 @@
     padding: 10px;
     border-radius: 3px;
   }
-
+  
   #tasksList_filter {
     margin-bottom: 20px;
   }
-
+  
   #tasksList_info,
   #tasksList_paginate {
     margin-top: 20px;
   }
-
+  
   .delete-dialog .el-dialog {
     width: 30%;
   }
-
+  
   @media (max-width: 767px) {
     .delete-dialog .el-dialog {
       width: 80%;

@@ -90,6 +90,12 @@ We have preconfigured the project with a simple development web server.  The sim
 npm run dev
 ```
 
+We have to run the below command for files minification in production:
+
+```
+npm run build
+```
+
 ## Please go through Documentation
 
 Please go through the page [here](http://10.0.0.155/books/faq-php/page/requirements)
