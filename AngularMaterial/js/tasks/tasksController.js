@@ -170,7 +170,9 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
         } else {
           elem += '<span class="action-span"><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
         }
-        angular.element(cell).empty().append($compile(elem)($scope));
+        angular.element(cell).addClass('actions-cell');
+        angular.element(cell).attr('data-status', statusID);
+        renderActionIcons(cell, elem);
       });
     },
     title: 'Actions',
@@ -189,7 +191,9 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     stateSave: true,
     language: {
       info: 'Showing _START_ to _END_ of _TOTAL_ tasks',
-      sLengthMenu: 'Show _MENU_ tasks'
+      sLengthMenu: 'Show _MENU_ tasks',
+      emptyTable: 'No matching tasks found.',		
+      zeroRecords: 'No matching tasks found.'
     }
   };
 
@@ -201,6 +205,9 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
    */
   function handlePageChangeEvnt() {
     tasksDataTableObj.on('page.dt', function () {
+      $timeout(function () {
+        reRenderActionsColumn(false);
+      });
       angular.element('html,body').animate({
         scrollTop: angular.element('.task-list-header').offset().top
       }, 'slow');
@@ -261,9 +268,66 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tasksDataTableObj.one('draw.dt', function (e, settings) {
       settings.oLanguage.sEmptyTable = 'No tasks found';
     });
+    // Event for column re-order
+    // We are re-rendering the action icons on column re-render
+    tasksDataTableObj.on('column-reorder', function () {
+      reRenderActionsColumn(false);
+    });
+    // Event for responsive rows display
+    // We are re-rendering the action icons on displaying the responsive columns
+    tasksDataTableObj.on('responsive-display', function (e, datatable, row, showHide, update) {
+      reRenderActionsColumn(true);
+    });
     $timeout(function () {
       $scope.$parent.$broadcast('dt-update');
     }, 200);
+  }
+  
+  /**
+   * Re-render the actions column to display action icons 
+   * @param {type} isRespEvt
+   * @returns {undefined}
+   */
+  function reRenderActionsColumn(isRespEvt) {
+    $(tasksDataTableObj.table().node()).find('.actions-cell').each(function () {
+      var statusID = angular.element(this).data('status');
+      var elem = getActionsCellHtml(statusID);
+      renderActionIcons(this, elem, isRespEvt);
+    });
+  }
+
+  /**
+   * This is to render action icons in actions cell
+   * If the event is responsive-display then we need to render it in its child row
+   * @param {type} cell
+   * @param {type} elem
+   * @param {type} isRespEvt
+   * @returns {undefined}
+   */
+  function renderActionIcons(cell, elem, isRespEvt) {
+    if(isRespEvt) {
+      responsiveCell = angular.element(cell).parent().next().find('li[data-dtr-index="4"]').find('span.dtr-data');
+      angular.element(responsiveCell).empty().append($compile(elem)($scope));
+    } else {
+      angular.element(cell).empty().append($compile(elem)($scope));
+    }
+  }
+  
+  /**
+   * This will generate the action icons html based on the status of the task
+   * @param {type} statusID
+   * @returns {String}
+   */
+  function getActionsCellHtml(statusID) {
+    var elem = null;
+    elem = '<span class="action-span"><span class="edit-setting row-action"><md-tooltip md-direction="top">Edit</md-tooltip><i class="fa fa-1x fa-pencil"></span></i></span>';
+    elem += '<span class="action-span"><span class="delete-setting row-action"><md-tooltip md-direction="top">Delete</md-tooltip><i class="fa fa-1x fa-trash"></span></i></span>';
+    if (statusID !== DemoConstants.DONE_STATUS) {
+      elem += '<span class="action-span"><span class="mark-as-done row-action"><md-tooltip md-direction="top">Mark as done</md-tooltip><i class="fa fa-1x fa-check"></span></i></span>';
+    } else {
+      elem += '<span class="action-span"><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
+    }
+    return elem;
   }
 
   /**
@@ -289,13 +353,17 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.buttonName = 'Update';
     tsk.heading = 'Edit Task';
     tsk.isUpdate = true;
-    var rowData = tasksDataTableObj.row(this.parentElement).data();
+    var currentTr = angular.element(this).parents('tr');
+    if(currentTr.hasClass('child')) {
+      currentTr = currentTr.prev();
+    }
+    var rowData = tasksDataTableObj.row(currentTr).data();
     tsk.taskDetails.taskName = rowData.taskName;
     tsk.taskDetails.dueDate = convertStringToDate(rowData.dueDate);
     tsk.taskDetails.createdOn = convertStringToDate(rowData.createdOn);
     tsk.taskDetails.status = rowData.statusID;
     $scope.$apply();
-    tsk.editTaskData = tasksDataTableObj.row(this.parentElement).data();
+    tsk.editTaskData = tasksDataTableObj.row(currentTr).data();
 
     angular.element('html,body').animate({
       scrollTop: angular.element('.form-heading').offset().top
@@ -305,7 +373,11 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
 
   // On click on delete, delete row.
   angular.element('#tasksGrid').on('click', '.delete-setting', function () {
-    var rowData = tasksDataTableObj.row(this.parentElement).data();
+    var currentTr = angular.element(this).parents('tr');
+    if(currentTr.hasClass('child')) {
+      currentTr = currentTr.prev();
+    }
+    var rowData = tasksDataTableObj.row(currentTr).data();
     // Show delete dialog
     $mdDialog.show({
       scope: $scope,
@@ -351,7 +423,11 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   // Handle mark as done functionality.
   angular.element('#tasksGrid').on('click', '.mark-as-done', function () {
     if (!angular.element(this).hasClass('disabled')) {
-      var doneTaskData = tasksDataTableObj.row(this.parentElement).data();
+      var currentTr = angular.element(this).parents('tr');
+      if(currentTr.hasClass('child')) {
+        currentTr = currentTr.prev();
+      }
+      var doneTaskData = tasksDataTableObj.row(currentTr).data();
       var doneTaskIndex = getTaskIndex(doneTaskData);
       var doneTask = $localStorage.tasks[doneTaskIndex];
       doneTask.statusID = DemoConstants.DONE_STATUS;
