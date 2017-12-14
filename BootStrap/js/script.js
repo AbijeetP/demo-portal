@@ -78,12 +78,12 @@ $(document).ready(function () {
     width: '20%',
     title: 'Actions',
     render: function (data, type, row) {
-      var actions = '<span><span title="Edit" data-toggle="tooltip" class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
-      actions += '<span><span title="Delete" data-toggle="tooltip" class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
+      var actions = '<span class="action-span"><span title="Edit" data-toggle="tooltip" class="edit-setting row-action"><i class="fa fa-1x fa-pencil"></span></i></span>';
+      actions += '<span class="action-span"><span title="Delete" data-toggle="tooltip" class="delete-setting row-action"><i class="fa fa-1x fa-trash"></span></i></span>';
       if (row.statusID != DONE_STATUS) {
-        actions += '<span><span title="Mark as done" data-toggle="tooltip" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>';
+        actions += '<span class="action-span"><span title="Mark as done" data-toggle="tooltip" class="mark-as-done row-action"><i class="fa fa-1x fa-check"></span></i></span>';
       } else {
-        actions += '<span><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
+        actions += '<span class="action-span"><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
       }
       return actions;
     },
@@ -102,7 +102,9 @@ $(document).ready(function () {
     stateSave: true,
     language: {
       info: "Showing _START_ to _END_ of _TOTAL_ tasks",
-      sLengthMenu: "Show _MENU_ tasks"
+      sLengthMenu: "Show _MENU_ tasks",
+      emptyTable: 'No matching tasks found.',		
+      zeroRecords: 'No matching tasks found.'
     }
   };
 
@@ -183,6 +185,9 @@ $(document).ready(function () {
   var $dltConfirmationModal = $('.delete-confirmation-modal');
   $tasksGrid.on('click', '.delete-setting', function () {
     $currentRowToDlt = $(this).parents('tr');
+    if ($currentRowToDlt.hasClass('child')) {
+      $currentRowToDlt = $currentRowToDlt.prev();
+    }
     $dltConfirmationModal.modal('show');
   });
 
@@ -205,7 +210,10 @@ $(document).ready(function () {
   $tasksGrid.on('click', '.edit-setting', function () {
     var $addTaskForm = $('.add-task-form');
     $currentRow = $(this).parents('tr');
-    var rowData = taskListObj.row($(this).parents('tr')).data();
+    if ($currentRow.hasClass('child')) {
+      $currentRow = $currentRow.prev();
+    }
+    var rowData = taskListObj.row($currentRow).data();
     isEdit = true;
     $addTaskForm.find('h1').text('Edit Task');
     fillDetailsInForm(rowData);
@@ -299,6 +307,9 @@ $(document).ready(function () {
   $tasksGrid.on('click', '.mark-as-done', function () {
     if (!$(this).hasClass('disabled')) {
       var $rowToUpdate = $(this).parents('tr');
+      if ($rowToUpdate.hasClass('child')) {
+        $rowToUpdate = $rowToUpdate.prev();
+      }
       var rowData = taskListObj.row($rowToUpdate).data();
       rowData.statusID = DONE_STATUS;
       rowData.statusName = 'Done';
