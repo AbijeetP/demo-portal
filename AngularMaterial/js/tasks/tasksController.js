@@ -170,8 +170,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
         } else {
           elem += '<span class="action-span"><span class="mark-as-done disabled row-action"><i class="fa fa-1x fa-check"></span></i></span>';
         }
-        angular.element(cell).addClass('actions-cell');
-        angular.element(cell).attr('data-status', statusID);
+        angular.element(cell).addClass('actions-cell').attr('data-status', statusID);
         renderActionIcons(cell, elem);
       });
     },
