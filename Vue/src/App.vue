@@ -63,6 +63,7 @@
   body {
     margin: 0px;
     font-size: 13px;
+    background-image: url(./assets/Background-strokes.png), -webkit-linear-gradient(270deg, #fffcf4, #fffcf4);
   }
   
   .align-center {

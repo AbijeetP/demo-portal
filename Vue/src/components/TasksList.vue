@@ -1,13 +1,12 @@
 <template>
   <div class="custom-card">
     <h2>Tasks List</h2>
-
     <div>
       <div class="toggle-container">
         <el-tooltip class="item" effect="dark" content="Click here to select the columns which you want to view in the below table." placement="top">
           <button @click="showAndhideDropdown()">
-            <i class="el-icon-tickets"></i>
-          </button>
+                            <i class="el-icon-tickets"></i>
+                          </button>
         </el-tooltip>
         <div class="toggle-dropdown-content hide">
           <el-checkbox v-for="column in headers" :key="column.data" v-if="!column.isRequired" v-model="isChecked[column.data]" @change="toggleColumn(column)">{{column.title}}</el-checkbox>
@@ -18,16 +17,16 @@
       <el-dialog title="Delete" :visible.sync="deleteDialogue" class="delete-dialog">
         <span>Are you sure you want to delete this task?</span>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
-          <el-button type="danger" @click="deleteTask()">Confirm</el-button>
-        </span>
+                          <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
+                          <el-button type="danger" @click="deleteTask()">Confirm</el-button>
+                        </span>
       </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
-
+  import Vue from 'vue'
   import {
     mapActions
   } from 'vuex';
@@ -56,43 +55,30 @@
         headers: [{
             data: 'taskName',
             title: 'Task Name',
-            isRequired: true,
-            width: '40%'
+            isRequired: true
           },
           {
             data: 'dueDate',
-            title: 'Due Date',
-            width: '15%'
+            title: 'Due Date'
           },
           {
             data: 'createdOn',
-            title: 'Created On',
-            width: '15%'
+            title: 'Created On'
           },
           {
             data: 'statusName',
-            title: 'Status',
-            width: '10%'
+            title: 'Status'
           },
           {
             data: '',
             title: 'Actions',
             render: function(row, type, data) {
-              var elem = '<i class="el-icon-edit edit-task row-action" title="Edit"></i>';
-              elem += '<i class="el-icon-delete delete-task row-action" title="Delete"></i>';
-              if (+data.statusID === constants.DONE_STATUS_ID) {
-                elem +=
-                  '<i class="el-icon-check mark-as-done-task row-action disabled-action" title="Mark as done"></i>';
-              } else {
-                elem +=
-                  '<i class="el-icon-check mark-as-done-task row-action" title="Mark as done"></i>';
-              }
-              return elem;
+              var elemDiv = '<div class="task-list-actions-container"><div class="task-list-actions"></div></div>';
+              return elemDiv;
             },
             class: 'align-center',
             isRequired: true,
-            bSortable: false,
-            width: '20%'
+            bSortable: false
           }
         ],
         rows: [],
@@ -114,7 +100,7 @@
         }
       },
       showAndhideDropdown: function() {
-        $('.toggle-dropdown-content').toggleClass('hide');  
+        $('.toggle-dropdown-content').toggleClass('hide');
       },
       deleteTask: function() {
         var row = this.getParentRow(this.currentDeleteTask);
@@ -229,10 +215,33 @@
         data: this.tasksListData,
         responsive: true,
         colReorder: true,
+        stateSave: true,
         language: {
           info: 'Showing _START_ to _END_ of _TOTAL_ tasks',
           sLengthMenu: 'Show _MENU_ tasks',
           zeroRecords: 'No matching tasks found.'
+        },
+        drawCallback: function(settings) {
+          var $taskListRowActions = document.getElementsByClassName('task-list-actions-container');
+          var actionsElemTmp = '<div><el-tooltip class="item" content="Edit" placement="top"><i class="el-icon-edit edit-task row-action"></i></el-tooltip>';
+          actionsElemTmp += '<el-tooltip class="item" content="Delete" placement="top"><i class="el-icon-delete delete-task row-action"></i></el-tooltip>';
+          actionsElemTmp += '<el-tooltip class="item" content="Mark as done" placement="top">';
+          for (var i = 0; i < $taskListRowActions.length; i++) {
+            var actionsElem = actionsElemTmp;
+            var data = vm.dtHandle.row($taskListRowActions[i].parentElement.parentElement).data();
+            if (+data.statusID === 2) {
+              actionsElem +=
+                '<i class="el-icon-check mark-as-done-task row-action disabled-action"></i>';
+            } else {
+              actionsElem +=
+                '<i class="el-icon-check mark-as-done-task row-action"></i>';
+            }
+            actionsElem += '</el-tooltip></div>'
+            var actionIcons = Vue.extend({
+                template: actionsElem
+              })
+              new actionIcons().$mount($taskListRowActions[i].firstElementChild)
+          }
         }
       });
     }
