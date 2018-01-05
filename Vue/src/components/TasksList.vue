@@ -231,7 +231,7 @@
           for (var i = 0; i < $taskListRowActions.length; i++) {
             var actionsElem = actionsElemTmp;
             var data = vm.dtHandle.row($taskListRowActions[i].parentElement.parentElement).data();
-            if (+data.statusID === 2) {
+            if (+data.statusID === constants.DONE_STATUS_ID) {
               actionsElem +=
                 '<i class="el-icon-check mark-as-done-task row-action disabled-action"></i>';
             } else {
