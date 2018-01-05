@@ -12,21 +12,15 @@
   <link rel="apple-touch-icon" href="dist/img/favicon.jpg">
   <link rel="shortcut icon" type="image/x-icon" href="dist/img/favicon.jpg">
 
-  <!-- @if NODE_ENV='development'-->
-  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?ver=<!-- @echo VERSION -->">
-  <link rel="stylesheet" type="text/css" href="lib/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css?ver=<!-- @echo VERSION -->">
-  <link rel="stylesheet" type="text/css" href="lib/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css?ver=<!-- @echo VERSION -->">
-  <link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css?ver=<!-- @echo VERSION -->">
-  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css?ver=<!-- @echo VERSION -->">
-  <link rel="stylesheet" href="dist/css/style.css?ver=<!-- @echo VERSION -->">
-  <link href="lib/noty/lib/noty.css?ver=<!-- @echo VERSION -->" type="text/css" rel="stylesheet" />
-  <link rel="stylesheet" href="lib/datatables.net-bs4/css/dataTables.bootstrap4.min.css?ver=<!-- @echo VERSION -->">
-  <!-- @endif -->
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css?ver=1.0.0">
+  <link rel="stylesheet" type="text/css" href="lib/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css?ver=1.0.0">
+  <link rel="stylesheet" type="text/css" href="lib/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css?ver=1.0.0">
+  <link rel="stylesheet" href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css?ver=1.0.0">
+  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css?ver=1.0.0">
+  <link rel="stylesheet" href="dist/css/style.css?ver=1.0.0">
+  <link href="lib/noty/lib/noty.css?ver=1.0.0" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" href="lib/datatables.net-bs4/css/dataTables.bootstrap4.min.css?ver=1.0.0">
 
-  <!-- @if NODE_ENV='production'-->
-  <link rel="stylesheet" href="dist/css/lib.min.css?ver=<!-- @echo VERSION -->">
-  <link rel="stylesheet" href="dist/css/style.min.css?ver=<!-- @echo VERSION -->">
-  <!-- @endif -->
 </head>
 
 <body>
@@ -76,19 +70,19 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="txtDueDate" class="col-12 col-sm-2 col-form-label">Due Date</label>
+          <label for="dueDate" class="col-12 col-sm-2 col-form-label">Due Date</label>
           <div class="col-12 col-sm-10">
             <div class="input-group date">
-              <input type="text" class="form-control req-cntrl datepicker" id="txtDueDate" name="dueDate" error-element=".error">
+              <input type="text" class="form-control req-cntrl datepicker" id="dueDate" name="dueDate" error-element=".error">
               <span class="input-group-addon open-datepicker"><i class="fa fa-calendar" aria-hidden="true"></i></span>
             </div>
             <div class="error"></div>
           </div>
         </div>
         <div class="form-group row">
-          <label for="ddlTaskStatus" class="col-12 col-sm-2">Status</label>
+          <label for="taskStatus" class="col-12 col-sm-2">Status</label>
           <div class="col-12 col-sm-10">
-            <select class="form-control req-cntrl" name="statusID" id="ddlTaskStatus" error-element=".error">
+            <select class="form-control req-cntrl" name="statusID" id="taskStatus" error-element=".error">
             </select>
             <div class="error"></div>
           </div>
@@ -171,30 +165,24 @@
   </footer>
 
 
-  <!-- @if NODE_ENV='development'-->
-  <script src="lib/jquery/dist/jquery.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="lib/noty/lib/noty.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="lib/moment/min/moment.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="lib/tether/dist/js/tether.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="lib/popper.js/dist/umd/popper.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="lib/bootstrap/dist/js/bootstrap.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="lib/datatables.net/js/jquery.dataTables.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="lib/datatables.net-bs4/js/dataTables.bootstrap4.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script type="text/javascript" src="lib/datatables.net-responsive/js/dataTables.responsive.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script type="text/javascript" src="lib/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script type="text/javascript" src="lib/datatables.net-colreorder/js/dataTables.colReorder.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="lib/chart.js/dist/Chart.bundle.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="lib/blockUI/jquery.blockUI.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="js/appData.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="js/validator.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="js/script.js?ver=<!-- @echo VERSION -->"></script>
-  <!-- @endif -->
+  <script src="lib/jquery/dist/jquery.min.js?ver=1.0.0"></script>
+  <script src="lib/noty/lib/noty.min.js?ver=1.0.0"></script>
+  <script src="lib/moment/min/moment.min.js?ver=1.0.0"></script>
+  <script src="lib/tether/dist/js/tether.min.js?ver=1.0.0"></script>
+  <script src="lib/popper.js/dist/umd/popper.min.js?ver=1.0.0"></script>
+  <script src="lib/bootstrap/dist/js/bootstrap.min.js?ver=1.0.0"></script>
+  <script src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?ver=1.0.0"></script>
+  <script src="lib/datatables.net/js/jquery.dataTables.min.js?ver=1.0.0"></script>
+  <script src="lib/datatables.net-bs4/js/dataTables.bootstrap4.min.js?ver=1.0.0"></script>
+  <script type="text/javascript" src="lib/datatables.net-responsive/js/dataTables.responsive.min.js?ver=1.0.0"></script>
+  <script type="text/javascript" src="lib/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js?ver=1.0.0"></script>
+  <script type="text/javascript" src="lib/datatables.net-colreorder/js/dataTables.colReorder.min.js?ver=1.0.0"></script>
+  <script src="lib/chart.js/dist/Chart.bundle.js?ver=1.0.0"></script>
+  <script src="lib/blockUI/jquery.blockUI.js?ver=1.0.0"></script>
+  <script src="js/appData.js?ver=1.0.0"></script>
+  <script src="js/validator.js?ver=1.0.0"></script>
+  <script src="js/script.js?ver=1.0.0"></script>
 
-  <!-- @if NODE_ENV='production'-->
-  <script src="dist/js/initialScripts.min.js?ver=<!-- @echo VERSION -->"></script>
-  <script src="dist/js/main.min.js?ver=<!-- @echo VERSION -->"></script>
-  <!-- @endif -->
 
 </body>
 
