@@ -239,11 +239,11 @@
                 '<i class="el-icon-check mark-as-done-task row-action"></i>';
             }
             actionsElem += '</el-tooltip></div>'
-
+  
             var actionIcons = Vue.extend({
-                template: actionsElem
-              })
-              new actionIcons().$mount($taskListRowActions[i].firstElementChild)
+              template: actionsElem
+            })
+            new actionIcons().$mount($taskListRowActions[i].firstElementChild)
           }
         }
       });
