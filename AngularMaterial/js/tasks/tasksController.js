@@ -160,7 +160,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   },
   {
     data: 'statusID',
-    createdCell: function ( cell, statusID) {
+    createdCell: function (cell, statusID) {
       $timeout(function () {
         var elem = null;
         elem = '<span class="action-span"><span class="edit-setting row-action"><md-tooltip md-direction="top">Edit</md-tooltip><i class="fa fa-1x fa-pencil"></span></i></span>';
@@ -191,7 +191,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     language: {
       info: 'Showing _START_ to _END_ of _TOTAL_ tasks',
       sLengthMenu: 'Show _MENU_ tasks',
-      emptyTable: 'No matching tasks found.',		
+      emptyTable: 'No matching tasks found.',
       zeroRecords: 'No matching tasks found.'
     }
   };
@@ -281,7 +281,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
       $scope.$parent.$broadcast('dt-update');
     }, 200);
   }
-  
+
   /**
    * Re-render the actions column to display action icons 
    * @param {type} isRespEvt
@@ -304,14 +304,14 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
    * @returns {undefined}
    */
   function renderActionIcons(cell, elem, isRespEvt) {
-    if(isRespEvt) {
+    if (isRespEvt) {
       responsiveCell = angular.element(cell).parent().next().find('li[data-dtr-index="4"]').find('span.dtr-data');
       angular.element(responsiveCell).empty().append($compile(elem)($scope));
     } else {
       angular.element(cell).empty().append($compile(elem)($scope));
     }
   }
-  
+
   /**
    * This will generate the action icons html based on the status of the task
    * @param {type} statusID
@@ -353,7 +353,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     tsk.heading = 'Edit Task';
     tsk.isUpdate = true;
     var currentTr = angular.element(this).parents('tr');
-    if(currentTr.hasClass('child')) {
+    if (currentTr.hasClass('child')) {
       currentTr = currentTr.prev();
     }
     var rowData = tasksDataTableObj.row(currentTr).data();
@@ -373,7 +373,7 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   // On click on delete, delete row.
   angular.element('#tasksGrid').on('click', '.delete-setting', function () {
     var currentTr = angular.element(this).parents('tr');
-    if(currentTr.hasClass('child')) {
+    if (currentTr.hasClass('child')) {
       currentTr = currentTr.prev();
     }
     var rowData = tasksDataTableObj.row(currentTr).data();
@@ -421,9 +421,11 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
 
   // Handle mark as done functionality.
   angular.element('#tasksGrid').on('click', '.mark-as-done', function () {
-    if (!angular.element(this).hasClass('disabled')) {
-      var currentTr = angular.element(this).parents('tr');
-      if(currentTr.hasClass('child')) {
+    var $currentElem = angular.element(this);
+    if (!$currentElem.hasClass('disabled')) {
+      $currentElem.trigger('mouseleave');
+      var currentTr = $currentElem.parents('tr');
+      if (currentTr.hasClass('child')) {
         currentTr = currentTr.prev();
       }
       var doneTaskData = tasksDataTableObj.row(currentTr).data();
@@ -433,8 +435,6 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
       doneTask.statusName = 'Done';
       doneTask.completedOn = formatDate(new Date());
       $localStorage.tasks[doneTaskIndex] = doneTask;
-      $('.mark-as-done').trigger('mouseleave');
-      bindDataToTable();
       bindDataToTable();
       showSuccessMessage(DemoConstants.MARK_AS_DONE_MESSAGE);
     }
