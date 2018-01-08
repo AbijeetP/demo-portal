@@ -66,6 +66,21 @@ md-dialog-actions {
     float: right;
   }
 }
+// Table column widths
+// Column widths in Material design datatable columns options are not working.
+#tasksGrid th:first-child {
+  width: 40% !important;
+}
+#tasksGrid th:nth-child(2),
+#tasksGrid th:nth-child(3) {
+  width: 15% !important;
+}
+#tasksGrid th:nth-child(3) {
+  width: 10% !important;
+}
+#tasksGrid th:last-child {
+width: 20% !important;
+}
 .toggle-column-heading {
   font-weight: bold;
   display: inline;

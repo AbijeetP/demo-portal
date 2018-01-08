@@ -137,25 +137,21 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
   tsk.dtColumns = [{
     data: 'taskName',
     title: 'Task Name',
-    width: '40%',
     isRequired: true,
     className: 'mdl-data-table__cell--non-numeric'
   }, {
     data: 'dueDate',
     title: 'Due Date',
     render: formatDate,
-    width: '15%',
     className: 'mdl-data-table__cell--non-numeric'
   }, {
     data: 'createdOn',
     title: 'Created On',
     render: formatDate,
-    width: '15%',
     className: 'mdl-data-table__cell--non-numeric'
   }, {
     data: 'statusName',
     title: 'Status',
-    width: '10%',
     className: 'mdl-data-table__cell--non-numeric'
   },
   {
@@ -176,7 +172,6 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
     },
     title: 'Actions',
     className: 'text-center mdl-data-table__cell--non-numeric',
-    width: '20%',
     bSortable: false,
     isRequired: true
   }];
