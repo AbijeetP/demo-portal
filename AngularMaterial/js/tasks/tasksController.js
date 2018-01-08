@@ -433,6 +433,8 @@ angular.module('angularDemo').controller('angularDemoController', function ($sco
       doneTask.statusName = 'Done';
       doneTask.completedOn = formatDate(new Date());
       $localStorage.tasks[doneTaskIndex] = doneTask;
+      $('.mark-as-done').trigger('mouseleave');
+      bindDataToTable();
       bindDataToTable();
       showSuccessMessage(DemoConstants.MARK_AS_DONE_MESSAGE);
     }
