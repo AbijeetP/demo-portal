@@ -1,36 +1,45 @@
 <template>
   <div class="custom-card">
     <h2>Tasks List</h2>
-
+  
     <div>
       <div class="toggle-container">
         <el-tooltip class="item" effect="dark" content="Click here to select the columns which you want to view in the below table." placement="top">
           <button @click="showAndhideDropdown()">
-            <i class="el-icon-tickets"></i>
-          </button>
+              <i class="el-icon-tickets"></i>
+            </button>
         </el-tooltip>
         <div class="toggle-dropdown-content hide">
           <el-checkbox v-for="column in headers" :key="column.data" v-if="!column.isRequired" v-model="isChecked[column.data]" @change="toggleColumn(column)">{{column.title}}</el-checkbox>
         </div>
       </div>
+      <el-form ref="form" class="task-search">
+        <el-row>
+          <el-col>
+            <el-form-item label="Search: " for="txtSearchTask">
+              <el-input name="taskName" id="txtSearchTask"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
       <table id="tasksList" class="table table-striped table-bordered">
       </table>
       <el-dialog title="Delete" :visible.sync="deleteDialogue" class="delete-dialog">
         <span>Are you sure you want to delete this task?</span>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
-          <el-button type="danger" @click="deleteTask()">Confirm</el-button>
-        </span>
+            <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
+            <el-button type="danger" @click="deleteTask()">Confirm</el-button>
+          </span>
       </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
-
   import {
     mapActions
   } from 'vuex';
+  import ElementUI from 'element-ui';
   import mixins from './../mixins.js';
   import 'datatables.net-dt/css/jquery.dataTables.css'
   import 'datatables.net-colreorder-dt/css/colReorder.dataTables.min.css'
@@ -113,8 +122,13 @@
           }
         }
       },
+      searchTasks: function() {
+        // When a user enters some value in custom search field
+        let searchedValue = $('#searchTask').val()
+        $('#tasksList_filter [type="search"]').val(searchedValue).trigger('keyup');
+      },
       showAndhideDropdown: function() {
-        $('.toggle-dropdown-content').toggleClass('hide');  
+        $('.toggle-dropdown-content').toggleClass('hide');
       },
       deleteTask: function() {
         var row = this.getParentRow(this.currentDeleteTask);
@@ -134,7 +148,9 @@
         return row;
       }
     },
-  
+    components: {
+      ElementUI
+    },
     watch: {
       tasksListData: function(newTasksList) {
         this.dtHandle.clear();
@@ -171,6 +187,9 @@
     },
     mounted: function() {
       var vm = this;
+      $('#searchTask').keyup(function() {
+        vm.searchTasks();
+      });
       this.$nextTick(function() {
         var $toggleDropdownContainer = $('.toggle-container');
         var $toggleDropdownContent = $('.toggle-dropdown-content');
@@ -248,6 +267,22 @@
     color: #f4511e;
   }
   
+  .task-search {
+    float: right;
+  }
+  
+  #tasksList_filter {
+    display: none;
+  }
+  
+  .task-search label {
+    width: auto !important;
+  }
+  
+  .task-search .el-form-item__content {
+    margin-left: 65px !important;
+  }
+  
   .mark-as-done-task.disabled-action {
     color: #B4B4B4;
   }
@@ -292,6 +327,11 @@
     float: right;
     margin-left: 20px;
     position: relative;
+    margin-top: 10px;
+  }
+  
+  #tasksList_length {
+    margin-top: 10px;
   }
   
   #tasksList_wrapper {

@@ -1,7 +1,7 @@
 <template>
   <div class="custom-card">
     <h2 class="form-heading">{{formHeading}}</h2>
-    <el-form ref="form" :model="form" label-width="120px" v-bind:class="{ 'reset-form': isReset }">
+    <el-form ref="form" :model="form" label-width="120px" v-bind:class="{ 'reset-form': isReset }" class="create-task">
       <el-row>
         <el-col :xs="24">
           <el-form-item label="Task Name" for="taskName">
@@ -11,7 +11,7 @@
         </el-col>
         <el-col :xs="24">
           <el-form-item label="Status" for="status">
-            <el-select v-validate="'required'" :class="{'is-danger': errors.has('status')}" name="status" v-model="form.status" placeholder="please select status" id="status">
+            <el-select v-validate="'required'" :class="{'is-danger': errors.has('status')}" name="status" v-model="form.status" placeholder="Please select status" id="status">
               <el-option v-for="status in statusList" :label="status.statusName" :value="status.statusID" :key="status.statusID"></el-option>
             </el-select>
             <span v-show="errors.has('status')" class="is-danger">This field is required.</span>
@@ -104,6 +104,8 @@
         var vm = this;
         this.$validator.validateAll().then(result => {
           if (!result) {
+            // Focus first error input field.
+            $('.create-task .is-danger').first().children().focus();
             return;
           } else {
             var newTaskData = {};
@@ -170,8 +172,10 @@
 </script>
 
 <style>
-  .is-danger input,
-  .is-danger select {
+  form .is-danger input,
+  form .is-danger input:focus,
+  form .is-danger select,
+  form .is-danger select:focus {
     border-color: #ff3860;
   }
   
