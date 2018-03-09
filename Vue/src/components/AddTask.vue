@@ -5,13 +5,13 @@
       <el-row>
         <el-col :xs="24">
           <el-form-item label="Task Name" for="taskName">
-            <el-input v-validate="'required'" :class="{'is-danger': errors.has('taskName')}" name="taskName" :maxlength=200 v-model="form.name" id="taskName"></el-input>
+            <el-input v-validate="'required'" :class="{'is-danger': errors.has('taskName')}" name="taskName" :maxlength=200 v-model="form.name" ref="name" id="taskName"></el-input>
             <span v-show="errors.has('taskName')" class="help is-danger">This field is required.</span>
           </el-form-item>
         </el-col>
         <el-col :xs="24">
           <el-form-item label="Status" for="status">
-            <el-select v-validate="'required'" :class="{'is-danger': errors.has('status')}" name="status" v-model="form.status" placeholder="please select status" id="status">
+            <el-select v-validate="'required'" :class="{'is-danger': errors.has('status')}" name="status" v-model="form.status" placeholder="Please select status" id="status">
               <el-option v-for="status in statusList" :label="status.statusName" :value="status.statusID" :key="status.statusID"></el-option>
             </el-select>
             <span v-show="errors.has('status')" class="is-danger">This field is required.</span>
@@ -104,6 +104,7 @@
         var vm = this;
         this.$validator.validateAll().then(result => {
           if (!result) {
+            vm.$refs.name.focus();
             return;
           } else {
             var newTaskData = {};
@@ -171,7 +172,8 @@
 
 <style>
   .is-danger input,
-  .is-danger select {
+  .is-danger select,
+  .is-danger input:focus {
     border-color: #ff3860;
   }
   

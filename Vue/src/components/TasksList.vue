@@ -5,21 +5,25 @@
       <div class="toggle-container">
         <el-tooltip class="item" effect="dark" content="Click here to select the columns which you want to view in the below table." placement="top">
           <button @click="showAndhideDropdown()">
-            <i class="el-icon-tickets"></i>
-          </button>
+                        <i class="el-icon-tickets"></i>
+                      </button>
         </el-tooltip>
         <div class="toggle-dropdown-content hide">
           <el-checkbox v-for="column in headers" :key="column.data" v-if="!column.isRequired" v-model="isChecked[column.data]" @change="toggleColumn(column)">{{column.title}}</el-checkbox>
         </div>
+      </div>
+      <div id="customSearch">
+        <span>Search</span>
+        <el-input v-model="searchedTxt"></el-input>
       </div>
       <table id="tasksList" class="table table-striped table-bordered">
       </table>
       <el-dialog title="Delete" :visible.sync="deleteDialogue" class="delete-dialog">
         <span>Are you sure you want to delete this task?</span>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
-          <el-button type="danger" @click="deleteTask()">Confirm</el-button>
-        </span>
+                      <el-button @click="deleteDialogue = false" type="primary">Cancel</el-button>
+                      <el-button type="danger" @click="deleteTask()">Delete</el-button>
+                    </span>
       </el-dialog>
     </div>
   </div>
@@ -51,6 +55,7 @@
           createdOn: true,
           statusName: true
         },
+        searchedTxt: '',
         deleteDialogue: false,
         headers: [{
             data: 'taskName',
@@ -98,6 +103,9 @@
             break;
           }
         }
+      },
+      searchChnge: function() {
+        $('#tasksList_filter input').val(this.searchedTxt).trigger('keyup')
       },
       showAndhideDropdown: function() {
         $('.toggle-dropdown-content').toggleClass('hide');
@@ -160,6 +168,12 @@
       this.$nextTick(function() {
         var $toggleDropdownContainer = $('.toggle-container');
         var $toggleDropdownContent = $('.toggle-dropdown-content');
+        $('#customSearch input').keyup(
+          function() {
+            $('#tasksList_filter input').val(vm.searchedTxt).trigger('keyup');
+          }
+        )
+  
         // On click on document hide the toggle column dropdown if it is opened.
         $(document).mouseup(function(e) {
           var isHidden = $toggleDropdownContent.hasClass('hide');
@@ -284,9 +298,39 @@
     cursor: not-allowed;
   }
   
+  #customSearch {
+    float: right;
+    width: 20%;
+  }
+  
+  #tasksList_length {
+    margin-bottom: 35px;
+  }
+  
+  #tasksList_length,
+  .toggle-container {
+    margin-top: 8px;
+  }
+  
+  #customSearch .el-input {
+    width: 80%;
+  }
+  
+  #customSearch .label {
+    width: 20%;
+    display: inline-block;
+  }
+  
+  #tasksList_filter {
+    display: none;
+  }
+  
   .toggle-dropdown-content label {
     display: block;
     margin-left: 0px !important;
+  }
+  
+  .toggle-dropdown-content label:not(:last-child) {
     margin-bottom: 16px;
   }
   
@@ -337,12 +381,27 @@
   }
   
   .delete-dialog .el-dialog {
-    width: 30%;
+    width: 20%;
   }
   
-  @media (max-width: 767px) {
+
+    @media (max-width: 1200px) {
+    #customSearch {
+      width: 40%;
+    }
+  }
+
+    @media (max-width: 767px) {
     .delete-dialog .el-dialog {
       width: 80%;
     }
+    #customSearch {
+      float: none;
+      width: 90%;
+    }
+    .toggle-container {
+      margin-top: 10px;
+    }
   }
+
 </style>
