@@ -1,5 +1,5 @@
 angular.module('angularDemo', ['ngMaterial', 'ngMessages', 'ngStorage', 'blockUI']).constant('DemoConstants', {
-  API_URL: 'http://10.0.0.160:3302/demo-api/',
+  API_URL: 'http://10.0.0.160/demo-api/',
   TASKS_STATUSES: 'tasks/fetchTasksByStatus',
   TASKS_COMPLETED: 'tasks/getCompletedTasksByDay',
   STATUS: 'task-statuses',
