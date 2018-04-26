@@ -1,4 +1,4 @@
-  var BASE_API_URL = 'http://10.0.0.160/demo-api/';
+  var BASE_API_URL = 'http://10.0.0.160:3302/demo-api/';
 
   var API_URLS = {
    taskStatus : 'tasks/fetchTasksByStatus',
